@@ -146,6 +146,9 @@ public class ExampleMain {
 	 * @throws IOException
 	 */
 	private static void startBatchMode() throws IOException {
+		
+		Ini ini = new Ini(_inFile);
+		System.out.println(ini);
 		// TODO
 		// Add your code here. Note that the input argument where parsed and stored into
 		// corresponding fields.
