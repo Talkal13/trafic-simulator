@@ -53,6 +53,7 @@ public class Road extends SimulatedObject {
 	}
 	
 	protected int reduceSpeedFactor(int a) {
+		return a;
 		//TODO: Unkown argument;
 	}
 
