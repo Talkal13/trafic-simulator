@@ -8,7 +8,7 @@ public abstract class Event {
 		//TODO
 	}
 
-	Event(int num) {
+	public Event(Integer num) {
 		//TODO
 	}
 	
@@ -27,12 +27,12 @@ public abstract class Event {
 		return null;
 	}
 	
-	protected Junction checkIfVehicleExist(RoadMap map, String idVehicle) {
+	protected Vehicle checkIfVehicleExist(RoadMap map, String idVehicle) {
 		//TODO
 		return null;
 	}
 	
-	protected Junction checkIfRoadExist(RoadMap map, String idRoad) {
+	protected Road checkIfRoadExist(RoadMap map, String idRoad) {
 		//TODO
 		return null;
 	}
@@ -42,7 +42,7 @@ public abstract class Event {
 		return null;
 	}
 	
-	protected List<Junction> parseListOfvehicles(RoadMap map, String[] arrayVehicles){
+	protected List<Vehicle> parseListOfvehicles(RoadMap map, String[] arrayVehicles){
 		//TODO
 		return null;
 	}
