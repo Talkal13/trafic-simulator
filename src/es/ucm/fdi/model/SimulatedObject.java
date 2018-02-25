@@ -1,5 +1,7 @@
 package es.ucm.fdi.model;
 
+import es.ucm.fdi.ini.IniSection;
+
 public abstract class SimulatedObject {
 	
 	protected String _id;
@@ -19,14 +21,18 @@ public abstract class SimulatedObject {
 	}
 	
 	public String toString() {
-		return null; //TODO
+		return _id;
 	}
 	
-	public String generateReport(int id) {
-		return null; //TODO
+	public String generateReport(int time) {
+		IniSection is = new IniSection(getReportSectionTag());
+		is.setValue("id", _id);
+		is.setValue("time", time);
+		fillReportDetails(is);
+		return is.toString();
 	}
 	
-	protected abstract void fillReportDetails();
+	protected abstract void fillReportDetails(IniSection is);
 	
 	protected abstract String getReportSectionTag();
 	

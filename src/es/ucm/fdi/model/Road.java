@@ -2,6 +2,8 @@ package es.ucm.fdi.model;
 
 import java.util.List;
 
+import es.ucm.fdi.ini.IniSection;
+
 public class Road extends SimulatedObject {
 
 	private int _lenght;
@@ -58,7 +60,7 @@ public class Road extends SimulatedObject {
 	}
 
 	@Override
-	protected void fillReportDetails() {
+	protected void fillReportDetails(IniSection is) {
 		// TODO Auto-generated method stub
 		
 	}

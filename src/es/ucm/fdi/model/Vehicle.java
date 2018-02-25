@@ -2,6 +2,8 @@ package es.ucm.fdi.model;
 
 import java.util.List;
 
+import es.ucm.fdi.ini.IniSection;
+
 
 public class Vehicle extends SimulatedObject {
 
@@ -12,11 +14,13 @@ public class Vehicle extends SimulatedObject {
 	private int _currentLocation;
 	private int _kilometers;
 	private int _faulty;
+	private boolean _inJunction;
 	
 	public Vehicle(String id, int max_speed, List<Junction> itinerary) {
 		super(id);
 		_maxSpeed = max_speed;
 		_itinerary = itinerary;
+		_inJunction = false;
 		
 	}
 	
@@ -53,38 +57,64 @@ public class Vehicle extends SimulatedObject {
 		return _itinerary;
 	}
 	
-	void makeFaulty(int faulty) {
+	void makeFaulty(int faultyTime) {
 		//TODO: Make sure that is += and not =
-		_faulty += faulty;
+		_faulty += faultyTime;
+		_currentSpeed = 0;
 	}
 	
 	void setSpeed(int speed) {
+		if (_faulty != 0) {
+			_currentSpeed = 0;
+			return;
+		}
 		if (_maxSpeed < speed) {
 			_currentSpeed = _maxSpeed;
+			return;
 		}
 		_currentSpeed = speed;
 	}
 	
 	void moveToNextRoad() {
-		
+		if (_currentRoad != null)
+			_currentRoad.exit(this);
+		_currentLocation = 0;
 	}
 	
 
 	@Override
-	protected void fillReportDetails() {
+	protected void fillReportDetails(IniSection is) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	protected String getReportSectionTag() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Vehicle";
 	}
 
 	@Override
 	void advance() {
-		// TODO Auto-generated method stub
+		if (_faulty != 0) {
+			_faulty--;
+			return;
+		}
+		if (_inJunction) { 
+			return;
+		}
+		 
+		_currentLocation += _currentSpeed;
+		_kilometers += _currentSpeed;
+		if (_currentLocation > _currentRoad.getLenght()) {
+			_currentRoad.exit(this);
+			_inJunction = true;
+			_kilometers += _currentRoad.getLenght() - _currentLocation - _currentSpeed;
+			_currentLocation = 0;
+			_currentSpeed = 0;
+			return;
+		}
+		
+		
 		
 	}
 	

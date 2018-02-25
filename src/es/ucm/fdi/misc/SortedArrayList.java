@@ -3,7 +3,7 @@ package es.ucm.fdi.misc;
 import java.util.Collection;
 import java.util.Comparator;
 
-public class SortedArrayList<E> {
+public class SortedArrayList<E> extends ArrayList<E> {
 	
 	public SortedArrayList(Comparator<E> comparator) {
 		
