@@ -9,6 +9,8 @@ import es.ucm.fdi.model.TrafficSimulator;
 
 public class Controller {
 	
+	protected TrafficSimulator _sim;
+	EventBuilder[] _eventBuilders = {};
 	private OutputStream _output;
 
 	public Controller(TrafficSimulator ts, int a, InputStream input, OutputStream output) {
@@ -20,8 +22,8 @@ public class Controller {
 		
 	}
 	
-	public void setEventBuilders(EventBuilder[] eventBuilder) {
-		
+	public void setEventBuilders(EventBuilder[] eventBuilders) {
+		_eventBuilders = eventBuilders;
 	}
 	
 	public EventBuilder[] getEventBuilders() {
@@ -37,15 +39,15 @@ public class Controller {
 		
 	}
 	
-	public void setOutputStream(OutputStream output) {
-		_output = output;
+	public void setOutputStream(OutputStream outStream) {
+		_output = outStream;
 	}
 	
-	public void run(int a) {
+	public void run(int ticks) {
 		//TODO: Understand the argument
 	}
 	
-	public void loadEvents(InputStream input) {
+	public void loadEvents(InputStream inStream) {
 		
 	}
 }

@@ -6,11 +6,12 @@ import java.util.List;
 public class TrafficSimulator {
 	
 	private RoadMap _map;
-	private int _counter;
+	private int _time;
 	private List<Event> _events;
+	private OutputStream _outStream;
 	//TODO attribute which is a data structure for storing simulated objects
 
-	public TrafficSimulator(OutputStream flow) {
+	public TrafficSimulator(OutputStream outStream) {
 		//TODO
 	}
 	
@@ -18,7 +19,7 @@ public class TrafficSimulator {
 		//TODO
 	}
 	
-	public void addEvent(Event newEvent) {
+	public void addEvent(Event e) {
 		//TODO
 	}
 	
@@ -26,7 +27,7 @@ public class TrafficSimulator {
 		//TODO
 	}
 	
-	public void setOutStream(OutputStream flow) {
+	public void setOutStream(OutputStream outStream) {
 		//TODO
 	}
 	
