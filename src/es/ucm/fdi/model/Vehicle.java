@@ -206,6 +206,15 @@ public class Vehicle extends SimulatedObject {
 		
 	}
 	
+
+	    //Idea from effective Java : Item 9
+	    @Override
+	    public int hashCode() {
+			return _currentLocation;
+	        
+	    }
+
+	
 	
 
 }
