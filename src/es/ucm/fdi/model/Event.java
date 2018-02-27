@@ -3,6 +3,8 @@ package es.ucm.fdi.model;
 import java.util.List;
 
 public abstract class Event {
+	
+	protected Integer _time;
 
 	Event(Event otherEvent) {
 		//TODO
@@ -12,9 +14,14 @@ public abstract class Event {
 		//TODO
 	}
 	
+	/**
+	 * Allow us to consult the time f an event.
+	 * 
+	 * @return time which is supposed to be executed
+	 */
+	
 	public int getScheduledTime() {
-		//TODO
-		return 0;
+		return _time;
 	}
 	
 	public int compareTo (Event otherEvent) {

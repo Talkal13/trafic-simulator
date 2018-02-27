@@ -5,6 +5,7 @@ import java.util.List;
 
 public class TrafficSimulator {
 	
+	private RoadMap _map;
 	private int _counter;
 	private List<Event> _events;
 	//TODO attribute which is a data structure for storing simulated objects
