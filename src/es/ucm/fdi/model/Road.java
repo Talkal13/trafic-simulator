@@ -6,11 +6,12 @@ import es.ucm.fdi.ini.IniSection;
 
 public class Road extends SimulatedObject {
 
-	private int _lenght;
-	private int _maxSpeed;
-	private List<Vehicle> _vehicles;
-	private Junction _source;
-	private Junction _destination;
+	protected int _lenght;
+	protected int _maxSpeed;
+	protected int _baseSpeed;
+	protected List<Vehicle> _vehicles;
+	protected Junction _source;
+	protected Junction _destination;
 	
 	/**
 	 * Constructor of the class. Calls the constructor of SimulatedObject with the id introduced as parameter, 
@@ -104,7 +105,8 @@ public class Road extends SimulatedObject {
 	}
 	
 	protected int calculateBaseSpeed() {
-		return -1;
+		_baseSpeed = Math.min(_maxSpeed, (Integer) (_maxSpeed / Math.max(_vehicles.size(), 1)) + 1);
+		return _baseSpeed;
 	}
 	
 	protected int reduceSpeedFactor(int a) {
@@ -120,8 +122,7 @@ public class Road extends SimulatedObject {
 
 	@Override
 	protected String getReportSectionTag() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Road";
 	}
 
 	@Override

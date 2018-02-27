@@ -137,7 +137,7 @@ public class Junction extends SimulatedObject {
 		 */
 		
 		public String toString() {
-			
+			return null; //TODO
 		}
 		
 	}
