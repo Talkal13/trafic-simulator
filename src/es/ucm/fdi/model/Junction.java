@@ -19,6 +19,7 @@ public class Junction extends SimulatedObject {
 		return null; //TODO: THROW EXCEPTION;
 	}
 	
+	//never used?
 	public Road roadFrom(Junction j) {
 		for (Road r : _outgoingRoads) {
 			if (r.getSource().equals(j)) return r;
