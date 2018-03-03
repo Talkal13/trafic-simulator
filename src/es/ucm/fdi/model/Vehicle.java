@@ -102,9 +102,9 @@ public class Vehicle extends SimulatedObject {
 	}
 	
 	/**
-	 * Boolean function which checks if the vehicle has reach it´s destiny.
+	 * Boolean function which checks if the vehicle has reach itï¿½s destiny.
 	 * 
-	 * @return true if the vehicle is in it´s destination or false if doesn't.
+	 * @return true if the vehicle is in itï¿½s destination or false if doesn't.
 	 */
 	
 	public boolean atDestination() {
@@ -161,6 +161,7 @@ public class Vehicle extends SimulatedObject {
 	void moveToNextRoad() {
 		if (_currentRoad != null)	//first time is called, it hasn't entered in any road yet, so no road to exit from.
 			_currentRoad.exit(this);
+		_inJunction = true;
 		_currentLocation = 0;
 		// TODO ? change the itinerary ?
 	}
@@ -168,13 +169,15 @@ public class Vehicle extends SimulatedObject {
 
 	@Override
 	protected void fillReportDetails(IniSection is) {
-		// TODO Auto-generated method stub
-		
+		is.setValue("speed", _currentSpeed);
+		is.setValue("kilometrage", _kilometers);
+		is.setValue("faulty", _faulty);
+		is.setValue("location", _currentLocation);
 	}
 
 	@Override
 	protected String getReportSectionTag() {
-		return "Vehicle";
+		return "vehicle_report";
 	}
 
 	/**
@@ -194,11 +197,8 @@ public class Vehicle extends SimulatedObject {
 		_kilometers += _currentSpeed;
 		
 		if (_currentLocation > _currentRoad.getLenght()) {
-			_currentRoad.exit(this);
-			_inJunction = true;
+			moveToNextRoad();
 			_kilometers += _currentRoad.getLenght() - _currentLocation - _currentSpeed;
-			_currentLocation = 0;
-			_currentSpeed = 0;
 			return;
 		}
 		

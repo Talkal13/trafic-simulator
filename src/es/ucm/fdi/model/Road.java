@@ -116,14 +116,12 @@ public class Road extends SimulatedObject {
 
 	@Override
 	protected void fillReportDetails(IniSection is) {
-		is.setValue("id", _id);
-		//is.setValue("time", );
 		is.setValue("state", _vehicles);
 	}
 
 	@Override
 	protected String getReportSectionTag() {
-		return "Road";
+		return "road_report";
 	}
 
 	@Override

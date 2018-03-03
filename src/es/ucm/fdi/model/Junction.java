@@ -2,6 +2,8 @@ package es.ucm.fdi.model;
 
 import java.util.List;
 
+import es.ucm.fdi.ini.IniSection;
+
 public class Junction extends SimulatedObject {
 
 	private boolean _trafficLight;
@@ -49,24 +51,29 @@ public class Junction extends SimulatedObject {
 	}
 	
 	protected IncomingRoad createIncommingRoadQueue(Road r) {
+		return null;
 		//TODO: :(
 	}
 
 	@Override
-	protected void fillReportDetails() {
-		// TODO Auto-generated method stub
-		
+	protected void fillReportDetails(IniSection is) {
+		is.setValue("queues", _incomingRoads);
 	}
 
 	@Override
 	protected String getReportSectionTag() {
-		// TODO Auto-generated method stub
-		return null;
+		return "junction_report";
 	}
 
 	@Override
 	void advance() {
-		// TODO Auto-generated method stub
+		for (IncomingRoad road : _incomingRoads) {
+			if (road.hasGreenLight()) {
+				road.advanceFirstVehicle();
+				switchLights();
+				break;
+			}
+		}
 		
 	}
 	
@@ -137,7 +144,9 @@ public class Junction extends SimulatedObject {
 		 */
 		
 		public String toString() {
-			return null; //TODO
+			String st = "";
+			st += "(" + _road.getId() + "," + _green + _queue;
+			return st;
 		}
 		
 	}
