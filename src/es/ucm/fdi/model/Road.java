@@ -109,15 +109,16 @@ public class Road extends SimulatedObject {
 		return _baseSpeed;
 	}
 	
-	protected int reduceSpeedFactor(int a) {
-		return a;
-		//TODO: Unkown argument;
+	protected int reduceSpeedFactor(int obstacles) {
+		if (obstacles == 0) return 1;
+		else return 2;
 	}
 
 	@Override
 	protected void fillReportDetails(IniSection is) {
-		// TODO Auto-generated method stub
-		
+		is.setValue("id", _id);
+		//is.setValue("time", );
+		is.setValue("state", _vehicles);
 	}
 
 	@Override
@@ -127,7 +128,15 @@ public class Road extends SimulatedObject {
 
 	@Override
 	void advance() {
-		// TODO Auto-generated method stub
+		calculateBaseSpeed();
+		int obstacles = 0;
+		for (Vehicle e : _vehicles) {
+			if (e.getFaultyTime() > 0) {
+				obstacles++;
+			}
+			e.setSpeed(_baseSpeed / reduceSpeedFactor(obstacles));
+			e.advance();
+		}
 		
 	}
 
