@@ -21,13 +21,13 @@ public class NewRoadEvent extends Event {
 	@Override
 	public void execute(RoadMap map, int ticks) {
 		Junction source = map.getJunction(_source);
-		map.addRoad(new Road());
-		
+		Junction destination = map.getJunction(_destination); //TODO: What to do if it doesnt exist
+		map.addRoad(new Road(_id, _length, _maximumSpeed, source, destination));
 	}
 	
+	@Override
 	public String toString() {
-		//TODO
-		return null;
+		return "New Road " + _id;
 	}
 
 }

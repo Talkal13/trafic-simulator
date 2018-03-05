@@ -6,9 +6,9 @@ public class NewVehicleEvent extends Event{
 	protected Integer _MaximumSpeed;
 	protected String[] _itinerary;
 
-	NewVehicleEvent(Event otherEvent) {
-		super(otherEvent);
-		// TODO Auto-generated constructor stub
+	NewVehicleEvent(int time, String _id, int max_speed, String[] intinerary) {
+		super(time);
+		
 	}
 
 	@Override

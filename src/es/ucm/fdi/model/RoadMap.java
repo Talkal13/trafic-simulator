@@ -21,7 +21,10 @@ public class RoadMap {
 		_roads = new HashMap<String, Road>();
 		_junctions = new HashMap<String, Junction>();
 		
-		_vehicles
+		_vehiclesList = new ArrayList<Vehicle>();
+		_roadsList = new ArrayList<Road>();
+		_junctionsList = new ArrayList<Junction>();
+		
 	}
 	
 	public Vehicle getVehicle(String idVehicle) {
