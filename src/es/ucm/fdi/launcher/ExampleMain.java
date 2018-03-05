@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -15,6 +16,9 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import es.ucm.fdi.ini.Ini;
+import es.ucm.fdi.misc.SortedArrayList;
+import es.ucm.fdi.model.Junction;
+import es.ucm.fdi.model.Vehicle;
 
 public class ExampleMain {
 

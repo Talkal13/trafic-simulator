@@ -3,6 +3,7 @@ package es.ucm.fdi.model;
 import java.util.List;
 
 import es.ucm.fdi.ini.IniSection;
+import es.ucm.fdi.misc.SortedArrayList;
 
 public class Junction extends SimulatedObject {
 
@@ -43,15 +44,30 @@ public class Junction extends SimulatedObject {
 	}
 	
 	void enter(Vehicle v) {
-		
+		for (IncomingRoad r : _incomingRoads) {
+			if (v.getRoad().equals(r.getRoad())) {
+				r.addVehicle(v);
+				return;
+			}
+		}
+		//TODO: Maybe throw exception
 	}
 	
 	protected void switchLights() {
-		_trafficLight = !_trafficLight;
+		for (int i = 0; i < _incomingRoads.size(); i++) {
+			if (_incomingRoads.get(i)._green) {
+				_incomingRoads.get(i).setGreen(false);
+				try {
+					_incomingRoads.get(i + 1).setGreen(true);
+				} catch (IndexOutOfBoundsException e) {
+					_incomingRoads.get(0).setGreen(true);
+				}
+			}
+		}
 	}
 	
 	protected IncomingRoad createIncommingRoadQueue(Road r) {
-		return null;
+		return new IncomingRoad(r);
 		//TODO: :(
 	}
 
@@ -89,7 +105,8 @@ public class Junction extends SimulatedObject {
 		 * @param road
 		 */
 		protected IncomingRoad(Road road) {
-			
+			_queue = new SortedArrayList<Vehicle>();
+			_green = false;
 		}
 		
 		/**
@@ -126,7 +143,12 @@ public class Junction extends SimulatedObject {
 		 */
 		
 		protected void advanceFirstVehicle() {
-			
+			try {
+				Vehicle v = _queue.remove(0);
+				v.moveToNextRoad();
+			} catch (IndexOutOfBoundsException e) {
+				return;
+			}
 		}
 		
 		/**
@@ -136,7 +158,7 @@ public class Junction extends SimulatedObject {
 		 */
 		
 		protected void addVehicle(Vehicle v) {
-			
+			_queue.add(v);
 		}
 		
 		/**
