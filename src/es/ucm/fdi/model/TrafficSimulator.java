@@ -12,6 +12,7 @@ public class TrafficSimulator {
 	//TODO attribute which is a data structure for storing simulated objects
 
 	public TrafficSimulator(OutputStream outStream) {
+		this._time = 0;
 		//TODO
 	}
 	
