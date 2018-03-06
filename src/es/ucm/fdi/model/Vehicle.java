@@ -14,7 +14,7 @@ import es.ucm.fdi.ini.IniSection;
  *
  */
 
-public class Vehicle extends SimulatedObject implements Comparator<Vehicle> {
+public class Vehicle extends SimulatedObject {
 
 	private int _maxSpeed;
 	private int _currentSpeed;
