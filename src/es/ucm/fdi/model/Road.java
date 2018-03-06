@@ -1,6 +1,8 @@
 package es.ucm.fdi.model;
 
 import java.util.List;
+import es.ucm.fdi.misc.SortedArrayList;
+import es.ucm.fdi.misc.VehiclesComparator;
 
 import es.ucm.fdi.ini.IniSection;
 
@@ -30,6 +32,7 @@ public class Road extends SimulatedObject {
 		_maxSpeed = maxSpeed;
 		_source = source;
 		_destination = destination;
+		_vehicles = new SortedArrayList<Vehicle>(new VehiclesComparator());
 	}
 	
 	/**
@@ -137,5 +140,9 @@ public class Road extends SimulatedObject {
 		}
 		
 	}
+
+	
+	
+	
 
 }

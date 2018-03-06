@@ -31,7 +31,7 @@ public class TrafficSimulator {
 	public void setOutStream(OutputStream outStream) {
 		//TODO
 	}
-	
+	/**
 	public void addObserver(TrafficSimulatorObserver observer) {
 		//TODO
 	}
@@ -39,7 +39,7 @@ public class TrafficSimulator {
 	public void removerObserver(TrafficSimulatorObserver observer) {
 		//TODO
 	}
-	
+	*/
 	public String toString() {
 		//TODO
 		return null;

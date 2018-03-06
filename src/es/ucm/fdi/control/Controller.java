@@ -40,8 +40,9 @@ public class Controller {
 	
 	/**
 	 * Reads the events and send them to the simulator
+	 * @throws SimulatorError 
 	 */
-	public void run() {
+	public void run() throws SimulatorError {
 		this.loadEvents(this._input);
 		//execute the simulation
 	}
@@ -58,7 +59,7 @@ public class Controller {
 		//TODO: Understand the argument
 	}
 	
-	public void loadEvents(InputStream inStream){
+	public void loadEvents(InputStream inStream) throws SimulatorError {
 		Ini ini;
 		
 		try {

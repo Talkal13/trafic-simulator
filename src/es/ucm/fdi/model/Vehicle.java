@@ -1,5 +1,6 @@
 package es.ucm.fdi.model;
 
+import java.util.Comparator;
 import java.util.List;
 
 import es.ucm.fdi.ini.IniSection;
@@ -13,7 +14,7 @@ import es.ucm.fdi.ini.IniSection;
  *
  */
 
-public class Vehicle extends SimulatedObject {
+public class Vehicle extends SimulatedObject implements Comparator<Vehicle> {
 
 	private int _maxSpeed;
 	private int _currentSpeed;
@@ -213,6 +214,9 @@ public class Vehicle extends SimulatedObject {
 		return _currentLocation;
 	        
 	}
+
+
+	
 
 	
 	

@@ -60,7 +60,7 @@ public class Junction extends SimulatedObject {
 				try {
 					_incomingRoads.get(i + 1).setGreen(true);
 				} catch (IndexOutOfBoundsException e) {
-					_incomingRoads.get(0).setGreen(true);
+					_incomingRoads.get(0).setGreen(true); //Un poco guarro
 				}
 			}
 		}
@@ -68,7 +68,6 @@ public class Junction extends SimulatedObject {
 	
 	protected IncomingRoad createIncommingRoadQueue(Road r) {
 		return new IncomingRoad(r);
-		//TODO: :(
 	}
 
 	@Override
