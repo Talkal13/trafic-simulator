@@ -24,6 +24,7 @@ public class Vehicle extends SimulatedObject {
 	private int _kilometers;
 	private int _faulty;
 	private boolean _inJunction;
+	private int _index;
 	
 	/**
 	 * Constructor of the class. Calls the constructor of SimulatedObject with the id introduced as parameter, 
@@ -39,6 +40,7 @@ public class Vehicle extends SimulatedObject {
 		_maxSpeed = max_speed;
 		_itinerary = itinerary;
 		_inJunction = false;
+		_index = 0;
 		
 	}
 	
@@ -109,8 +111,7 @@ public class Vehicle extends SimulatedObject {
 	 */
 	
 	public boolean atDestination() {
-		//TODO: If vehicle is at the last point of the itinerary (Road and location)
-		return false;
+		return (_currentRoad.getLenght() <= _currentLocation && _itinerary.get(_itinerary.size() - 1).equals(_currentRoad.getDestination()));
 	}
 	
 	/**
@@ -159,10 +160,19 @@ public class Vehicle extends SimulatedObject {
 	 */
 	
 	void moveToNextRoad() {
-		if (_currentRoad != null)	//first time is called, it hasn't entered in any road yet, so no road to exit from.
+		if (_currentRoad != null) {	//first time is called, it hasn't entered in any road yet, so no road to exit from.
 			_currentRoad.exit(this);
-		_inJunction = true;
+			if (atDestination())
+				return;
+			_currentRoad = _currentRoad.getDestination().roadTo(_itinerary.get(_index));
+		} else {
+			_currentRoad = _itinerary.get(_index).roadTo(_itinerary.get(_index + 1));
+			_index++;
+		}
+		_inJunction = false;
+		
 		_currentLocation = 0;
+		_currentRoad.enter(this);
 	}
 	
 
@@ -196,6 +206,7 @@ public class Vehicle extends SimulatedObject {
 		_kilometers += _currentSpeed;
 		
 		if (_currentLocation > _currentRoad.getLenght()) {
+			_currentLocation = _currentRoad.getLenght();
 			moveToNextRoad();
 			_kilometers += _currentRoad.getLenght() - _currentLocation - _currentSpeed;
 			return;
@@ -205,13 +216,6 @@ public class Vehicle extends SimulatedObject {
 		
 	}
 	
-
-	//Idea from effective Java : Item 9
-	@Override
-	public int hashCode() {
-		return _currentLocation;
-	        
-	}
 
 
 	

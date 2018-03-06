@@ -54,8 +54,7 @@ public class Junction extends SimulatedObject {
 	}
 	
 	public List<IncomingRoad> getRoadsInfo() {
-		//TODO: no clue xd
-		return null;
+		return _incomingRoads;
 	}
 	
 	void addIncomingRoad(Road r) {
@@ -190,7 +189,7 @@ public class Junction extends SimulatedObject {
 		
 		public String toString() {
 			String st = "";
-			st += "(" + _road.getId() + "," + _green + _queue;
+			st += "(" + _road.getId() + "," + _green + "," +  _queue + ")";
 			return st;
 		}
 		

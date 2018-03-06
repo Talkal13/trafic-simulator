@@ -140,12 +140,12 @@ public class Road extends SimulatedObject {
 	void advance() {
 		calculateBaseSpeed();
 		int obstacles = 0;
-		for (Vehicle e : _vehicles) {
-			if (e.getFaultyTime() > 0) {
+		for (int i = 0; i < _vehicles.size(); i++) {
+			if (_vehicles.get(i).getFaultyTime() > 0) {
 				obstacles++;
 			}
-			e.setSpeed(_baseSpeed / reduceSpeedFactor(obstacles));
-			e.advance();
+			_vehicles.get(i).setSpeed(_baseSpeed / reduceSpeedFactor(obstacles));
+			_vehicles.get(i).advance();
 		}
 		
 	}
