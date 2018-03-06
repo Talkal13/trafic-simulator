@@ -42,15 +42,17 @@ public class TrafficSimulator {
 	}
 	
 	public void addEvent(Event e) {
-		//TODO
+		_events.add(e);
 	}
 	
 	public void reset() {
-		//TODO
+		_events.clear();
+		_map.clear();
+		_time = 0;
 	}
 	
 	public void setOutStream(OutputStream outStream) {
-		//TODO
+		_outStream = outStream;
 	}
 	/**
 	public void addObserver(TrafficSimulatorObserver observer) {
