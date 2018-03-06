@@ -25,7 +25,7 @@ public abstract class EventBuilder {
 		if (tempId == null) {
 			return null; //TODO: Throw exception
 		}
-		if (tempId.equals("^[a-zA-Z0-9_]+$"))
+		if (tempId.matches("^[a-zA-Z0-9_]+$"))
 			return tempId;
 		else
 			return null; //TODO: Throw exception
@@ -55,7 +55,7 @@ public abstract class EventBuilder {
 			return null; //TODO: Throw exception
 		}
 		for (String s : tempValidList) {
-			if (!s.equals("^[a-zA-Z0-9_]+$"))
+			if (!s.matches("^[a-zA-Z0-9_]+$"))
 				return null; //TODO: throw exception
 		}
 		return tempValidList;

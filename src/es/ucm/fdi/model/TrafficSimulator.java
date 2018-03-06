@@ -2,6 +2,7 @@ package es.ucm.fdi.model;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TrafficSimulator {
@@ -15,6 +16,8 @@ public class TrafficSimulator {
 	public TrafficSimulator(OutputStream outStream) {
 		this._time = 0;
 		_outStream = outStream;
+		_events = new ArrayList<Event>();
+		_map = new RoadMap();
 	}
 	
 	public void run (int ticks) {

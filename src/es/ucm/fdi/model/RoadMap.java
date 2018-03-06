@@ -89,15 +89,15 @@ public class RoadMap {
 	public String generateReport(int time) {
 		String report = "";
 		for (Junction j : getJunctions()) {
-			report += j.generateReport(time);
+			report += j.generateReport(time) + "\n";
 		}
 		
 		for (Road r : getRoads()) {
-			report += r.generateReport(time);
+			report += r.generateReport(time) + "\n";
 		}
 		
 		for (Vehicle v : getVehicles()) {
-			report += v.generateReport(time);
+			report += v.generateReport(time) + "\n";
 		}
 		return report;
 	}

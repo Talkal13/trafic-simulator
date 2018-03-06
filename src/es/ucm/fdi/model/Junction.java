@@ -1,5 +1,6 @@
 package es.ucm.fdi.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.ucm.fdi.ini.IniSection;
@@ -28,6 +29,8 @@ public class Junction extends SimulatedObject {
 	
 	public Junction(String id) {
 		super(id);
+		_incomingRoads = new ArrayList<IncomingRoad>();
+		_outgoingRoads = new ArrayList<Road>();
 	}
 	
 	/**
@@ -126,6 +129,7 @@ public class Junction extends SimulatedObject {
 		protected IncomingRoad(Road road) {
 			_queue = new SortedArrayList<Vehicle>();
 			_green = false;
+			_road = road;
 		}
 		
 		/**
