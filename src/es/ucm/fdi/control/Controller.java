@@ -20,9 +20,8 @@ public class Controller {
 	private OutputStream _output;
 	private int _ticksSimulation;
 
-	public Controller(TrafficSimulator ts, int a, InputStream input, OutputStream output) {
-		_output = output;
-		
+	public Controller(TrafficSimulator ts) {
+		_sim = ts;
 	}
 	
 	public Controller(TrafficSimulator ts, OutputStream output) {

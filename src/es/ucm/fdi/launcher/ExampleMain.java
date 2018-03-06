@@ -1,9 +1,14 @@
 package es.ucm.fdi.launcher;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -15,9 +20,13 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import es.ucm.fdi.control.Controller;
+import es.ucm.fdi.control.eventBuilders.*;
 import es.ucm.fdi.ini.Ini;
 import es.ucm.fdi.misc.SortedArrayList;
 import es.ucm.fdi.model.Junction;
+import es.ucm.fdi.model.SimulatorError;
+import es.ucm.fdi.model.TrafficSimulator;
 import es.ucm.fdi.model.Vehicle;
 
 public class ExampleMain {
@@ -26,6 +35,18 @@ public class ExampleMain {
 	private static Integer _timeLimit = null;
 	private static String _inFile = null;
 	private static String _outFile = null;
+	
+	private static EventBuilder[] _eventBuilders = {
+		new NewRoadEventBuilder(), 
+		new NewVehicleEventBuilder(), 
+		new NewJunctionEventBuilder(), 
+		new MakeVehicleFaultyEventBuilder()
+	};
+	
+	private static TrafficSimulator _traffic;
+	private static InputStream _input;
+	private static OutputStream _output;
+	private static Controller _controller; 
 
 	private static void parseArgs(String[] args) {
 
@@ -153,6 +174,24 @@ public class ExampleMain {
 		
 		Ini ini = new Ini(_inFile);
 		System.out.println(ini);
+		InputStream _input = new FileInputStream(_inFile);
+		if (_outFile == null) {
+			_output = System.out;
+		} else
+			_output = new FileOutputStream(_outFile);
+		_traffic = new TrafficSimulator(_output);
+		_controller = new Controller(_traffic);
+		_controller.setEventBuilders(_eventBuilders);
+		_controller.setOutputStream(_output);
+		try {
+			_controller.loadEvents(_input);
+		} catch (SimulatorError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		_controller.run(_timeLimit);
+		
 		// TODO
 		// Add your code here. Note that the input argument where parsed and stored into
 		// corresponding fields.
