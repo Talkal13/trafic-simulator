@@ -15,7 +15,8 @@ import es.ucm.fdi.model.TrafficSimulator;
 public class Controller {
 	
 	protected TrafficSimulator _sim;
-	EventBuilder[] _eventBuilders = {};
+	//this static is to avoid problems in parserEvent Magic, maybe in incorrect
+	static EventBuilder[] _eventBuilders = {};
 	private InputStream _input;
 	private OutputStream _output;
 	private int _ticksSimulation;
@@ -66,9 +67,29 @@ public class Controller {
 			ini = new Ini(inStream);
 		}
 		catch(IOException e){
-			// TODO: solve the error.
 			throw new SimulatorError("Error in reading the events: " + e);
 		}
+		//we go throw all the elements of iniSectins to generate the corresponding element
+		for (IniSection sec : ini.getSections()) {
+			Event e = parserEvent(sec);
+			if(e != null) this._sim.addEvent(e);
+			else throw new SimulatorError("Unkown event: " +  sec.getTag());
+		}
 		
+		
+	}
+	
+	//Like Samir does 
+	public static Event parserEvent(IniSection sec) {
+		int i = 0;
+		boolean go = true;
+		Event e = null;
+		
+		while (i < _eventBuilders.length && go ) {
+			e = _eventBuilders[i].parse(sec);
+			if (e!=null) go = false;
+			else i++;
+			}
+		return e;
 	}
 }
