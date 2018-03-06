@@ -5,16 +5,36 @@ import java.util.List;
 import es.ucm.fdi.ini.IniSection;
 import es.ucm.fdi.misc.SortedArrayList;
 
+/**
+ * 
+ * @author Pablo & Diego
+ * 
+ * Class of the object junction, extension of the SimulatedObject. This class represent the junction which are used by vehicles, 
+ * to go from one road to other.
+ *
+ */
+
 public class Junction extends SimulatedObject {
 
 	private boolean _trafficLight;
 	protected List<IncomingRoad> _incomingRoads;
 	protected List<Road> _outgoingRoads;
 	
+	/**
+	 * Constructor of the class, given a certain identification, passed as parameter, a new instance of the object junction is created.
+	 * 
+	 * @param id identifier of the current road
+	 */
+	
 	public Junction(String id) {
 		super(id);
 	}
 	
+	/**
+	 * 
+	 * @param j
+	 * @return
+	 */
 	public Road roadTo(Junction j) {
 		for (Road r : _outgoingRoads) {
 			if (r.getDestination().equals(j)) return r;

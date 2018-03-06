@@ -8,7 +8,7 @@ import es.ucm.fdi.ini.IniSection;
  * 
  * @author Pablo & Diego
  * 
- * Class of the vehicle object, extension of the SimulatedObject. this class represent the cars which will traverse the roads and junctions of the 
+ * Class of the object vehicle, extension of the SimulatedObject. this class represent the vehicles which will traverse the roads and junctions of the 
  * simulation.
  *
  */
@@ -130,7 +130,6 @@ public class Vehicle extends SimulatedObject {
 	 */
 	
 	void makeFaulty(int faultyTime) {
-		//TODO: Make sure that is += and not =
 		_faulty += faultyTime;
 		_currentSpeed = 0;
 	}
@@ -163,7 +162,6 @@ public class Vehicle extends SimulatedObject {
 			_currentRoad.exit(this);
 		_inJunction = true;
 		_currentLocation = 0;
-		// TODO ? change the itinerary ?
 	}
 	
 

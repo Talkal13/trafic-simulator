@@ -4,6 +4,15 @@ import java.util.List;
 
 import es.ucm.fdi.ini.IniSection;
 
+/**
+ * 
+ * @author Pablo & Diego
+ * 
+ * Class of the object road, extension of the SimulatedObject. this class represent the road which are traverse by vehicles, 
+ * it goes from one junctions to other.
+ *
+ */
+
 public class Road extends SimulatedObject {
 
 	protected int _lenght;
