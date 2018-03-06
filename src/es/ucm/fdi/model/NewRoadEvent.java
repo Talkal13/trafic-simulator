@@ -8,7 +8,7 @@ public class NewRoadEvent extends Event {
 	protected String _source;
 	protected String _destination;
 	
-	NewRoadEvent(int time, String id, int lenght, int maxSpeed, String source, String destination) {
+	public NewRoadEvent(int time, String id, int lenght, int maxSpeed, String source, String destination) {
 		super(time);
 		_id = id;
 		_length = lenght;
@@ -21,7 +21,7 @@ public class NewRoadEvent extends Event {
 	@Override
 	public void execute(RoadMap map, int ticks) {
 		Junction source = map.getJunction(_source);
-		Junction destination = map.getJunction(_destination); //TODO: What to do if it doesnt exist
+		Junction destination = map.getJunction(_destination); //TODO: If it doenst exist throw execption
 		map.addRoad(new Road(_id, _length, _maximumSpeed, source, destination));
 	}
 	

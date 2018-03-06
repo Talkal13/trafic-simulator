@@ -6,7 +6,7 @@ public class NewVehicleEvent extends Event{
 	protected Integer _MaximumSpeed;
 	protected String[] _itinerary;
 
-	NewVehicleEvent(int time, String _id, int max_speed, String[] intinerary) {
+	public NewVehicleEvent(int time, String _id, int max_speed, String[] intinerary) {
 		super(time);
 		
 	}
