@@ -56,6 +56,7 @@ public class Controller {
 	
 	public void run(int ticks) {
 		//TODO: Understand the argument
+		_sim.run(ticks);
 	}
 	
 	public void loadEvents(InputStream inStream) throws SimulatorError {

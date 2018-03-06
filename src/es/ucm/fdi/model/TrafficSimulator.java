@@ -1,5 +1,6 @@
 package es.ucm.fdi.model;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -13,11 +14,31 @@ public class TrafficSimulator {
 
 	public TrafficSimulator(OutputStream outStream) {
 		this._time = 0;
-		//TODO
+		_outStream = outStream;
 	}
 	
 	public void run (int ticks) {
-		//TODO
+		int limit = _time + ticks - 1;
+		while (_time <= limit) {
+			for (Event e : _events) {
+				e.execute(_map, _time);
+			}
+			
+			for (Road e : _map.getRoads()) {
+				e.advance();
+			}
+			
+			for (Junction j : _map.getJunctions()) {
+				j.advance();
+			}
+			_time++;
+			try {
+				_outStream.write(_map.generateReport(_time).getBytes());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 	}
 	
 	public void addEvent(Event e) {
