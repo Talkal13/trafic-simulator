@@ -69,7 +69,7 @@ public class Controller {
 		catch(IOException e){
 			throw new SimulatorError("Error in reading the events: " + e);
 		}
-		//we go throw all the elements of iniSectins to generate the corresponding element
+		//Goes throw all the elements of iniSectins to generate the corresponding element
 		for (IniSection sec : ini.getSections()) {
 			Event e = parserEvent(sec);
 			if(e != null) this._sim.addEvent(e);
