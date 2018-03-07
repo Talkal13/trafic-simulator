@@ -14,7 +14,7 @@ public class NewRoadEventBuilder extends EventBuilder {
 		if(!section.getTag().equals(ID))
 			return null;
 		else
-			return new NewRoadEvent(EventBuilder.parseNonNegInt(section, "time", 0), EventBuilder.validId(section, "id"),EventBuilder.parsePositiveInt(section, "max_speed"), EventBuilder.parsePositiveInt(section, "length"),
+			return new NewRoadEvent(EventBuilder.parseNonNegInt(section, "time", 0), EventBuilder.validId(section, "id"), EventBuilder.parsePositiveInt(section, "length"),EventBuilder.parsePositiveInt(section, "max_speed"),
 					EventBuilder.validId(section, "src"), EventBuilder.validId(section, "dest"));
 	}
 

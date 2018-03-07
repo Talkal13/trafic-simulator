@@ -167,8 +167,9 @@ public class Vehicle extends SimulatedObject {
 			_currentRoad = _currentRoad.getDestination().roadTo(_itinerary.get(_index));
 		} else {
 			_currentRoad = _itinerary.get(_index).roadTo(_itinerary.get(_index + 1));
-			_index++;
+			
 		}
+		_index++;
 		_inJunction = false;
 		
 		_currentLocation = 0;
@@ -181,7 +182,10 @@ public class Vehicle extends SimulatedObject {
 		is.setValue("speed", _currentSpeed);
 		is.setValue("kilometrage", _kilometers);
 		is.setValue("faulty", _faulty);
-		is.setValue("location", "(" + _currentRoad + "," + _currentLocation + ")");
+		if (atDestination())
+			is.setValue("location", "arrived");
+		else
+			is.setValue("location", "(" + _currentRoad + "," + _currentLocation + ")");
 	}
 
 	@Override
@@ -205,10 +209,11 @@ public class Vehicle extends SimulatedObject {
 		_currentLocation += _currentSpeed;
 		_kilometers += _currentSpeed;
 		
-		if (_currentLocation > _currentRoad.getLenght()) {
+		if (_currentLocation >= _currentRoad.getLenght()) {
+			_kilometers += _currentLocation - _currentRoad.getLenght();
 			_currentLocation = _currentRoad.getLenght();
 			moveToNextRoad();
-			_kilometers += _currentRoad.getLenght() - _currentLocation - _currentSpeed;
+			
 			return;
 		}
 		
