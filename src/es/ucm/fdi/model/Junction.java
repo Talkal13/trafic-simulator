@@ -2,6 +2,7 @@ package es.ucm.fdi.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import es.ucm.fdi.ini.IniSection;
 import es.ucm.fdi.misc.SortedArrayList;
@@ -58,7 +59,10 @@ public class Junction extends SimulatedObject {
 	}
 	
 	void addIncomingRoad(Road r) {
-		_incomingRoads.add(new IncomingRoad(r));
+		_incomingRoads.add(createIncommingRoadQueue(r));
+		if (_incomingRoads.size() == 1) {
+			_incomingRoads.get(0).setGreen(true);
+		}
 	}
 	
 	void addOutgoingRoad(Road r) {
@@ -94,7 +98,15 @@ public class Junction extends SimulatedObject {
 
 	@Override
 	protected void fillReportDetails(IniSection is) {
-		is.setValue("queues", _incomingRoads);
+		String report = "";
+		if (!_incomingRoads.isEmpty()) {
+			for (int i = 0; i < _incomingRoads.size() - 1; i++) {
+				report += _incomingRoads.get(i).toString() + ",";
+			}
+			report += _incomingRoads.get(_incomingRoads.size() - 1).toString();
+		}
+		
+		is.setValue("queues", report);
 	}
 
 	@Override
@@ -189,7 +201,11 @@ public class Junction extends SimulatedObject {
 		
 		public String toString() {
 			String st = "";
-			st += "(" + _road.getId() + "," + _green + "," +  _queue + ")";
+			st += "(" + _road.getId() + ",";
+			if (_green)
+				st +=  "green," +  _queue + ")";
+			else
+				st += "red," + _queue + ")";
 			return st;
 		}
 		

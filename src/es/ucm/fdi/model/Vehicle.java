@@ -181,7 +181,7 @@ public class Vehicle extends SimulatedObject {
 		is.setValue("speed", _currentSpeed);
 		is.setValue("kilometrage", _kilometers);
 		is.setValue("faulty", _faulty);
-		is.setValue("location", _currentLocation);
+		is.setValue("location", "(" + _currentRoad + "," + _currentLocation + ")");
 	}
 
 	@Override

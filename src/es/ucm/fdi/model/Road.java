@@ -3,7 +3,7 @@ package es.ucm.fdi.model;
 import java.util.List;
 import es.ucm.fdi.misc.SortedArrayList;
 import es.ucm.fdi.misc.VehiclesComparator;
-
+import javafx.util.Pair;
 import es.ucm.fdi.ini.IniSection;
 
 /**
@@ -128,7 +128,14 @@ public class Road extends SimulatedObject {
 
 	@Override
 	protected void fillReportDetails(IniSection is) {
-		is.setValue("state", _vehicles);
+		String report = "";
+		if (!_vehicles.isEmpty()) {
+			for (int i = 0; i < _vehicles.size()- 1; i++) {
+				report += "(" + _vehicles.get(i).getId() + "," + _vehicles.get(i).getLocation() + ")" + ",";
+			}
+			report += "(" + _vehicles.get(_vehicles.size() - 1).getId() + "," + _vehicles.get(_vehicles.size() - 1).getLocation() + ")";
+		}
+		is.setValue("state", report);
 	}
 
 	@Override
