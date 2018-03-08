@@ -1,17 +1,18 @@
 package es.ucm.fdi.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Event {
 	
-	protected Integer _time;
+	protected int _time;
 
 	Event(Event otherEvent) {
-		//TODO
+		_time = otherEvent.getScheduledTime();
 	}
 
-	public Event(Integer num) {
-		//TODO
+	public Event(int num) {
+		_time = num;
 	}
 	
 	/**
@@ -25,33 +26,35 @@ public abstract class Event {
 	}
 	
 	public int compareTo (Event otherEvent) {
-		//TODO
-		return 0;
+		return _time;
 	}
 	
 	protected Junction checkIfJunctionExist(RoadMap map, String idJunction) {
-		//TODO
-		return null;
+		return map.getJunction(idJunction);
 	}
 	
 	protected Vehicle checkIfVehicleExist(RoadMap map, String idVehicle) {
-		//TODO
-		return null;
+		return map.getVehicle(idVehicle);
 	}
 	
 	protected Road checkIfRoadExist(RoadMap map, String idRoad) {
-		//TODO
-		return null;
+		return map.getRoad(idRoad);
 	}
 	
 	protected List<Junction> parseListOfJunctions(RoadMap map, String[] arrayJunctions){
-		//TODO
-		return null;
+		List<Junction> j = new ArrayList<Junction>();
+		for (String s : arrayJunctions) {
+			j.add(map.getJunction(s));
+		}
+		return j;
 	}
 	
 	protected List<Vehicle> parseListOfvehicles(RoadMap map, String[] arrayVehicles){
-		//TODO
-		return null;
+		List<Vehicle> j = new ArrayList<Vehicle>();
+		for (String s : arrayVehicles) {
+			j.add(map.getVehicle(s));
+		}
+		return j;
 	}
 	
 	public abstract void execute(RoadMap map, int ticks);

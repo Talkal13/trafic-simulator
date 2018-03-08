@@ -24,7 +24,8 @@ public class TrafficSimulator {
 		int limit = _time + ticks - 1;
 		while (_time <= limit) {
 			for (Event e : _events) {
-				e.execute(_map, _time);
+				if (_time == e.getScheduledTime())
+					e.execute(_map, _time);
 			}
 			
 			for (Road e : _map.getRoads()) {

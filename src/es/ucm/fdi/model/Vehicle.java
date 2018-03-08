@@ -162,9 +162,11 @@ public class Vehicle extends SimulatedObject {
 	void moveToNextRoad() {
 		if (_currentRoad != null) {	//first time is called, it hasn't entered in any road yet, so no road to exit from.
 			_currentRoad.exit(this);
-			if (atDestination())
+			if (atDestination()) {
+				_currentSpeed = 0;
 				return;
-			_currentRoad = _currentRoad.getDestination().roadTo(_itinerary.get(_index));
+			}
+			_currentRoad = _itinerary.get(_index).roadTo(_itinerary.get(_index + 1));
 		} else {
 			_currentRoad = _itinerary.get(_index).roadTo(_itinerary.get(_index + 1));
 			
@@ -212,7 +214,8 @@ public class Vehicle extends SimulatedObject {
 		if (_currentLocation >= _currentRoad.getLenght()) {
 			_kilometers += _currentLocation - _currentRoad.getLenght();
 			_currentLocation = _currentRoad.getLenght();
-			moveToNextRoad();
+			_currentRoad.getDestination().enter(this);
+			//moveToNextRoad();
 			
 			return;
 		}

@@ -173,7 +173,7 @@ public class ExampleMain {
 	private static void startBatchMode() throws IOException {
 		
 		Ini ini = new Ini(_inFile);
-		System.out.println(ini);
+		//System.out.println(ini);
 		InputStream _input = new FileInputStream(_inFile);
 		if (_outFile == null) {
 			_output = System.out;
