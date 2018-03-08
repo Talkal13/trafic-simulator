@@ -212,7 +212,7 @@ public class Vehicle extends SimulatedObject {
 		_kilometers += _currentSpeed;
 		
 		if (_currentLocation >= _currentRoad.getLenght()) {
-			_kilometers += _currentLocation - _currentRoad.getLenght();
+			_kilometers -= _currentLocation - _currentRoad.getLenght();
 			_currentLocation = _currentRoad.getLenght();
 			_currentRoad.getDestination().enter(this);
 			//moveToNextRoad();
