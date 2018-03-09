@@ -14,7 +14,7 @@ import es.ucm.fdi.ini.IniSection;
  *
  */
 
-public class Vehicle extends SimulatedObject {
+public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 
 	private int _maxSpeed;
 	private int _currentSpeed;
@@ -222,6 +222,11 @@ public class Vehicle extends SimulatedObject {
 		
 		
 		
+	}
+
+	@Override
+	public int compareTo(Vehicle arg0) {
+		return -1 * Integer.signum(this.getLocation() - arg0.getLocation());
 	}
 	
 
