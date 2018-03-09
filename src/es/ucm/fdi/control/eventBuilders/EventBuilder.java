@@ -61,5 +61,37 @@ public abstract class EventBuilder {
 		return tempValidList;
 	}
 
+	public static double parseNonNegDouble(IniSection section, String key) {
+		String tempTime = section.getValue(key);
+		if (tempTime == null) {
+			return -1;
+		}
+		try {
+			Double d = Double.parseDouble(tempTime);
+			if (d < 0) return -1;
+			else return d;
+		} catch (NumberFormatException e) {
+			return -1; //TODO: Throw exception
+		}
+	}
+
+	public static long parsePositiveLong(IniSection section, String key) {
+		String tempValue = section.getValue(key);
+		if (tempValue == null) {
+			return 0; //TODO: Throw exception
+		}
+		try {
+			long tempNum = Long.parseUnsignedLong(tempValue);
+			if (tempNum > 0) {
+				return tempNum;
+			}
+			else {
+				return 0; //TODO: throw exception
+			}
+		} catch (NumberFormatException e) {
+			return -1; //TODO: Throw exception
+		}
+	}
+
 		
 }

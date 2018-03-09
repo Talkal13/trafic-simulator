@@ -25,6 +25,8 @@ public class MakeVehicleFaultyEvent extends Event {
 		
 	}
 	
+	
+	
 	public String toString() {
 		return "Vehicle faulty";
 	}

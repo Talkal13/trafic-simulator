@@ -6,9 +6,17 @@ import es.ucm.fdi.ini.IniSection;
 
 public class Car extends Vehicle{
 
-	public Car(String id, int max_speed, List<Junction> itinerary) {
+	private int _resistance;
+	private int _max_fault_duration;
+	private double _fault_probability;
+	private long _seed;
+	
+	public Car(String id, int max_speed, int resistance, int max_fault_duration, double fault_probability, long seed, List<Junction> itinerary) {
 		super(id, max_speed, itinerary);
-		// TODO Auto-generated constructor stub
+		_resistance = resistance;
+		_max_fault_duration = max_fault_duration;
+		_fault_probability = fault_probability;
+		_seed = seed;
 	}
 	
 	void advance() {

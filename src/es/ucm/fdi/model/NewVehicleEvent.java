@@ -25,6 +25,8 @@ public class NewVehicleEvent extends Event{
 		map.addVehicle(new Vehicle(_id, _MaximumSpeed, itinerary));
 		
 	}
+	
+
 	public String toString() {
 		//TODO
 		return null;
