@@ -215,6 +215,7 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 			_kilometers -= _currentLocation - _currentRoad.getLenght();
 			_currentLocation = _currentRoad.getLenght();
 			_currentRoad.getDestination().enter(this);
+			_inJunction = true;
 			//moveToNextRoad();
 			
 			return;
