@@ -1,10 +1,11 @@
 package es.ucm.fdi.model;
 
 import es.ucm.fdi.ini.IniSection;
+import es.ucm.fdi.model.Junction.IncomingRoad;
 
-public class MostCrowdedJunction extends JunctionWithTimeSlice{
+public class RoundRobinJunction extends JunctionWithTimeSlice{
 
-	public MostCrowdedJunction(String id) {
+	public RoundRobinJunction(String id, int r1, int r2) {
 		super(id);
 		// TODO Auto-generated constructor stub
 	}
@@ -14,7 +15,7 @@ public class MostCrowdedJunction extends JunctionWithTimeSlice{
 	}
 	
 	protected void switchLights() {
-			
+		
 	}
 	
 	protected void turnLightOff() {
@@ -27,4 +28,5 @@ public class MostCrowdedJunction extends JunctionWithTimeSlice{
 	protected void fillReportDetails(IniSection is) {
 	
 	}
+
 }
