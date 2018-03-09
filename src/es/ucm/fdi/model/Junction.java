@@ -60,9 +60,6 @@ public class Junction extends SimulatedObject {
 	
 	void addIncomingRoad(Road r) {
 		_incomingRoads.add(createIncommingRoadQueue(r));
-		if (_incomingRoads.size() == 1) {
-			_incomingRoads.get(0).setGreen(true);
-		}
 	}
 	
 	void addOutgoingRoad(Road r) {
@@ -81,10 +78,11 @@ public class Junction extends SimulatedObject {
 	
 	protected void switchLights() {
 		for (int i = 0; i < _incomingRoads.size(); i++) {
-			if (_incomingRoads.get(i)._green) {
+			if (_incomingRoads.get(i).hasGreenLight()) {
 				_incomingRoads.get(i).setGreen(false);
 				try {
 					_incomingRoads.get(i + 1).setGreen(true);
+					break;
 				} catch (IndexOutOfBoundsException e) {
 					_incomingRoads.get(0).setGreen(true); //Un poco guarro
 				}
@@ -116,10 +114,23 @@ public class Junction extends SimulatedObject {
 
 	@Override
 	void advance() {
+		boolean a = false;
+		for (IncomingRoad road : _incomingRoads) {
+			if (road.hasGreenLight()) {
+				a = true;
+				break;
+			}
+			
+		}
+		if (!a && !_incomingRoads.isEmpty()) {
+			
+			_incomingRoads.get(0).setGreen(true);
+		}
 		for (IncomingRoad road : _incomingRoads) {
 			if (road.hasGreenLight()) {
 				road.advanceFirstVehicle();
-				switchLights();
+				if (a) //TODO: guarro que flipas
+					switchLights();
 				break;
 			}
 		}
