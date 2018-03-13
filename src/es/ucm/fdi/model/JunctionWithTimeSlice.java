@@ -4,14 +4,13 @@ public class JunctionWithTimeSlice extends Junction {
 
 	public JunctionWithTimeSlice(String id) {
 		super(id);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public class IncomingRoadWithTimeSlice extends IncomingRoad{
 		
 		private int _timeSlice;
-		private int _ticksUsed;
-		private boolean _complete;
+		private int _usedTimeUnits;
+		private boolean _fullyUsed;
 		private boolean _used;
 
 		protected IncomingRoadWithTimeSlice(Road road) {
@@ -20,13 +19,14 @@ public class JunctionWithTimeSlice extends Junction {
 		}
 		
 		protected void advanceFirstVehicle() {
-			++_ticksUsed;
+			++_usedTimeUnits;
 			
 			if(_queue.isEmpty()) {
-				_complete = false;
+				_fullyUsed = false;
 			}
 			else {
 				//TODO saca el primer vehiculo de de la cola de vehiculos y le mueve a la siguiente carretera
+				//advance the first vehicle if any
 				_used = true;
 			}
 		}
@@ -44,19 +44,19 @@ public class JunctionWithTimeSlice extends Junction {
 		}
 		
 		public int getUsedTimeUnits() {
-			return _ticksUsed;
+			return _usedTimeUnits;
 		}
 		
 		protected void setUsedTimeUnits(int newTimeUnits) {
-			_ticksUsed = newTimeUnits;
+			_usedTimeUnits = newTimeUnits;
 		}
 		
 		public boolean isFullyUsed() {
-			return _complete;
+			return _fullyUsed;
 		}
 		
 		protected void setFullyUsed(boolean fully) {
-			_complete = fully;
+			_fullyUsed = fully;
 		}
 		
 		public boolean isUsed() {

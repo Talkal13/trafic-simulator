@@ -6,7 +6,6 @@ public class MostCrowdedJunction extends JunctionWithTimeSlice{
 
 	public MostCrowdedJunction(String id) {
 		super(id);
-		// TODO Auto-generated constructor stub
 	}
 	
 	protected IncomingRoad createIncomingRoadQueue(Road incoming) {

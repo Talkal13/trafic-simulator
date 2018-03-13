@@ -5,9 +5,8 @@ import es.ucm.fdi.model.Junction.IncomingRoad;
 
 public class RoundRobinJunction extends JunctionWithTimeSlice{
 
-	public RoundRobinJunction(String id, int r1, int r2) {
+	public RoundRobinJunction(String id, int minTimeSlice, int maxTimeSlice) {
 		super(id);
-		// TODO Auto-generated constructor stub
 	}
 	
 	protected IncomingRoad createIncomingRoadQueue(Road incoming) {
