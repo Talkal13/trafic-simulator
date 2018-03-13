@@ -9,7 +9,9 @@ public class MakeVehicleFaultyEventBuilder extends EventBuilder {
 	public static final String ID = "make_vehicle_faulty";
 	public static final String IDToString = "Make Vehicle Faulty";
 	
-	
+	public MakeVehicleFaultyEventBuilder() {
+		
+	}
 	public Event parse(IniSection section) {
 		if(!section.getTag().equals(ID))
 			return null;

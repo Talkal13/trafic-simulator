@@ -9,6 +9,9 @@ public class NewJunctionEventBuilder extends EventBuilder{
 	public static final String ID = "new_junction";
 	public static final String IDToString = "New Junction";
 	
+	public NewJunctionEventBuilder() {
+		
+	}
 	
 	public Event parse(IniSection section) {
 		if(!section.getTag().equals(ID))
