@@ -20,8 +20,9 @@ public class LanesRoad extends Road {
 		return _maxSpeed; //TODO
 	}
 	
-	protected int reduceSpeedFactor(int something) {
-		return _maxSpeed; //TODO
+	protected int reduceSpeedFactor(int obstacles) {
+		return obstacles < _numLanes ? 1 : 2;
+		//return _maxSpeed; //I think it would be like this
 	}
 	
 	protected void fillreportDetails(IniSection is) {

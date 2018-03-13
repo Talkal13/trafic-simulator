@@ -3,13 +3,6 @@ package es.ucm.fdi.model;
 public class NewJunctionEvent extends Event{
 	
 	protected String _id;
-
-	/**
-	 * 
-	 * 
-	 * @param time
-	 * @param id
-	 */
 	
 	public NewJunctionEvent(int time, String id) {
 		super(time);

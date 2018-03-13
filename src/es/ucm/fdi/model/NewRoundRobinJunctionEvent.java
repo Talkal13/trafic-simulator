@@ -1,10 +1,14 @@
 package es.ucm.fdi.model;
 
 public class NewRoundRobinJunctionEvent extends NewJunctionEvent{
-
-	public NewRoundRobinJunctionEvent(int time, String id) {
+	
+	protected int _maxValueInterval;
+	protected int _minValueInterval;
+		
+	public NewRoundRobinJunctionEvent(int time, String id, int minValue, int max, int min ) {
 		super(time, id);
-		// TODO Auto-generated constructor stub
+		_maxValueInterval = max;
+		_minValueInterval = min;
 	}
 	
 	@Override
