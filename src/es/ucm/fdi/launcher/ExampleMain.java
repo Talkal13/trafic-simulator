@@ -32,7 +32,7 @@ import es.ucm.fdi.model.Vehicle;
 public class ExampleMain {
 
 	private final static Integer _timeLimitDefaultValue = 10;
-	private static Integer _timeLimit = null;
+	private static Integer _timeLimit = 10;
 	private static String _inFile = null;
 	private static String _outFile = null;
 	
@@ -150,7 +150,7 @@ public class ExampleMain {
 		});
 
 		for (File file : files) {
-			test(file.getAbsolutePath(), file.getAbsolutePath() + ".out", file.getAbsolutePath() + ".eout",100);
+			test(file.getAbsolutePath(), file.getAbsolutePath() + ".out", file.getAbsolutePath() + ".eout",10);
 		}
 
 	}
@@ -218,7 +218,8 @@ public class ExampleMain {
 	    //	test("resources/examples/events/basic");
 
 		// Call start to start the simulator from command line, etc.
-		start(args);
+		//start(args);
+		test("examples/basic/");
 
 	}
 

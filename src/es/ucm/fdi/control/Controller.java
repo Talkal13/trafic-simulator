@@ -56,7 +56,6 @@ public class Controller {
 	}
 	
 	public void run(int ticks) {
-		//TODO: Understand the argument
 		_sim.run(ticks);
 	}
 	
@@ -89,7 +88,7 @@ public class Controller {
 			e = _eventBuilders[i].parse(sec);
 			if (e!=null) go = false;
 			else i++;
-			}
+		}
 		return e;
 	}
 }

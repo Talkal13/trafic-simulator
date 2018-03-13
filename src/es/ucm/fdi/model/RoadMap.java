@@ -52,6 +52,14 @@ public class RoadMap {
 		return _junctionsList;
 	}
 	
+	public List<Junction> getJunctions(String[] junctions) {
+		List<Junction> itinerary = new ArrayList<Junction>();
+		for (String s : junctions) {
+			itinerary.add(this.getJunction(s));
+		}
+		return itinerary;
+	}
+	
 	void addJunction(Junction newJunction) {
 		if (!_junctions.containsKey(newJunction.getId())) {
 			_junctions.put(newJunction.getId(), newJunction);

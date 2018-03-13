@@ -148,6 +148,10 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 			_currentSpeed = 0;
 			return;
 		}
+		if (_inJunction) {
+			_currentSpeed = 0;
+			return;
+		}
 		if (_maxSpeed < speed) {// if the attribute is greater than maximum of the vehicle, it will drive at _maxSpeed.
 			_currentSpeed = _maxSpeed;
 			return;
@@ -163,7 +167,7 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 		if (_currentRoad != null) {	//first time is called, it hasn't entered in any road yet, so no road to exit from.
 			_currentRoad.exit(this);
 			if (atDestination()) {
-				_currentSpeed = 0;
+				setSpeed(0);
 				return;
 			}
 			_currentRoad = _itinerary.get(_index).roadTo(_itinerary.get(_index + 1));
@@ -173,7 +177,6 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 		}
 		_index++;
 		_inJunction = false;
-		
 		_currentLocation = 0;
 		_currentRoad.enter(this);
 	}
@@ -214,6 +217,7 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 		if (_currentLocation >= _currentRoad.getLenght()) {
 			_kilometers -= _currentLocation - _currentRoad.getLenght();
 			_currentLocation = _currentRoad.getLenght();
+			
 			_currentRoad.getDestination().enter(this);
 			_inJunction = true;
 			//moveToNextRoad();

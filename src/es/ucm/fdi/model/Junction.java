@@ -70,6 +70,7 @@ public class Junction extends SimulatedObject {
 		for (IncomingRoad r : _incomingRoads) {
 			if (v.getRoad().equals(r.getRoad())) {
 				r.addVehicle(v);
+				v.setSpeed(0);
 				return;
 			}
 		}
@@ -99,7 +100,7 @@ public class Junction extends SimulatedObject {
 		String report = "";
 		if (!_incomingRoads.isEmpty()) {
 			for (int i = 0; i < _incomingRoads.size() - 1; i++) {
-				report += _incomingRoads.get(i).toString() + ",";
+				report += _incomingRoads.get(i).toString().replace(" ", "") + ",";
 			}
 			report += _incomingRoads.get(_incomingRoads.size() - 1).toString();
 		}
