@@ -154,7 +154,7 @@ public class ExampleMain {
 		});
 
 		for (File file : files) {
-			test(file.getAbsolutePath(), file.getAbsolutePath() + ".out", file.getAbsolutePath() + ".eout",10);
+			test(file.getAbsolutePath(), file.getAbsolutePath() + ".out", file.getAbsolutePath() + ".eout",100);
 		}
 
 	}
@@ -223,7 +223,7 @@ public class ExampleMain {
 
 		// Call start to start the simulator from command line, etc.
 		//start(args);
-		test("examples/advanced/");
+		test("100ticks/examples/advanced/");
 
 	}
 
