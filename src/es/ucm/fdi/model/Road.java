@@ -151,7 +151,7 @@ public class Road extends SimulatedObject {
 			if (_vehicles.get(i).getFaultyTime() > 0) {
 				obstacles++;
 			}
-			_vehicles.get(i).setSpeed(_baseSpeed / reduceSpeedFactor(obstacles));
+			_vehicles.get(i).setSpeed(calculateBaseSpeed() / reduceSpeedFactor(obstacles));
 			_vehicles.get(i).advance();
 		}
 		_vehicles.sort(new VehiclesComparator());

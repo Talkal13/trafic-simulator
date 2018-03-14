@@ -17,7 +17,7 @@ public class NewBikeEventBuilder extends EventBuilder{
 	@Override
 	public Event parse(IniSection section) {
 		if(!section.getTag().equals(ID)) return null;
-		if (section.getValue("type").equals(TYPE)) return null;
+		if (section.getValue("type") == null || !section.getValue("type").equals(TYPE)) return null;
 		
 		return new NewBikeEvent(EventBuilder.parseNonNegInt(section, "time", 0), EventBuilder.validId(section, "id"), 
 				EventBuilder.parsePositiveInt(section, "max_speed"), EventBuilder.parseListValidId(section, "itinerary") );

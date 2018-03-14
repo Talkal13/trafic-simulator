@@ -16,15 +16,16 @@ import es.ucm.fdi.ini.IniSection;
 
 public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 
-	private int _maxSpeed;
-	private int _currentSpeed;
+	protected int _maxSpeed;
+	protected int _currentSpeed;
 	private List<Junction> _itinerary;
 	private Road _currentRoad;
 	private int _currentLocation;
-	private int _kilometers;
-	private int _faulty;
+	protected int _kilometers;
+	protected int _faulty;
 	private boolean _inJunction;
 	private int _index;
+	private boolean _inDestination;
 	
 	/**
 	 * Constructor of the class. Calls the constructor of SimulatedObject with the id introduced as parameter, 
@@ -168,6 +169,7 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 			_currentRoad.exit(this);
 			if (atDestination()) {
 				setSpeed(0);
+				_inDestination = true;
 				return;
 			}
 			_currentRoad = _itinerary.get(_index).roadTo(_itinerary.get(_index + 1));
@@ -187,7 +189,7 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 		is.setValue("speed", _currentSpeed);
 		is.setValue("kilometrage", _kilometers);
 		is.setValue("faulty", _faulty);
-		if (atDestination())
+		if (atDestination() && _inDestination)
 			is.setValue("location", "arrived");
 		else
 			is.setValue("location", "(" + _currentRoad + "," + _currentLocation + ")");

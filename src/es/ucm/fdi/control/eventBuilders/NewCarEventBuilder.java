@@ -18,11 +18,20 @@ public class NewCarEventBuilder extends EventBuilder{
 	@Override
 	public Event parse(IniSection section) {
 		if(!section.getTag().equals(ID)) return null;
-		if (section.getValue("type").equals(TYPE)) return null;
+		if (section.getValue("type") == null || !section.getValue("type").equals(TYPE)) return null;
+		
+		long seed;
+		
+		if (section.getValue("seed") == null) {
+			seed = System.currentTimeMillis();
+		}
+		else {
+			seed = EventBuilder.parsePositiveLong(section, "seed");
+		}
 		
 		return new NewCarEvent(EventBuilder.parseNonNegInt(section, "time", 0), EventBuilder.validId(section, "id"), 
 				EventBuilder.parsePositiveInt(section, "max_speed"), EventBuilder.parseListValidId(section, "itinerary"), EventBuilder.parsePositiveInt(section, "resistance"),
-				EventBuilder.parsePositiveInt(section, "max_fault_duration"), EventBuilder.parseNonNegDouble(section, "fault_probability"), EventBuilder.parsePositiveLong(section, "seed") );
+				EventBuilder.parsePositiveInt(section, "max_fault_duration"), EventBuilder.parseNonNegDouble(section, "fault_probability"), seed);
 	}
 	
 	public String toString() {

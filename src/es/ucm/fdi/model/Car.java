@@ -8,10 +8,13 @@ import es.ucm.fdi.ini.IniSection;
 public class Car extends Vehicle{
 
 	private int _resistance;
+	private int _resistance_kilometers;
 	private int _max_fault_duration;
 	private double _fault_probability;
 	private long _seed;
 	private Random _rand;
+	
+	public static final String TYPE = "car";
 	
 	public Car(String id, int max_speed, int resistance, int max_fault_duration, double fault_probability, long seed, List<Junction> itinerary) {
 		super(id, max_speed, itinerary);
@@ -24,11 +27,24 @@ public class Car extends Vehicle{
 	}
 	
 	void advance() {
-		//TODO
+		if (_faulty > 0) {
+			_resistance_kilometers = _kilometers;
+			_faulty--;
+		}
+		
+		else if (_resistance_kilometers >= _resistance + _kilometers) {
+			if (_rand.nextDouble() < _fault_probability) {
+				super.makeFaulty(_rand.nextInt(_max_fault_duration) + 1);
+				super.advance();
+			}
+		}
+		
+		
 	}
 	
 	protected void fillReportDetails(IniSection is) {
-		//TODO
+		is.setValue("type", TYPE);
+		super.fillReportDetails(is);
 	}
 
 }

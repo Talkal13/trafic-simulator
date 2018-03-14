@@ -40,7 +40,11 @@ public class ExampleMain {
 		new NewRoadEventBuilder(), 
 		new NewVehicleEventBuilder(), 
 		new NewJunctionEventBuilder(), 
-		new MakeVehicleFaultyEventBuilder()
+		new MakeVehicleFaultyEventBuilder(),
+		new NewBikeEventBuilder(),
+		new NewCarEventBuilder(),
+		new NewLanesRoadEventBuilder(),
+		new NewDirtRoadEventBuilder()
 	};
 	
 	private static TrafficSimulator _traffic;
@@ -219,7 +223,7 @@ public class ExampleMain {
 
 		// Call start to start the simulator from command line, etc.
 		//start(args);
-		test("examples/basic/");
+		test("examples/advanced/");
 
 	}
 

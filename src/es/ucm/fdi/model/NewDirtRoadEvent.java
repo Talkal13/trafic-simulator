@@ -1,19 +1,16 @@
 package es.ucm.fdi.model;
 
-public class NewLanesRoadEvent extends NewRoadEvent{
-	
-	private int _numLanes;
+public class NewDirtRoadEvent extends NewRoadEvent{
 
-	public NewLanesRoadEvent(int time, String id, int lenght, int maxSpeed, String source, String destination, int numLanes) {
+	public NewDirtRoadEvent(int time, String id, int lenght, int maxSpeed, String source, String destination) {
 		super(time, id, lenght, maxSpeed, source, destination);
-		_numLanes = numLanes;
 	}
 	
 	//TODO: understand arguments
 	public void execute(RoadMap map, int ticks) {
 		Junction source = map.getJunction(_source);
 		Junction destination = map.getJunction(_destination); //TODO: If it doenst exist throw execption
-		map.addRoad(new LanesRoad(_id, _length, _maximumSpeed, _numLanes, source, destination));
+		map.addRoad(new DirtRoad(_id, _length, _maximumSpeed, source, destination));
 	}
 	
 	public String toString() {

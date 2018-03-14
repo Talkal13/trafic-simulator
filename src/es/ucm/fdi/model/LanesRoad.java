@@ -5,6 +5,8 @@ import es.ucm.fdi.ini.IniSection;
 public class LanesRoad extends Road {
 	
 	private int _numLanes;
+	
+	public static final String TYPE = "lanes";
 
 	public LanesRoad(String id, int lenght, int maxSpeed, int lanes,  Junction source,
 			Junction destination) {
@@ -16,17 +18,21 @@ public class LanesRoad extends Road {
 		return _numLanes;
 	}
 	
+	@Override
 	protected int calculateBaseSpeed() {
-		return _maxSpeed; //TODO
+		_baseSpeed = Math.min(_maxSpeed, (Integer) ((_maxSpeed * _numLanes) / Math.max(_vehicles.size(), 1)) + 1);
+		return _baseSpeed;
 	}
 	
+	@Override
 	protected int reduceSpeedFactor(int obstacles) {
 		return obstacles < _numLanes ? 1 : 2;
-		//return _maxSpeed; //I think it would be like this
 	}
 	
-	protected void fillreportDetails(IniSection is) {
-		//TODO
+	@Override
+	protected void fillReportDetails(IniSection is) {
+		is.setValue("type", TYPE);
+		super.fillReportDetails(is);
 	}
 	
 
