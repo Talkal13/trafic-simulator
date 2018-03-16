@@ -44,7 +44,9 @@ public class ExampleMain {
 		new NewBikeEventBuilder(),
 		new NewCarEventBuilder(),
 		new NewLanesRoadEventBuilder(),
-		new NewDirtRoadEventBuilder()
+		new NewDirtRoadEventBuilder(),
+		new NewRoundRobinJunctionEventBuilder(),
+		new NewMostCrowdedJunctionEventBuilder()
 	};
 	
 	private static TrafficSimulator _traffic;
