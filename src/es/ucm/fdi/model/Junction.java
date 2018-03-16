@@ -37,8 +37,8 @@ public class Junction extends SimulatedObject {
 	
 	/**
 	 * 
-	 * @param j
-	 * @return
+	 * @param j Destination Junction of the road to find
+	 * @return The road with the destination Junction j
 	 */
 	public Road roadTo(Junction j) {
 		for (Road r : _outgoingRoads) {
