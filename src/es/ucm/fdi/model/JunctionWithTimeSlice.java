@@ -6,7 +6,7 @@ public class JunctionWithTimeSlice extends Junction {
 		super(id);
 	}
 	
-	public class IncomingRoadWithTimeSlice extends IncomingRoad{
+	public class IncomingRoadWithTimeSlice extends IncomingRoad {
 		
 		private int _timeSlice;
 		private int _usedTimeUnits;

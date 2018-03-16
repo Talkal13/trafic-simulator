@@ -14,10 +14,10 @@ public class NewJunctionEventBuilder extends EventBuilder{
 	}
 	
 	public Event parse(IniSection section) {
-		if(!section.getTag().equals(ID))
-			return null;
-		else
-			return new NewJunctionEvent(EventBuilder.parseNonNegInt(section, "time", 0), EventBuilder.validId(section, "id"));
+		if(!section.getTag().equals(ID)) return null;
+		if (section.getValue("type") != null) return null;
+		
+		return new NewJunctionEvent(EventBuilder.parseNonNegInt(section, "time", 0), EventBuilder.validId(section, "id"));
 			
 	}
 	
