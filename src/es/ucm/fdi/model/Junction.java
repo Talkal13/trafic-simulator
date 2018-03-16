@@ -6,6 +6,7 @@ import java.util.Map;
 
 import es.ucm.fdi.ini.IniSection;
 import es.ucm.fdi.misc.SortedArrayList;
+import es.ucm.fdi.model.Junction.IncomingRoad;
 
 /**
  * 
@@ -111,6 +112,15 @@ public class Junction extends SimulatedObject {
 	@Override
 	protected String getReportSectionTag() {
 		return "junction_report";
+	}
+	
+	protected boolean checkIfAllRed() {
+		for (IncomingRoad road : _incomingRoads) {
+			if (road.hasGreenLight()) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override

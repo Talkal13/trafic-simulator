@@ -6,6 +6,11 @@ public class JunctionWithTimeSlice extends Junction {
 		super(id);
 	}
 	
+	protected IncomingRoad createIncomingRoadQueue(Road incoming) {
+		return new IncomingRoadWithTimeSlice(incoming);
+	}
+	
+	
 	public class IncomingRoadWithTimeSlice extends IncomingRoad {
 		
 		private int _timeSlice;
