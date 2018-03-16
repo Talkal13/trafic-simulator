@@ -11,11 +11,23 @@ public class RoundRobinJunction extends JunctionWithTimeSlice {
 	protected int _maxTimeSlice;
 	protected int _minTimeSlice;
 
+	/**
+	 * 
+	 * @param id
+	 * @param minTimeSlice
+	 * @param maxTimeSlice
+	 */
+	
 	public RoundRobinJunction(String id, int minTimeSlice, int maxTimeSlice) {
 		super(id);
 		_maxTimeSlice = minTimeSlice;
 		_minTimeSlice = maxTimeSlice;
 	}
+	
+	/**
+	 * 
+	 * 
+	 */
 	
 	protected void switchLights() {
 		
@@ -25,6 +37,7 @@ public class RoundRobinJunction extends JunctionWithTimeSlice {
 		for (int i = 0; i < _incomingRoads.size(); i++) {
 			if (_incomingRoads.get(i).hasGreenLight() && ((IncomingRoadWithTimeSlice) _incomingRoads.get(i)).timeConsumed()) {
 				_incomingRoads.get(i).setGreen(false);
+				turnLightOff((IncomingRoadWithTimeSlice) _incomingRoads.get(i));
 				try {
 					_incomingRoads.get(i + 1).setGreen(true);
 					break;
@@ -35,8 +48,13 @@ public class RoundRobinJunction extends JunctionWithTimeSlice {
 		}
 	}
 	
-	protected void turnLightOff() {
-		
+	protected void turnLightOff(IncomingRoadWithTimeSlice road) {
+		if (road.isFullyUsed()) {
+			road.setTimeSlice(Math.min(road.getTimeSlice() + 1, this._maxTimeSlice));
+		}
+		else {
+			
+		}
 	}
 	
 	protected void turnLightOn() {

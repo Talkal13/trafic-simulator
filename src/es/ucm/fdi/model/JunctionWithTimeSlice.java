@@ -4,6 +4,7 @@ public class JunctionWithTimeSlice extends Junction {
 
 	public JunctionWithTimeSlice(String id) {
 		super(id);
+		
 	}
 	
 	protected IncomingRoad createIncomingRoadQueue(Road incoming) {
@@ -20,7 +21,8 @@ public class JunctionWithTimeSlice extends Junction {
 
 		protected IncomingRoadWithTimeSlice(Road road) {
 			super(road);
-			// TODO Auto-generated constructor stub
+			_timeSlice = 0;
+			_usedTimeUnits = 0;
 		}
 		
 		protected void advanceFirstVehicle() {
