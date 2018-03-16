@@ -27,12 +27,13 @@ public class JunctionWithTimeSlice extends Junction {
 			else {
 				//TODO saca el primer vehiculo de de la cola de vehiculos y le mueve a la siguiente carretera
 				//advance the first vehicle if any
+				super.advanceFirstVehicle();
 				_used = true;
 			}
 		}
 		
 		public Road getRoad() {
-			return null;
+			return super.getRoad();
 		}
 		
 		public int getTimeSlice() {
@@ -65,6 +66,10 @@ public class JunctionWithTimeSlice extends Junction {
 		
 		protected void setUsed(boolean used) {
 			_used  = used;
+		}
+		
+		public boolean timeConsumed() {
+			return _usedTimeUnits >= _timeSlice;
 		}
 		
 		public String toString() {
