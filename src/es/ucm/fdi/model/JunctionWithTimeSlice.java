@@ -74,6 +74,7 @@ public class JunctionWithTimeSlice extends Junction {
 		
 		public String toString() {
 			return null;
+			//super to_string??
 		}
 		
 		
