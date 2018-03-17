@@ -79,6 +79,12 @@ public class Junction extends SimulatedObject {
 	}
 	
 	protected void switchLights() {
+		
+		if (checkIfAllRed() && !_incomingRoads.isEmpty()) {
+			_incomingRoads.get(0).setGreen(true);
+			return;
+		}
+		
 		for (int i = 0; i < _incomingRoads.size(); i++) {
 			if (_incomingRoads.get(i).hasGreenLight()) {
 				_incomingRoads.get(i).setGreen(false);
@@ -125,26 +131,16 @@ public class Junction extends SimulatedObject {
 
 	@Override
 	void advance() {
-		boolean a = false;
-		for (IncomingRoad road : _incomingRoads) {
-			if (road.hasGreenLight()) {
-				a = true;
-				break;
-			}
-			
-		}
-		if (!a && !_incomingRoads.isEmpty()) {
-			
-			_incomingRoads.get(0).setGreen(true);
-		}
+		
+		
+		
 		for (IncomingRoad road : _incomingRoads) {
 			if (road.hasGreenLight()) {
 				road.advanceFirstVehicle();
-				if (a) //TODO: guarro que flipas
-					switchLights();
 				break;
 			}
 		}
+		switchLights();
 		
 	}
 	
@@ -163,6 +159,10 @@ public class Junction extends SimulatedObject {
 			_queue = new SortedArrayList<Vehicle>();
 			_green = false;
 			_road = road;
+		}
+		
+		protected int getQueueSize() {
+			return _queue.size();
 		}
 		
 		/**
@@ -192,6 +192,7 @@ public class Junction extends SimulatedObject {
 		
 		protected void setGreen(boolean green) {
 			_green = green;
+			return;
 		}
 		
 		/**

@@ -7,10 +7,6 @@ public class JunctionWithTimeSlice extends Junction {
 		
 	}
 	
-	protected IncomingRoad createIncomingRoadQueue(Road incoming) {
-		return new IncomingRoadWithTimeSlice(incoming);
-	}
-	
 	
 	public class IncomingRoadWithTimeSlice extends IncomingRoad {
 		
@@ -37,6 +33,14 @@ public class JunctionWithTimeSlice extends Junction {
 				super.advanceFirstVehicle();
 				_used = true;
 			}
+		}
+		
+		protected void setGreen(boolean green) {
+			super.setGreen(green);
+			_usedTimeUnits = 0;
+			_fullyUsed = true;
+			_used = false;
+			return;
 		}
 		
 		public Road getRoad() {
@@ -80,8 +84,13 @@ public class JunctionWithTimeSlice extends Junction {
 		}
 		
 		public String toString() {
-			return null;
-			//super to_string??
+			String st = "";
+			st += "(" + _road.getId() + ",";
+			if (_green)
+				st +=  "green:" + (_timeSlice - _usedTimeUnits) + "," +  _queue + ")";
+			else
+				st += "red," + _queue + ")";
+			return st;
 		}
 		
 		
