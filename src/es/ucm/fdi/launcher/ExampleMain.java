@@ -194,7 +194,9 @@ public class ExampleMain {
 		_controller = new Controller(_traffic);
 		_controller.setEventBuilders(_eventBuilders);
 		_controller.setOutputStream(_output);
-		_controller.loadEvents(_input);
+		
+		
+		if (!_controller.loadEvents(_input)) return;
 		
 		_controller.run(_timeLimit);
 		

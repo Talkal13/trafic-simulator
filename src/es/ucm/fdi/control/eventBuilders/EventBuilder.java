@@ -62,7 +62,7 @@ public abstract class EventBuilder {
 		if (tempId.matches("^[a-zA-Z0-9_]+$"))
 			return tempId;
 		else
-			throw new SimulatorError("Id of the event doesnt match"); 
+			throw new SimulatorError("Not a valid id for " + section.getTag()); 
 	}
 	
 	/**
