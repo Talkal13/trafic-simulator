@@ -178,9 +178,14 @@ public class ExampleMain {
 	 */
 	private static void startBatchMode() throws IOException {
 		
-		Ini ini = new Ini(_inFile);
+		//Ini ini = new Ini(_inFile);
 		//System.out.println(ini);
-		InputStream _input = new FileInputStream(_inFile);
+		try {
+			InputStream _input = new FileInputStream(_inFile);
+		} catch (FileNotFoundException e) {
+			System.err.print(e.getMessage());
+			return;
+		}
 		if (_outFile == null) {
 			_output = System.out;
 		} else
@@ -219,8 +224,8 @@ public class ExampleMain {
 	    //	test("resources/examples/events/basic");
 
 		// Call start to start the simulator from command line, etc.
-		//start(args);
-		test("examples/advanced/");
+		start(args);
+		//test("examples/advanced/");
 
 	}
 

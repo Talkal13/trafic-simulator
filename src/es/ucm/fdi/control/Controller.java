@@ -87,7 +87,7 @@ public class Controller {
 	 */
 	
 	public void reset() {
-		
+		_sim.reset();
 	}
 	
 	/**
