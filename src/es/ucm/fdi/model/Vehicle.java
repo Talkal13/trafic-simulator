@@ -46,7 +46,7 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 	}
 	
 	/**
-	 * Getter of the class attribute _currentRoad
+	 * Getter of the class attribute _currentRoad.
 	 *  
 	 * @return the road where the vehicle is at the moment.
 	 */
@@ -56,9 +56,9 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 	}
 	
 	/**
-	 * Getter of the class attribute _maxSpeed
+	 * Getter of the class attribute _maxSpeed.
 	 * 
-	 * @return the maximum speed the car could reach
+	 * @return the maximum speed the car could reach.
 	 */
 	
 	public int getMaxSpeed() {
@@ -66,7 +66,7 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 	}
 	
 	/**
-	 * Getter of the class attribute _currentSpeed
+	 * Getter of the class attribute _currentSpeed.
 	 * 
 	 * @return the current speed of the vehicle.
 	 */
@@ -76,7 +76,7 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 	}
 	
 	/**
-	 * Getter of the class attribute _currentLocation 
+	 * Getter of the class attribute _currentLocation.
 	 * 
 	 * @return the current location of the vehicle in the system.
 	 */
@@ -86,7 +86,7 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 	}
 	
 	/**
-	 * Getter of the class attribute _kilometers
+	 * Getter of the class attribute _kilometers.
 	 * 
 	 * @return the total amount of kilometers the vehicle has driven.
 	 */
@@ -96,7 +96,7 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 	}
 	
 	/**
-	 * Getter of the class attribute _faulty
+	 * Getter of the class attribute _faulty.
 	 * 
 	 * @return the number of ticks the object will be faulty, if is faulty.
 	 */
@@ -106,9 +106,9 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 	}
 	
 	/**
-	 * Boolean function which checks if the vehicle has reach it�s destiny.
+	 * Boolean function which checks if the vehicle has reach its destiny.
 	 * 
-	 * @return true if the vehicle is in it�s destination or false if doesn't.
+	 * @return true if the vehicle is in its destination or false if doesn't.
 	 */
 	
 	public boolean atDestination() {
@@ -161,7 +161,7 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 	}
 	
 	/**
-	 * Ask the vehicle to move on the next road, 
+	 * Ask the vehicle to move on the next road.
 	 */
 	
 	void moveToNextRoad() {
@@ -184,7 +184,11 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 	}
 	
 
-	@Override
+	/**
+	 * Fills the report according with the information of the vehicle.
+	 * 
+	 * @param IniSection ini section which values will be set.
+	 */
 	protected void fillReportDetails(IniSection is) {
 		is.setValue("speed", _currentSpeed);
 		is.setValue("kilometrage", _kilometers);
@@ -195,13 +199,16 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 			is.setValue("location", "(" + _currentRoad + "," + _currentLocation + ")");
 	}
 
-	@Override
+	/**
+	 * Getter of the tag which identifies the vehicle "vehicle_report".
+	 */
+	
 	protected String getReportSectionTag() {
 		return "vehicle_report";
 	}
 
 	/**
-	 * Ask the vehicle to advance.
+	 * Ask the vehicle to advance through the road where currently is.
 	 */
 	
 	void advance() {
@@ -222,25 +229,17 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 			
 			_currentRoad.getDestination().enter(this);
 			_inJunction = true;
-			//moveToNextRoad();
 			
 			return;
 		}
-		
-		
-		
 	}
 
-	@Override
+	/**
+	 * Compares the class vehicle with the one passed as argument.
+	 */
+	
 	public int compareTo(Vehicle arg0) {
 		return -1 * Integer.signum(this.getLocation() - arg0.getLocation());
 	}
 	
-
-
-	
-
-	
-	
-
 }

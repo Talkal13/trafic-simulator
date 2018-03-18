@@ -24,11 +24,6 @@ public class RoundRobinJunction extends JunctionWithTimeSlice {
 		_minTimeSlice = minTimeSlice;
 	}
 	
-	/**
-	 * 
-	 * 
-	 */
-	
 	protected void switchLights() {
 		
 		if (checkIfAllRed()  && !_incomingRoads.isEmpty()) {
@@ -65,17 +60,12 @@ public class RoundRobinJunction extends JunctionWithTimeSlice {
 		road.setGreen(true);
 	}
 	
-	@Override
 	protected IncomingRoad createIncommingRoadQueue(Road r) {
 		IncomingRoadWithTimeSlice s = new IncomingRoadWithTimeSlice(r);
 		s.setGreen(false);
 		s.setTimeSlice(_maxTimeSlice);
 		return s;
 	}
-	
-	
-	
-	
 	
 	protected void fillReportDetails(IniSection is) {
 		super.fillReportDetails(is);

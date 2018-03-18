@@ -45,7 +45,7 @@ public class Road extends SimulatedObject {
 	}
 	
 	/**
-	 * Getter of the class attribute _source
+	 * Getter of the class attribute _source.
 	 * 
 	 * @return junction which is the origin of the road.
 	 */
@@ -55,7 +55,7 @@ public class Road extends SimulatedObject {
 	}
 	
 	/**
-	 * Getter of the class attribute _destination
+	 * Getter of the class attribute _destination.
 	 * 
 	 * @return junction which is the destiny of the road.
 	 */
@@ -65,9 +65,9 @@ public class Road extends SimulatedObject {
 	}
 	
 	/**
-	 * Getter of the class attribute _lenght
+	 * Getter of the class attribute _lenght.
 	 * 
-	 * @return length of the road
+	 * @return length of the road.
 	 */
 	
 	public int getLenght() {
@@ -75,7 +75,7 @@ public class Road extends SimulatedObject {
 	}
 	
 	/**
-	 * Getter of the class attribute _maxSpeed
+	 * Getter of the class attribute _maxSpeed.
 	 * 
 	 * @return junction which is the maximum speed allowed in the road.
 	 */
@@ -85,7 +85,7 @@ public class Road extends SimulatedObject {
 	}
 	
 	/**
-	 * Getter of the class attribute _vehicles
+	 * Getter of the class attribute _vehicles.
 	 * 
 	 * @return list which contains the vehicles contained in the road.
 	 */
@@ -108,25 +108,41 @@ public class Road extends SimulatedObject {
 	/**
 	 * Removes the vehicle passed as parameter from the list of vehicles in the road. 
 	 * 
-	 * @param v vehicle to be removed from the road
+	 * @param v vehicle to be removed from the road.
 	 */
 	
 	void exit(Vehicle v) {
-		//TODO: ?
 		_vehicles.remove(v);
 	}
+	
+	/**
+	 * Calculates the base speed of the road. According to the provided formula.
+	 * 
+	 * @return the base speed of the road.
+	 */
 	
 	protected int calculateBaseSpeed() {
 		_baseSpeed = Math.min(_maxSpeed, (Integer) (_maxSpeed / Math.max(_vehicles.size(), 1)) + 1);
 		return _baseSpeed;
 	}
 	
+	/**
+	 * Calculates the factor if speed reduction of the road.
+	 * 
+	 * @param obstacles number of faulty cars in the road.
+	 * @return 1 if there are no obstacles or 2 in other case.
+	 */
+	
 	protected int reduceSpeedFactor(int obstacles) {
 		if (obstacles == 0) return 1;
 		else return 2;
 	}
 
-	@Override
+	/**
+	 * 
+	 * 
+	 * IniSection
+	 */
 	protected void fillReportDetails(IniSection is) {
 		String report = "";
 		if (!_vehicles.isEmpty()) {
@@ -138,7 +154,10 @@ public class Road extends SimulatedObject {
 		is.setValue("state", report);
 	}
 
-	@Override
+	/**
+	 * 
+	 */
+	
 	protected String getReportSectionTag() {
 		return "road_report";
 	}
