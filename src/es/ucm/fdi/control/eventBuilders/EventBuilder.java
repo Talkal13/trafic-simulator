@@ -1,7 +1,9 @@
 package es.ucm.fdi.control.eventBuilders;
 
+import es.ucm.fdi.ini.IniError;
 import es.ucm.fdi.ini.IniSection;
 import es.ucm.fdi.model.Event;
+import es.ucm.fdi.model.SimulatorError;
 
 /**
  * @author Pablo & Diego
@@ -12,10 +14,26 @@ import es.ucm.fdi.model.Event;
 
 public abstract class EventBuilder {
 	
+	/**
+	 * Parser of each of the different Event Builders that will extends from this class.
+	 *  
+	 * @param section Ini file to be parsed.
+	 * @return the resulting Event of the parse.
+	 */
 	
 	public abstract Event parse(IniSection section);
+	
+	/**
+	 * Parses integers in the ini file.
+	 * 
+	 * @param section ini file to be parsed.
+	 * @param key key-value line of the ini file.
+	 * @param i the resulting value of the parse.
+	 * @return the integer which will be in a correct format.
+	 * @throws NumberFormatException in the case it doesn't accomplish the expected format (unsigned int)
+	 */
 
-	public static int parseNonNegInt(IniSection section, String key, int i) {
+	public static int parseNonNegInt(IniSection section, String key, int i) throws NumberFormatException{
 		String tempTime = section.getValue(key);
 		if (tempTime == null) {
 			return i;
@@ -23,25 +41,43 @@ public abstract class EventBuilder {
 		try {
 			return Integer.parseUnsignedInt(tempTime);
 		} catch (NumberFormatException e) {
-			return -1; //TODO: Throw exception
+			throw new NumberFormatException();
 		}
 	}
 
-	public static String validId(IniSection section, String key) {
+	/**
+	 * Makes sure the section has an id key valid and returns it.
+	 * 
+	 * @param section ini section to check.
+	 * @param key key-value line of the ini file.
+	 * @return the id value of the event to be built.
+	 * @throws SimulatorError in case there is no tempId or there is but isn't valid.
+	 */
+	
+	public static String validId(IniSection section, String key) throws SimulatorError {
 		String tempId = section.getValue(key);
-		if (tempId == null) {
-			return null; //TODO: Throw exception
+		if (tempId == null) { // case there is no id in the event when expected
+			throw new SimulatorError("No id in the ini Section of the event");
 		}
 		if (tempId.matches("^[a-zA-Z0-9_]+$"))
 			return tempId;
 		else
-			return null; //TODO: Throw exception
+			throw new SimulatorError("Id of the event doesnt match"); 
 	}
 	
-	public static int parsePositiveInt(IniSection section, String key) {
+	/**
+	 * Parses a number which should be positive in order to don't throw any exception, and accomplish the expected.
+	 * 
+	 * @param section ini section to be check.
+	 * @param key key-value line of the ini file.
+	 * @return the positive integer in the right format.
+	 * @throws NumberFormatException when worn format and SimulatorError when doesn't exist or not a positive integer
+	 */
+	
+	public static int parsePositiveInt(IniSection section, String key) throws Exception{
 		String tempValue = section.getValue(key);
 		if (tempValue == null) {
-			return 0; //TODO: Throw exception
+			throw new SimulatorError("No positive integer found when expected.");
 		}
 		try {
 			int tempNum = Integer.parseUnsignedInt(tempValue);
@@ -49,43 +85,70 @@ public abstract class EventBuilder {
 				return tempNum;
 			}
 			else {
-				return 0; //TODO: throw exception
+				throw new SimulatorError("The number expected to be positive was not.");
 			}
 		} catch (NumberFormatException e) {
-			return -1; //TODO: Throw exception
+			throw new NumberFormatException();
 		}
 	}
+	
+	/**
+	 * Parses a list of ids making sure that all of them accomplish the expected format.
+	 * 
+	 * @param section ini section to be check.
+	 * @param key key-value line of the ini file.
+	 * @return the list of ids in the right format.
+	 * @throws SimulatorError in case the list doesn't exist or any of the elements contained in it hasn´t expected format.
+	 */
 
-	public static String[] parseListValidId(IniSection section, String key) {
+	public static String[] parseListValidId(IniSection section, String key) throws SimulatorError{
 		String[] tempValidList = section.getValue(key).split(",");
 		if (tempValidList == null) {
-			return null; //TODO: Throw exception
+			throw new SimulatorError("List of ids wasnt found when expected.");
 		}
 		for (String s : tempValidList) {
 			if (!s.matches("^[a-zA-Z0-9_]+$"))
-				return null; //TODO: throw exception
+				throw new SimulatorError("An element with an incorrect ini format was found.");
 		}
 		return tempValidList;
 	}
+	
+	/**
+	 * Parses a double which should be non negative in order to don't throw any exception, and accomplish the expected.
+	 * 
+	 * @param section ini section to be check.
+	 * @param key key-value line of the ini file.
+	 * @return the non negative double in the right format.
+	 * @throws Exception SimulatorError if there weren't such a double and NumberFormatException if the format wasn't correct.
+	 */
 
-	public static double parseNonNegDouble(IniSection section, String key) {
+	public static double parseNonNegDouble(IniSection section, String key) throws Exception{
 		String tempTime = section.getValue(key);
 		if (tempTime == null) {
-			return -1;
+			throw new SimulatorError("No double found when expected.");
 		}
 		try {
 			Double d = Double.parseDouble(tempTime);
 			if (d < 0) return -1;
 			else return d;
 		} catch (NumberFormatException e) {
-			return -1; //TODO: Throw exception
+			throw new NumberFormatException();
 		}
 	}
-
-	public static long parsePositiveLong(IniSection section, String key) {
+	
+	/**
+	 * Parses a long which should be positive in order to don't throw any exception, and accomplish the expected.
+	 * 
+	 * @param section ini section to be check.
+	 * @param key key-value line of the ini file.
+	 * @return the positive long in the right format.
+	 * @throws Exception SimulatorError if there weren't such a long or wasn't positive and NumberFormatException if the format wasn't correct.
+	 */
+	
+	public static long parsePositiveLong(IniSection section, String key)  throws Exception{
 		String tempValue = section.getValue(key);
 		if (tempValue == null) {
-			return 0; //TODO: Throw exception
+			throw new SimulatorError("No long found when expected.");
 		}
 		try {
 			long tempNum = Long.parseUnsignedLong(tempValue);
@@ -93,10 +156,10 @@ public abstract class EventBuilder {
 				return tempNum;
 			}
 			else {
-				return 0; //TODO: throw exception
+				throw new SimulatorError("Not positive long found when expected.");
 			}
 		} catch (NumberFormatException e) {
-			return -1; //TODO: Throw exception
+			throw new NumberFormatException();
 		}
 	}
 
