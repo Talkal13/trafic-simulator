@@ -33,7 +33,7 @@ public abstract class EventBuilder {
 	 * @throws NumberFormatException in the case it doesn't accomplish the expected format (unsigned int)
 	 */
 
-	public static int parseNonNegInt(IniSection section, String key, int i) throws NumberFormatException{
+	public static int parseNonNegInt(IniSection section, String key, int i) {
 		String tempTime = section.getValue(key);
 		if (tempTime == null) {
 			return i;
@@ -41,7 +41,7 @@ public abstract class EventBuilder {
 		try {
 			return Integer.parseUnsignedInt(tempTime);
 		} catch (NumberFormatException e) {
-			throw new NumberFormatException();
+			throw new SimulatorError("Expected a non negative integer, none found");
 		}
 	}
 
@@ -132,7 +132,7 @@ public abstract class EventBuilder {
 			if (d < 0) return -1;
 			else return d;
 		} catch (NumberFormatException e) {
-			throw new SimulatorError("Expected a non negative integer, none found");
+			throw new SimulatorError("Expected a non negative double, none found");
 		}
 	}
 	
