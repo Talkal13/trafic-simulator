@@ -101,8 +101,8 @@ public class Road extends SimulatedObject {
 	 */
 	
 	void enter(Vehicle v) {
-		//TODO: Check if in the list;
-		_vehicles.add(v);
+		if (!_vehicles.contains(v))
+			_vehicles.add(v);
 	}
 	
 	/**

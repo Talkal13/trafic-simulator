@@ -34,11 +34,15 @@ public class RoadMap {
 	}
 	
 	public Road getRoad(String idRoad) {
-		return _roads.get(idRoad);
+		Road r = _roads.get(idRoad);
+		if (r == null) throw new SimulatorError("Road " + idRoad + " does not exist in the map");
+		return r;
 	}
 	
 	public Junction getJunction(String idJunction) {
-		return _junctions.get(idJunction);
+		Junction r = _junctions.get(idJunction);
+		if (r == null) throw new SimulatorError("Road " + idJunction + " does not exist in the map");
+		return r;
 	}
 	
 	//TODO: List or Map?

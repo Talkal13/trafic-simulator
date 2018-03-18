@@ -44,7 +44,7 @@ public class Junction extends SimulatedObject {
 		for (Road r : _outgoingRoads) {
 			if (r.getDestination().equals(j)) return r;
 		}
-		return null; //TODO: THROW EXCEPTION;
+		throw new SimulatorError("Road not found from " + this.getId() + " to " + j.getId());
 	}
 	
 	//never used?
@@ -52,7 +52,7 @@ public class Junction extends SimulatedObject {
 		for (Road r : _outgoingRoads) {
 			if (r.getSource().equals(j)) return r;
 		}
-		return null; //TODO: THROW EXCEPTION;
+		throw new SimulatorError("Road not found from " + j.getId() + " to " + this.getId());
 	}
 	
 	public List<IncomingRoad> getRoadsInfo() {
