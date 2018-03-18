@@ -30,6 +30,7 @@ public class RoadMap {
 	public Vehicle getVehicle(String idVehicle) {
 		Vehicle v =  _vehicles.get(idVehicle);
 		if (v == null) throw new SimulatorError("Vehicle " + idVehicle + " does not exist in the map");
+		return v;
 	}
 	
 	public Road getRoad(String idRoad) {
