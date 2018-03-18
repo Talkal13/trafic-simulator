@@ -139,10 +139,11 @@ public class Road extends SimulatedObject {
 	}
 
 	/**
+	 * Fills the report telling which is the current state of the road.
 	 * 
-	 * 
-	 * IniSection
+	 * @param IniSection section that contains the information to get.
 	 */
+	
 	protected void fillReportDetails(IniSection is) {
 		String report = "";
 		if (!_vehicles.isEmpty()) {
@@ -155,14 +156,19 @@ public class Road extends SimulatedObject {
 	}
 
 	/**
+	 * Returns the tag which identifies the object road.
 	 * 
+	 * @return the tag of the road.
 	 */
 	
 	protected String getReportSectionTag() {
 		return "road_report";
 	}
 
-	@Override
+	/**
+	 * Makes the road to advance, calculating the obstacles, setting the new speed of the vehicles that are on it and telling them then to advance.
+	 */
+	
 	void advance() {
 		calculateBaseSpeed();
 		int obstacles = 0;
@@ -176,9 +182,5 @@ public class Road extends SimulatedObject {
 		_vehicles.sort(new VehiclesComparator());
 		
 	}
-
-	
-	
-	
 
 }
