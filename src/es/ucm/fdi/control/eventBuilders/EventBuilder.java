@@ -57,7 +57,7 @@ public abstract class EventBuilder {
 	public static String validId(IniSection section, String key) throws SimulatorError {
 		String tempId = section.getValue(key);
 		if (tempId == null) { // case there is no id in the event when expected
-			throw new SimulatorError("No id in the ini Section of the event");
+			throw new SimulatorError("Missing " + key + " in the section " + section.getTag());
 		}
 		if (tempId.matches("^[a-zA-Z0-9_]+$"))
 			return tempId;
@@ -74,10 +74,10 @@ public abstract class EventBuilder {
 	 * @throws NumberFormatException when worn format and SimulatorError when doesn't exist or not a positive integer
 	 */
 	
-	public static int parsePositiveInt(IniSection section, String key) throws Exception{
+	public static int parsePositiveInt(IniSection section, String key) {
 		String tempValue = section.getValue(key);
 		if (tempValue == null) {
-			throw new SimulatorError("No positive integer found when expected.");
+			throw new SimulatorError("Missing " + key + " in the section " + section.getTag());
 		}
 		try {
 			int tempNum = Integer.parseUnsignedInt(tempValue);
@@ -88,7 +88,7 @@ public abstract class EventBuilder {
 				throw new SimulatorError("The number expected to be positive was not.");
 			}
 		} catch (NumberFormatException e) {
-			throw new NumberFormatException();
+			throw new SimulatorError("Expected a positive integer, none found");
 		}
 	}
 	
@@ -98,13 +98,13 @@ public abstract class EventBuilder {
 	 * @param section ini section to be check.
 	 * @param key key-value line of the ini file.
 	 * @return the list of ids in the right format.
-	 * @throws SimulatorError in case the list doesn't exist or any of the elements contained in it hasn´t expected format.
+	 * @throws SimulatorError in case the list doesn't exist or any of the elements contained in it hasnï¿½t expected format.
 	 */
 
 	public static String[] parseListValidId(IniSection section, String key) throws SimulatorError{
 		String[] tempValidList = section.getValue(key).split(",");
 		if (tempValidList == null) {
-			throw new SimulatorError("List of ids wasnt found when expected.");
+			throw new SimulatorError("Missing " + key + " in the section " + section.getTag());
 		}
 		for (String s : tempValidList) {
 			if (!s.matches("^[a-zA-Z0-9_]+$"))
@@ -122,17 +122,17 @@ public abstract class EventBuilder {
 	 * @throws Exception SimulatorError if there weren't such a double and NumberFormatException if the format wasn't correct.
 	 */
 
-	public static double parseNonNegDouble(IniSection section, String key) throws Exception{
+	public static double parseNonNegDouble(IniSection section, String key) {
 		String tempTime = section.getValue(key);
 		if (tempTime == null) {
-			throw new SimulatorError("No double found when expected.");
+			throw new SimulatorError("Missing " + key + " in the section " + section.getTag());
 		}
 		try {
 			Double d = Double.parseDouble(tempTime);
 			if (d < 0) return -1;
 			else return d;
 		} catch (NumberFormatException e) {
-			throw new NumberFormatException();
+			throw new SimulatorError("Expected a non negative integer, none found");
 		}
 	}
 	
@@ -145,10 +145,10 @@ public abstract class EventBuilder {
 	 * @throws Exception SimulatorError if there weren't such a long or wasn't positive and NumberFormatException if the format wasn't correct.
 	 */
 	
-	public static long parsePositiveLong(IniSection section, String key)  throws Exception{
+	public static long parsePositiveLong(IniSection section, String key) {
 		String tempValue = section.getValue(key);
 		if (tempValue == null) {
-			throw new SimulatorError("No long found when expected.");
+			throw new SimulatorError("Missing " + key + " in the section " + section.getTag());
 		}
 		try {
 			long tempNum = Long.parseUnsignedLong(tempValue);
@@ -159,7 +159,7 @@ public abstract class EventBuilder {
 				throw new SimulatorError("Not positive long found when expected.");
 			}
 		} catch (NumberFormatException e) {
-			throw new NumberFormatException();
+			throw new SimulatorError("Expected a positive long, none found");
 		}
 	}
 
