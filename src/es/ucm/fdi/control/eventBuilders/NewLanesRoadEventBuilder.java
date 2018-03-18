@@ -6,7 +6,7 @@ import es.ucm.fdi.model.NewLanesRoadEvent;
 import es.ucm.fdi.model.NewRoadEvent;
 
 /**
- * @author Pablo & Diego
+ * @author Pablo and Diego
  * 
  * Event builder which extends the EventBuilder for the events when a new Lanes Road is created.
  *

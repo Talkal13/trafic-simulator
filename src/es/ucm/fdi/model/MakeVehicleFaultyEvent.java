@@ -8,7 +8,8 @@ public class MakeVehicleFaultyEvent extends Event {
 	 * 
 	 * 
 	 * @param time
-	 * @param id
+	 * @param idVehicles
+	 * @param duration
 	 */
 	
 	public MakeVehicleFaultyEvent(int time, String[] idVehicles, int duration) {
@@ -16,6 +17,13 @@ public class MakeVehicleFaultyEvent extends Event {
 		_idVehicles = idVehicles;
 		_duration = duration;
 	}
+	
+	/**
+	 * 
+	 * @param map
+	 * @param ticks
+	 * 
+	 */
 
 	@Override
 	public void execute(RoadMap map, int ticks) {

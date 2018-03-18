@@ -5,7 +5,7 @@ import es.ucm.fdi.model.Event;
 import es.ucm.fdi.model.MakeVehicleFaultyEvent;
 
 /**
- * @author Pablo & Diego
+ * @author Pablo and Diego
  * 
  * Event builder which extends the EventBuilder for the events when a Vehicle gets faulty.
  *

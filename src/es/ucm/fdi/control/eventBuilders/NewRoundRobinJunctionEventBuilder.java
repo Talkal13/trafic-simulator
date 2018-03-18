@@ -5,7 +5,7 @@ import es.ucm.fdi.model.Event;
 import es.ucm.fdi.model.NewRoundRobinJunctionEvent;
 
 /**
- * @author Pablo & Diego
+ * @author Pablo and Diego
  * 
  * Event builder which extends the EventBuilder for the events when a new round robin junction is created.
  *

@@ -5,7 +5,7 @@ import es.ucm.fdi.model.Event;
 import es.ucm.fdi.model.NewJunctionEvent;
 
 /**
- * @author Pablo & Diego
+ * @author Pablo and Diego
  * 
  * Event builder which extends the EventBuilder for the events when a new junction is created.
  *

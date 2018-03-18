@@ -5,7 +5,7 @@ import java.util.Comparator;
 import es.ucm.fdi.model.Vehicle;
 
 /**
- * @author Pablo & Diego
+ * @author Pablo and Diego
  * 
  * Comparator class which implements the interface comparator of vehicles.
  */

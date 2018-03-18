@@ -7,7 +7,7 @@ import es.ucm.fdi.model.NewCarEvent;
 import es.ucm.fdi.model.NewVehicleEvent;
 
 /**
- * @author Pablo & Diego
+ * @author Pablo and Diego
  * 
  * Event builder which extends the EventBuilder for the events when a new round robin junction is created.
  *
@@ -21,7 +21,7 @@ public class NewVehicleEventBuilder extends EventBuilder {
 	 * Parser for the NewVehicleEventBuilder, checks if the section has the tag desired and parses its time, id,
 	 * max speed and itinerary.
 	 * 
-	 * @param IniSection to be parse, searching the information wanted.
+	 * @param section IniSection to be parse, searching the information wanted.
 	 * @return the Event with the parsed attributes.
 	 */
 	

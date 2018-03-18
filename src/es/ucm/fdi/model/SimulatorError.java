@@ -1,7 +1,7 @@
 package es.ucm.fdi.model;
 
 /**
- * @author Pablo & Diego
+ * @author Pablo and Diego
  *
  * Class which implements the Exception caused during the simulation of the program, extending from the RuntimeException.
  */

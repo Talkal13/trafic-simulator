@@ -7,7 +7,7 @@ import es.ucm.fdi.ini.IniSection;
 
 /**
  * 
- * @author Pablo & Diego
+ * @author Pablo and Diego
  * 
  * Class of the object vehicle, extension of the SimulatedObject. this class represent the vehicles which will traverse the roads and junctions of the 
  * simulation.
@@ -187,7 +187,7 @@ public class Vehicle extends SimulatedObject implements Comparable <Vehicle> {
 	/**
 	 * Fills the report according with the information of the vehicle.
 	 * 
-	 * @param IniSection ini section which values will be set.
+	 * @param is section which values will be set.
 	 */
 	protected void fillReportDetails(IniSection is) {
 		is.setValue("speed", _currentSpeed);

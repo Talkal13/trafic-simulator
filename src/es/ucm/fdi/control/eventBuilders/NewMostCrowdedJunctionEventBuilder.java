@@ -6,7 +6,7 @@ import es.ucm.fdi.model.NewJunctionEvent;
 import es.ucm.fdi.model.NewMostCrowdedJunctionEvent;
 
 /**
- * @author Pablo & Diego
+ * @author Pablo and Diego
  * 
  * Event builder which extends the EventBuilder for the events when a new Most Crowded Junction is created.
  *

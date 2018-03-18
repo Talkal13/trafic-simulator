@@ -6,7 +6,7 @@ import java.util.Comparator;
 import es.ucm.fdi.model.Vehicle;
 
 /**
- * @author Pablo & Diego
+ * @author Pablo and Diego
  *
  * Class which implements a sorted Array list which is going to be an extension of the generic ArrayLsit and is going
  * to take care of the list of vehicles contained in the roads and junctions

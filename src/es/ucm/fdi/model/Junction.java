@@ -10,7 +10,7 @@ import es.ucm.fdi.model.Junction.IncomingRoad;
 
 /**
  * 
- * @author Pablo & Diego
+ * @author Pablo and Diego
  * 
  * Class of the object junction, extension of the SimulatedObject. This class represent the junction which are used by vehicles, 
  * to go from one road to other.

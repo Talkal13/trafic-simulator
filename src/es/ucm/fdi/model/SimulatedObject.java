@@ -53,7 +53,7 @@ public abstract class SimulatedObject {
 	/**
 	 * Makes the report that tells which is the result of the simulation of the object.
 	 * 
-	 * @param Inisection which contains the information of the object.
+	 * @param is Inisection which contains the information of the object.
 	 */
 	
 	protected abstract void fillReportDetails(IniSection is);

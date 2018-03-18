@@ -8,7 +8,7 @@ import es.ucm.fdi.ini.IniSection;
 
 /**
  * 
- * @author Pablo & Diego
+ * @author Pablo and Diego
  * 
  * Class of the object road, extension of the SimulatedObject. this class represent the road which are traverse by vehicles, 
  * it goes from one junctions to other.

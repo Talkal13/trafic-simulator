@@ -6,7 +6,7 @@ import es.ucm.fdi.model.NewDirtRoadEvent;
 import es.ucm.fdi.model.NewLanesRoadEvent;
 
 /**
- * @author Pablo & Diego
+ * @author Pablo and Diego
  * 
  * Event builder which extends the EventBuilder for the events when a new dirt road is created.
  *

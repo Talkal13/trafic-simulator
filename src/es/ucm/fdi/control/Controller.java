@@ -13,7 +13,7 @@ import es.ucm.fdi.model.SimulatorError;
 import es.ucm.fdi.model.TrafficSimulator;
 
 /**
- * @author Pablo & Diego
+ * @author Pablo and Diego
  * 
  * Class Controller which stores the information about the input and output streams and invokes the trafficSimulatoronce is established the number of ticks
  */

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Pablo & Diego
+ * @author Pablo and Diego
  *
  * Class which represents the simulator of the traffic, running it according to the events parsed and generating the output.
  */

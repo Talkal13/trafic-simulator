@@ -6,7 +6,7 @@ import es.ucm.fdi.model.Event;
 import es.ucm.fdi.model.SimulatorError;
 
 /**
- * @author Pablo & Diego
+ * @author Pablo and Diego
  *
  * Abstract class which will extend all the different events that could happen during the execution.
  * 
