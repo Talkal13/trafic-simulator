@@ -16,8 +16,5 @@ public class NewRoundRobinJunctionEvent extends NewJunctionEvent{
 		map.addJunction(new RoundRobinJunction(_id, _minValueInterval, _maxValueInterval));
 	}
 	
-	public String toString() {
-		return null;
-	}
 
 }
