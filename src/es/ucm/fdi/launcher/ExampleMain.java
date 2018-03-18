@@ -181,7 +181,7 @@ public class ExampleMain {
 		//Ini ini = new Ini(_inFile);
 		//System.out.println(ini);
 		try {
-			InputStream _input = new FileInputStream(_inFile);
+			_input = new FileInputStream(_inFile);
 		} catch (FileNotFoundException e) {
 			System.err.print(e.getMessage());
 			return;
