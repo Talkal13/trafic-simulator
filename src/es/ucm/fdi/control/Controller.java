@@ -122,21 +122,31 @@ public class Controller {
 	 * @throws SimulatorError if there is an error, here it will be catch.
 	 */
 	
-	public void loadEvents(InputStream inStream) throws SimulatorError {
+	public boolean loadEvents(InputStream inStream) {
 		Ini ini;
 		
 		try {
 			ini = new Ini(inStream);
 		}
 		catch(IOException e){
-			throw new SimulatorError("Error in reading the events: " + e);
+			System.err.print("Error in reading the events: " + e);
+			return false;
 		}
-		//Goes throw all the elements of iniSectins to generate the corresponding element
-		for (IniSection sec : ini.getSections()) {
-			Event e = parserEvent(sec);
-			if(e != null) this._sim.addEvent(e);
-			else throw new SimulatorError("Unkown event: " +  sec.getTag());
+	
+		try {
+			for (IniSection sec : ini.getSections()) {
+				Event e = parserEvent(sec);
+				if(e != null) this._sim.addEvent(e);
+				else throw new SimulatorError("Unkown event: " +  sec.getTag());
+			}
+		} catch (SimulatorError e) {
+			System.err.print(e.getMessage() + "\n");
+			return false;
 		}
+		
+		return true;
+		
+		
 	}
 	
 	/**
