@@ -14,15 +14,7 @@ import es.ucm.fdi.model.NewBikeEvent;
 public class NewBikeEventBuilder extends EventBuilder{
 	
 	public static final String ID = "new_vehicle";
-	public static final String IDToString = "New Vehicle";
 	public static final String TYPE = "bike";
-	
-	/**
-	 * Constructor of the class.
-	 */
-	public NewBikeEventBuilder() {
-		
-	}
 
 	/**
 	 * Parser for the NewBikeEventBuilder, checks if the section has the tag desired and parses its time, id, max speed 
@@ -39,9 +31,4 @@ public class NewBikeEventBuilder extends EventBuilder{
 		return new NewBikeEvent(EventBuilder.parseNonNegInt(section, "time", 0), EventBuilder.validId(section, "id"), 
 				EventBuilder.parsePositiveInt(section, "max_speed"), EventBuilder.parseListValidId(section, "itinerary") );
 	}
-	
-	public String toString() {
-		return null;
-	}
-
 }

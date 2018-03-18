@@ -6,17 +6,25 @@ import es.ucm.fdi.model.NewBikeEvent;
 import es.ucm.fdi.model.NewCarEvent;
 import es.ucm.fdi.model.NewVehicleEvent;
 
+/**
+ * @author Pablo & Diego
+ * 
+ * Event builder which extends the EventBuilder for the events when a new round robin junction is created.
+ *
+ */
+
 public class NewVehicleEventBuilder extends EventBuilder {
 
 	public static final String ID = "new_vehicle";
-	public static final String IDToString = "New Vehicle";
+
+	/**
+	 * Parser for the NewVehicleEventBuilder, checks if the section has the tag desired and parses its time, id,
+	 * max speed and itinerary.
+	 * 
+	 * @param IniSection to be parse, searching the information wanted.
+	 * @return the Event with the parsed attributes.
+	 */
 	
-	
-	public NewVehicleEventBuilder() {
-		
-	}
-	
-	@Override
 	public Event parse(IniSection section) {
 		if(!section.getTag().equals(ID)) return null;
 		if (section.getValue("type") != null) return null;
@@ -25,9 +33,5 @@ public class NewVehicleEventBuilder extends EventBuilder {
 						EventBuilder.parsePositiveInt(section, "max_speed"), EventBuilder.parseListValidId(section, "itinerary"));
 				
 	}
-	
-	public String toString() {
-		return null;
-	}
-	
+
 }

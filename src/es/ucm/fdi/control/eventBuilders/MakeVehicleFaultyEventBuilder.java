@@ -16,14 +16,6 @@ public class MakeVehicleFaultyEventBuilder extends EventBuilder {
 	public static final String IDToString = "Make Vehicle Faulty";
 	
 	/**
-	 * Constructor of the class
-	 */
-	
-	public MakeVehicleFaultyEventBuilder() {
-		
-	}
-	
-	/**
 	 * Parser for the MakeVehicleFaultyEventBuilder, checks if the section has the tag desired and parses its time, duration of the faulty state
 	 * and which vehicle will be affected.
 	 * 
@@ -40,7 +32,7 @@ public class MakeVehicleFaultyEventBuilder extends EventBuilder {
 	}
 	
 	/**
-	 * return the phrase "Make Vehicle Faulty".
+	 * Return the phrase "Make Vehicle Faulty".
 	 */
 	public String toString(){
 		return IDToString;

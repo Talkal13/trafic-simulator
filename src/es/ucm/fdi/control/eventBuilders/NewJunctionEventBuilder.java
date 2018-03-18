@@ -17,14 +17,7 @@ public class NewJunctionEventBuilder extends EventBuilder{
 	public static final String IDToString = "New Junction";
 	
 	/**
-	 * Constructor of the class.
-	 */
-	public NewJunctionEventBuilder() {
-		
-	}
-	
-	/**
-	 * Parser for the NewJunctionEventBuilder, checks if the section has the tag desired and parses its time, id
+	 * Parser for the NewJunctionEventBuilder, checks if the section has the tag desired and parses its time, id.
 	 * 
 	 * @param IniSection to be parse, searching the information wanted.
 	 * @return the Event with the parsed attributes.
@@ -39,8 +32,9 @@ public class NewJunctionEventBuilder extends EventBuilder{
 	}
 	
 	/**
-	 * Returns the phrase "New Junction"
+	 * Returns the phrase "New Junction".
 	 */
+	
 	public String toString(){
 		return IDToString;
 		

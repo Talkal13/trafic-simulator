@@ -15,16 +15,7 @@ import es.ucm.fdi.model.NewLanesRoadEvent;
 public class NewDirtRoadEventBuilder extends EventBuilder{
 
 	public static final String ID = "new_road";
-	public static final String IDToString = "New Road";
 	public static final String TYPE = "dirt";
-	
-	/**
-	 * Constructor of the class.
-	 */
-	
-	public NewDirtRoadEventBuilder(){
-		
-	}
 
 	/**
 	 * Parser for the NewDirtRoadEventBuilder, checks if the section has the tag desired and parses its time, id, length, max speed, source,
@@ -40,10 +31,6 @@ public class NewDirtRoadEventBuilder extends EventBuilder{
 		
 		return new NewDirtRoadEvent(EventBuilder.parseNonNegInt(section, "time", 0), EventBuilder.validId(section, "id"), EventBuilder.parsePositiveInt(section, "length"),EventBuilder.parsePositiveInt(section, "max_speed"),
 				EventBuilder.validId(section, "src"), EventBuilder.validId(section, "dest"));
-	}
-	
-	public String toString() {
-		return null;
 	}
 
 }
