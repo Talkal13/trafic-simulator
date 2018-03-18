@@ -6,7 +6,7 @@ public class NewBikeEvent extends NewVehicleEvent{
 		super(time, id, max_speed, intinerary);
 	}
 	
-	//TODO: understand arguments
+	
 	public void execute(RoadMap roadTrip, int ticks) {
 		roadTrip.addVehicle(new Bike(_id, _max_speed, roadTrip.getJunctions(_itinerary)));
 	}

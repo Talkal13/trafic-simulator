@@ -189,12 +189,7 @@ public class ExampleMain {
 		_controller = new Controller(_traffic);
 		_controller.setEventBuilders(_eventBuilders);
 		_controller.setOutputStream(_output);
-		try {
-			_controller.loadEvents(_input);
-		} catch (SimulatorError e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		_controller.loadEvents(_input);
 		
 		_controller.run(_timeLimit);
 		

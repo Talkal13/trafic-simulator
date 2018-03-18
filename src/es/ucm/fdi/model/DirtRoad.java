@@ -18,7 +18,8 @@ public class DirtRoad extends Road {
 		return obstacles + 1; //TODO
 	}
 	
-	protected void fillreportDetails(IniSection is) {
+	@Override
+	protected void fillReportDetails(IniSection is) {
 		is.setValue("type", TYPE);
 		super.fillReportDetails(is);
 	}

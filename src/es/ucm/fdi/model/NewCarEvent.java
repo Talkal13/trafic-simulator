@@ -16,10 +16,8 @@ public class NewCarEvent extends NewVehicleEvent{
 		this._max_fault_duration = max_fault_duration;
 		this._fault_probability = fault_probability;
 		this._seed = seed;
-		// TODO Auto-generated constructor stub
 	}
 	
-	//TODO: understand arguments
 	public void execute(RoadMap map, int ticks) {
 		map.addVehicle(new Car(_id, _max_speed, _resistance, _max_fault_duration, _fault_probability, _seed, map.getJunctions(_itinerary)));
 	}

@@ -28,8 +28,6 @@ public class JunctionWithTimeSlice extends Junction {
 				_fullyUsed = false;
 			}
 			else {
-				//TODO saca el primer vehiculo de de la cola de vehiculos y le mueve a la siguiente carretera
-				//advance the first vehicle if any
 				super.advanceFirstVehicle();
 				_used = true;
 			}

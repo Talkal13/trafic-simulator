@@ -9,7 +9,9 @@ public class NewDirtRoadEvent extends NewRoadEvent{
 	//TODO: understand arguments
 	public void execute(RoadMap map, int ticks) {
 		Junction source = map.getJunction(_source);
-		Junction destination = map.getJunction(_destination); //TODO: If it doenst exist throw execption
+		if (source == null) throw new SimulatorError("Junction " + _source + " doesn't exist");
+		Junction destination = map.getJunction(_destination);
+		if (destination == null) throw new SimulatorError("Junction " + _destination + " doesn't exist");
 		map.addRoad(new DirtRoad(_id, _length, _maximumSpeed, source, destination));
 	}
 	

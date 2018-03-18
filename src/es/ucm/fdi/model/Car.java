@@ -30,15 +30,16 @@ public class Car extends Vehicle{
 		if (_faulty > 0) {
 			_resistance_kilometers = _kilometers;
 			_faulty--;
+			return;
 		}
 		
 		else if (_resistance_kilometers >= _resistance + _kilometers) {
 			if (_rand.nextDouble() < _fault_probability) {
 				super.makeFaulty(_rand.nextInt(_max_fault_duration) + 1);
-				super.advance();
+				
 			}
 		}
-		
+		super.advance();
 		
 	}
 	

@@ -24,8 +24,8 @@ public class MostCrowdedJunction extends JunctionWithTimeSlice{
 		if (_incomingRoads.isEmpty()) return null;
 		IncomingRoadWithTimeSlice max = (IncomingRoadWithTimeSlice) _incomingRoads.get(0);
 		for (int i = 0; i < _incomingRoads.size(); i++) {
-			if (max.getQueueSize() < _incomingRoads.get(0).getQueueSize()) {
-				max = (IncomingRoadWithTimeSlice) _incomingRoads.get(0);
+			if (max.getQueueSize() < _incomingRoads.get(i).getQueueSize()) {
+				max = (IncomingRoadWithTimeSlice) _incomingRoads.get(i);
 			}
 		}
 		return max;

@@ -42,8 +42,12 @@ public class Controller {
 	 * Reads the events and send them to the simulator
 	 * @throws SimulatorError 
 	 */
-	public void run() throws SimulatorError {
-		this.loadEvents(this._input);
+	public void run() {
+		try {
+			this.loadEvents(this._input);
+		} catch (SimulatorError e) {
+			System.err.print(e.getMessage());
+		}
 		//execute the simulation
 	}
 	
@@ -56,7 +60,12 @@ public class Controller {
 	}
 	
 	public void run(int ticks) {
-		_sim.run(ticks);
+		try {
+			_sim.run(ticks);
+		} catch (SimulatorError e) {
+			System.err.print(e.getMessage() + "\n");
+		}
+		
 	}
 	
 	public void loadEvents(InputStream inStream) throws SimulatorError {
@@ -78,7 +87,7 @@ public class Controller {
 		
 	}
 	
-	//Like Samir does 
+	
 	public static Event parserEvent(IniSection sec) {
 		int i = 0;
 		boolean go = true;

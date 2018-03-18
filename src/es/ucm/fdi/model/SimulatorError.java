@@ -1,6 +1,6 @@
 package es.ucm.fdi.model;
 
-public class SimulatorError extends Exception {
+public class SimulatorError extends RuntimeException {
 	
 	/**
 	 * 
