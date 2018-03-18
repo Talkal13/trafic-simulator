@@ -12,61 +12,115 @@ import es.ucm.fdi.model.Event;
 import es.ucm.fdi.model.SimulatorError;
 import es.ucm.fdi.model.TrafficSimulator;
 
+/**
+ * @author Pablo & Diego
+ * 
+ * Class Controller which stores the information about the input and output streams and invokes the trafficSimulatoronce is established the number of ticks
+ */
+
 public class Controller {
 	
 	protected TrafficSimulator _sim;
-	//this static is to avoid problems in parserEvent Magic, maybe in incorrect
-	static EventBuilder[] _eventBuilders = {};
+	static EventBuilder[] _eventBuilders = {};//this static is to avoid problems in parserEvent Magic, maybe incorrect
 	private InputStream _input;
 	private OutputStream _output;
 	private int _ticksSimulation;
+	
+	/**
+	 * Constructor of the class, assigns to the class attribute TrafficSimulator the one passed as parameter.
+	 * 
+	 * @param ts traffic simulator which will be use in order to simulate the behave of the application.
+	 */
 
 	public Controller(TrafficSimulator ts) {
 		_sim = ts;
 	}
 	
+	/**
+	 * Constructor of the class, this time also with the outstream as output parameter.
+	 * 			
+	 * @param ts traffic simulator which will be use in order to simulate the behave of the application.
+	 * @param output outstream which is use to show the information resulted from the application.
+	 */
+	
 	public Controller(TrafficSimulator ts, OutputStream output) {
-		
+		_sim = ts;
+		_output = output;
 	}
+	
+	/**
+	 * Setter of the class attribute eventBuilder.
+	 * 
+	 * @param eventBuilders new event builder of the controller.
+	 */
 	
 	public void setEventBuilders(EventBuilder[] eventBuilders) {
 		_eventBuilders = eventBuilders;
 	}
 	
+	/**
+	 * Getter of the class attribute eventBuilder.
+	 * 
+	 * @return the current event builder of the class.
+	 */
+	
 	public EventBuilder[] getEventBuilders() {
-		return null;
-		
+		return _eventBuilders;
 	}
 	
 	/**
-	 * Reads the events and send them to the simulator
-	 * @throws SimulatorError 
+	 * Reads the events and send them to the simulator in order to run the application.
+	 * 
+	 * @throws SimulatorError in case the simulation has thrown any exception during the loading, here it will be catch.
 	 */
+	
 	public void run() {
 		try {
 			this.loadEvents(this._input);
 		} catch (SimulatorError e) {
 			System.err.print(e.getMessage());
 		}
-		//execute the simulation
 	}
+	
+	/**
+	 * Resets the simulator, starting a new simulation, probably will be use in the GUI.
+	 */
 	
 	public void reset() {
 		
 	}
 	
+	/**
+	 * Setter of the class attribute outStream.
+	 * 
+	 * @param outStream new output flow to display the result of the simulation.
+	 */
+	
 	public void setOutputStream(OutputStream outStream) {
 		_output = outStream;
 	}
+	
+	/**
+	 * Receives as parameter the number of steps(ticks) that the simulation will last.
+	 * 
+	 * @param ticks number of ticks meanwhile the simulation will be run.
+	 */
 	
 	public void run(int ticks) {
 		try {
 			_sim.run(ticks);
 		} catch (SimulatorError e) {
 			System.err.print(e.getMessage() + "\n");
-		}
-		
+		}	
 	}
+	
+	/**
+	 * Loads an Ini file, first construct an instance of class Ini from the inStream, then try to parse each ini section in 
+	 * ini.getSections(), by calling their parse method of the Event, the first one that succeeds will return an event.
+	 * 
+	 * @param inStream stream which contains the set of events in INI format.
+	 * @throws SimulatorError if there is an error, here it will be catch.
+	 */
 	
 	public void loadEvents(InputStream inStream) throws SimulatorError {
 		Ini ini;
@@ -83,10 +137,14 @@ public class Controller {
 			if(e != null) this._sim.addEvent(e);
 			else throw new SimulatorError("Unkown event: " +  sec.getTag());
 		}
-		
-		
 	}
 	
+	/**
+	 * Will parse which is the Event from the Ini file has to be returned.
+	 * 
+	 * @param sec Ini file to be parsed.
+	 * @return the event to be added in the event loading process.
+	 */
 	
 	public static Event parserEvent(IniSection sec) {
 		int i = 0;

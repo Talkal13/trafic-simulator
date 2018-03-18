@@ -3,6 +3,13 @@ package es.ucm.fdi.control.eventBuilders;
 import es.ucm.fdi.ini.IniSection;
 import es.ucm.fdi.model.Event;
 
+/**
+ * @author Pablo & Diego
+ *
+ * Abstract class which will extend all the different events that could happen during the execution.
+ * 
+ */
+
 public abstract class EventBuilder {
 	
 	
