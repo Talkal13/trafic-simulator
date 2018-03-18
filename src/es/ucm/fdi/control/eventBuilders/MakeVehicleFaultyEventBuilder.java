@@ -23,7 +23,14 @@ public class MakeVehicleFaultyEventBuilder extends EventBuilder {
 		
 	}
 	
-
+	/**
+	 * Parser for the MakeVehicleFaultyEventBuilder, checks if the section has the tag desired and parses its time, duration of the faulty state
+	 * and which vehicle will be affected.
+	 * 
+	 * @param IniSection to be parse, searching the information wanted.
+	 * @return the Event with the parsed attributes.
+	 */
+	
 	public Event parse(IniSection section) {
 		if(!section.getTag().equals(ID))
 			return null;
@@ -32,6 +39,9 @@ public class MakeVehicleFaultyEventBuilder extends EventBuilder {
 			
 	}
 	
+	/**
+	 * return the phrase "Make Vehicle Faulty".
+	 */
 	public String toString(){
 		return IDToString;
 		

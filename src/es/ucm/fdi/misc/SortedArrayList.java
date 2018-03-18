@@ -19,23 +19,41 @@ public class SortedArrayList<E> extends ArrayList<E> {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Constructor of the class, stes the class attribute comparator to the one passed as an argument
-	 * @param comparator
+	 * Constructor of the class, sets the class attribute comparator to the one passed as an argument
+	 * 
+	 * @param comparator sets the class comparator to the one passed as parameter
 	 */
+	
 	public SortedArrayList(Comparator<E> comparator) {
 		super();
 		_comparator = comparator;
 	}
 	
+	/**
+	 * Constructor with no attributes just does the call to the constructor of the ArrayList
+	 */
+	
 	public SortedArrayList() {
 		super();
 	}
+	
+	/**
+	 * Adds to the SortedArrayList the element passed as argument.
+	 * 
+	 * @param E element which will be added to the SortedArrayList.
+	 */
 	
 	public boolean add(E element) {
 		super.add(element);
 		super.sort(_comparator);
 		return true;
 	}
+	
+	/**
+	 * Adds to the SortedArrayList the collection of elements passed as argument.
+	 * 
+	 * @param elements to be added to the SortedArrayList.
+	 */
 	
 	public boolean addAll(Collection<? extends E> elements) {
 		super.addAll(elements);

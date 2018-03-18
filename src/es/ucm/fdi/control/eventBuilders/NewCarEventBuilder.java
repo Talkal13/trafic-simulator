@@ -4,18 +4,35 @@ import es.ucm.fdi.ini.IniSection;
 import es.ucm.fdi.model.Event;
 import es.ucm.fdi.model.NewCarEvent;
 
+/**
+ * @author Pablo & Diego
+ * 
+ * Event builder which extends the EventBuilder for the events when a Car is built.
+ *
+ */
+
 public class NewCarEventBuilder extends EventBuilder{
 
 	public static final String ID = "new_vehicle";
 	public static final String IDToString = "New Vehicle";
 	public static final String TYPE = "car";
 	
+	/**
+	 * Constructor of the class.
+	 */
 	
 	public NewCarEventBuilder() {
 		
 	}
 	
-	@Override
+	/**
+	 * Parser for the NewCarEventBuilder, checks if the section has the tag desired and parses its time, id, max speed, resistance, itinerary,
+	 * max_fault_duration and fault_probability. it will also check if there is any seed to set the probability of it to get faulty.
+	 * 
+	 * @param IniSection to be parse, searching the information wanted.
+	 * @return the Event with the parsed attributes.
+	 */
+	
 	public Event parse(IniSection section) {
 		if(!section.getTag().equals(ID)) return null;
 		if (section.getValue("type") == null || !section.getValue("type").equals(TYPE)) return null;
