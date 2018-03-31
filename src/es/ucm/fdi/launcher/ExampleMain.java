@@ -22,6 +22,9 @@ import org.apache.commons.cli.ParseException;
 
 import es.ucm.fdi.control.Controller;
 import es.ucm.fdi.control.eventBuilders.*;
+import es.ucm.fdi.extra.MainFrame;
+import es.ucm.fdi.extra.graphlayout.GraphLayoutExample;
+import es.ucm.fdi.extra.texteditor.TextEditorExample;
 import es.ucm.fdi.ini.Ini;
 import es.ucm.fdi.misc.SortedArrayList;
 import es.ucm.fdi.model.Junction;
@@ -53,6 +56,7 @@ public class ExampleMain {
 	private static InputStream _input;
 	private static OutputStream _output;
 	private static Controller _controller; 
+	private static boolean _gui = false;
 
 	private static void parseArgs(String[] args) {
 
@@ -69,6 +73,7 @@ public class ExampleMain {
 			parseInFileOption(line);
 			parseOutFileOption(line);
 			parseStepsOption(line);
+			parseGuiOption(line);
 
 			// if there are some remaining arguments, then something wrong is
 			// provided in the command line!
@@ -99,6 +104,8 @@ public class ExampleMain {
 		cmdLineOptions.addOption(Option.builder("t").longOpt("ticks").hasArg()
 				.desc("Ticks to execute the simulator's main loop (default value is " + _timeLimitDefaultValue + ").")
 				.build());
+		cmdLineOptions.addOption(Option.builder("m").longOpt("mode").desc("’batch’ for batch mode and ’gui’ for GUI mode " + 
+				"(default value is ’batch’)").hasArg().build());
 
 		return cmdLineOptions;
 	}
@@ -120,6 +127,17 @@ public class ExampleMain {
 
 	private static void parseOutFileOption(CommandLine line) throws ParseException {
 		_outFile = line.getOptionValue("o");
+	}
+	
+	private static void parseGuiOption(CommandLine line) throws ParseException {
+		String s = line.getOptionValue("m");
+		if (s.equals("gui")) 
+			_gui = true;
+		else if (s.equals("batch"))
+			_gui = false;
+		else
+			throw new ParseException("Not a valid argument for mode");
+		
 	}
 
 	private static void parseStepsOption(CommandLine line) throws ParseException {
@@ -204,10 +222,17 @@ public class ExampleMain {
 		// Add your code here. Note that the input argument where parsed and stored into
 		// corresponding fields.
 	}
+	
+	private static void startGuiMode() {
+		new MainFrame();
+	}
 
 	private static void start(String[] args) throws IOException {
 		parseArgs(args);
-		startBatchMode();
+		if (_gui)
+			startGuiMode();
+		else
+			startBatchMode();
 	}
 
 	public static void main(String[] args) throws IOException, InvocationTargetException, InterruptedException {
@@ -227,7 +252,7 @@ public class ExampleMain {
 
 		// Call start to start the simulator from command line, etc.
 		//start(args);
-		test("examples/basic/");
+		test("resources/examples/advanced/");
 
 	}
 

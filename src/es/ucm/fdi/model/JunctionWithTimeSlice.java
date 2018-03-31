@@ -22,6 +22,7 @@ public class JunctionWithTimeSlice extends Junction {
 		}
 		
 		protected void advanceFirstVehicle() {
+			
 			++_usedTimeUnits;
 			
 			if(_queue.isEmpty()) {
@@ -31,6 +32,8 @@ public class JunctionWithTimeSlice extends Junction {
 				super.advanceFirstVehicle();
 				_used = true;
 			}
+			
+			
 		}
 		
 		protected void setGreen(boolean green) {
