@@ -52,7 +52,8 @@ public class MostCrowdedJunction extends JunctionWithTimeSlice{
 	protected void turnLightOn() {
 		IncomingRoadWithTimeSlice max = getMostCrowded();
 		max.setGreen(true);
-		max.setTimeSlice(Math.max(max.getQueueSize(), 1));
+		max.setTimeSlice(Math.max(max.getQueueSize() / 2, 1));
+		max.setUsedTimeUnits(0);
 	}
 	
 	protected void fillReportDetails(IniSection is) {

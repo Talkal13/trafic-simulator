@@ -64,6 +64,7 @@ public class RoundRobinJunction extends JunctionWithTimeSlice {
 		IncomingRoadWithTimeSlice s = new IncomingRoadWithTimeSlice(r);
 		s.setGreen(false);
 		s.setTimeSlice(_maxTimeSlice);
+		s.setUsedTimeUnits(0);
 		return s;
 	}
 	

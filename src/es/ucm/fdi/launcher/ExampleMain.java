@@ -131,7 +131,10 @@ public class ExampleMain {
 	
 	private static void parseGuiOption(CommandLine line) throws ParseException {
 		String s = line.getOptionValue("m");
-		if (s.equals("gui")) 
+		if (s == null) {
+			_gui = false;
+		}
+		else if (s.equals("gui")) 
 			_gui = true;
 		else if (s.equals("batch"))
 			_gui = false;

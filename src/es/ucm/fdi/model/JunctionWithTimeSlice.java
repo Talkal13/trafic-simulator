@@ -19,6 +19,8 @@ public class JunctionWithTimeSlice extends Junction {
 			super(road);
 			_timeSlice = 0;
 			_usedTimeUnits = 0;
+			_fullyUsed = true;
+			_used = false;
 		}
 		
 		protected void advanceFirstVehicle() {
@@ -31,6 +33,7 @@ public class JunctionWithTimeSlice extends Junction {
 			else {
 				super.advanceFirstVehicle();
 				_used = true;
+				
 			}
 			
 			
@@ -38,7 +41,6 @@ public class JunctionWithTimeSlice extends Junction {
 		
 		protected void setGreen(boolean green) {
 			super.setGreen(green);
-			_usedTimeUnits = 0;
 			_fullyUsed = true;
 			_used = false;
 			return;
@@ -81,7 +83,7 @@ public class JunctionWithTimeSlice extends Junction {
 		}
 		
 		public boolean timeConsumed() {
-			return _usedTimeUnits >= _timeSlice;
+			return _usedTimeUnits == _timeSlice;
 		}
 		
 		public String toString() {
