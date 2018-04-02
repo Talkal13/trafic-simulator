@@ -13,7 +13,6 @@ public class NewBikeEvent extends NewVehicleEvent{
 	
 	public String toString() {
 		return null;
-		
 	}
 
 }

@@ -44,10 +44,10 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 		int limit = _time + ticks - 1;
 		
 		while (_time <= limit) {
-			try {
+			//try {
 				for (Event e : _events) {
 					if (_time == e.getScheduledTime()) {
-						NotifyNewEvent(e);
+						//NotifyNewEvent(e);
 						e.execute(_map, _time);
 					}
 				}
@@ -61,11 +61,14 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 				}
 				
 				_time++;
-				
-				_outStream.write(_map.generateReport(_time).getBytes());
-			} catch (Exception e) {
-				NotifyError();
-			}
+				try {
+					_outStream.write(_map.generateReport(_time).getBytes());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			//} catch (Exception e) {
+				//NotifyError();
+			//}
 		}
 	}
 	
@@ -104,16 +107,16 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 	 */
 	public void NotifyNewEvent(Event e) {
 		for (TrafficSimulatorObserver o : obs) {
-			o.onNewEvent(e);
+			o.onNewEvent(e, _map, _time);
 		}
 	}
 	
 	/**
 	 * Notify to the observers the simulator has advanced
 	 */
-	public void NotifyAdvance() {
+	public void NotifyAdvance(SimulatedObject k) {
 		for (TrafficSimulatorObserver o : obs) {
-			o.onAdvance(this);
+			o.onAdvance(k);
 		}
 	}
 	

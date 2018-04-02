@@ -21,10 +21,16 @@ public class MostCrowdedJunction extends JunctionWithTimeSlice{
 	}
 	
 	protected IncomingRoadWithTimeSlice getMostCrowded() {
+		IncomingRoadWithTimeSlice max;
+
 		if (_incomingRoads.isEmpty()) return null;
-		IncomingRoadWithTimeSlice max = (IncomingRoadWithTimeSlice) _incomingRoads.get(0);
+		max = (IncomingRoadWithTimeSlice) _incomingRoads.get(0);
+		if (_incomingRoads.size() > 1) {
+			if (max.hasGreenLight())
+				max = (IncomingRoadWithTimeSlice) _incomingRoads.get(1);
+		}
 		for (int i = 0; i < _incomingRoads.size(); i++) {
-			if (max.getQueueSize() < _incomingRoads.get(i).getQueueSize()) {
+			if (max.getQueueSize() < _incomingRoads.get(i).getQueueSize() && !_incomingRoads.get(i).hasGreenLight()) {
 				max = (IncomingRoadWithTimeSlice) _incomingRoads.get(i);
 			}
 		}
@@ -38,8 +44,10 @@ public class MostCrowdedJunction extends JunctionWithTimeSlice{
 		}
 		for (int i = 0; i < _incomingRoads.size(); i++) {
 			if (_incomingRoads.get(i).hasGreenLight() && ((IncomingRoadWithTimeSlice) _incomingRoads.get(i)).timeConsumed()) {
-				_incomingRoads.get(i).setGreen(false);
-				turnLightOn();
+				
+				
+				if (!_incomingRoads.get(i).equals(turnLightOn()))
+					_incomingRoads.get(i).setGreen(false);
 			}
 		}
 			
@@ -49,11 +57,13 @@ public class MostCrowdedJunction extends JunctionWithTimeSlice{
 		
 	}
 	
-	protected void turnLightOn() {
+	protected IncomingRoadWithTimeSlice turnLightOn() {
 		IncomingRoadWithTimeSlice max = getMostCrowded();
-		max.setGreen(true);
-		max.setTimeSlice(Math.max(max.getQueueSize() / 2, 1));
+		
+		max.setTimeSlice(Math.max((int) (max.getQueueSize() / 2), 1));
 		max.setUsedTimeUnits(0);
+		max.setGreen(true);
+		return max;
 	}
 	
 	protected void fillReportDetails(IniSection is) {

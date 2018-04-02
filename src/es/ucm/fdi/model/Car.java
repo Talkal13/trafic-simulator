@@ -28,17 +28,20 @@ public class Car extends Vehicle{
 	
 	void advance() {
 		if (_faulty > 0) {
-			_resistance_kilometers = _kilometers;
+			_resistance_kilometers = 0;
 			_faulty--;
 			return;
 		}
 		
-		else if (_resistance_kilometers >= _resistance + _kilometers) {
+		else if (_resistance_kilometers >= _resistance) {
+			
 			if (_rand.nextDouble() < _fault_probability) {
-				super.makeFaulty(_rand.nextInt(_max_fault_duration) + 1);
-				
+				super.makeFaulty(_rand.nextInt(_max_fault_duration));
+				return;
 			}
+			
 		}
+		_resistance_kilometers += _currentSpeed;
 		super.advance();
 		
 	}

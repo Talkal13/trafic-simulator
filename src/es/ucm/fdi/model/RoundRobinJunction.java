@@ -45,13 +45,14 @@ public class RoundRobinJunction extends JunctionWithTimeSlice {
 	}
 	
 	protected void turnLightOff(IncomingRoadWithTimeSlice road) {
-		road.setGreen(false);
+		
 		if (road.isFullyUsed()) {
 			road.setTimeSlice(Math.min(road.getTimeSlice() + 1, this._maxTimeSlice));
 		}
-		else if (!road.isUsed()) {
+		if (!road.isUsed()) {
 			road.setTimeSlice(Math.max(road.getTimeSlice() - 1, _minTimeSlice));
 		}
+		road.setGreen(false);
 		road.setUsedTimeUnits(0);
 		return;
 	}
