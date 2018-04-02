@@ -5,18 +5,21 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * @author Pablo and Diego
  *
  * Class which represents the simulator of the traffic, running it according to the events parsed and generating the output.
  */
 
-public class TrafficSimulator {
+public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 	
 	private RoadMap _map;
 	private int _time;
 	private List<Event> _events;
 	private OutputStream _outStream;
+	
+	private List<TrafficSimulatorObserver> obs;
 	
 	/**
 	 * Constructor of the class, sets the time to 0 and create new objects ArrayList and  Road map.
@@ -41,25 +44,27 @@ public class TrafficSimulator {
 		int limit = _time + ticks - 1;
 		
 		while (_time <= limit) {
-			for (Event e : _events) {
-				if (_time == e.getScheduledTime())
-					e.execute(_map, _time);
-			}
-			
-			for (Road e : _map.getRoads()) {
-				e.advance();
-			}
-			
-			for (Junction j : _map.getJunctions()) {
-				j.advance();
-			}
-			
-			_time++;
-			
 			try {
+				for (Event e : _events) {
+					if (_time == e.getScheduledTime()) {
+						NotifyNewEvent(e);
+						e.execute(_map, _time);
+					}
+				}
+				
+				for (Road e : _map.getRoads()) {
+					e.advance();
+				}
+				
+				for (Junction j : _map.getJunctions()) {
+					j.advance();
+				}
+				
+				_time++;
+				
 				_outStream.write(_map.generateReport(_time).getBytes());
-			} catch (IOException e1) {
-				e1.printStackTrace();
+			} catch (Exception e) {
+				NotifyError();
 			}
 		}
 	}
@@ -82,7 +87,45 @@ public class TrafficSimulator {
 		_events.clear();
 		_map.clear();
 		_time = 0;
+		NotifyReset();
 	}
+	
+	/**
+	 * Notify to the observers the simulator has been reseted
+	 */
+	public void NotifyReset() {
+		for (TrafficSimulatorObserver o : obs) {
+			o.onReset(this);
+		}
+	}
+	
+	/**
+	 * Notify to the observers the simulator has a new event
+	 */
+	public void NotifyNewEvent(Event e) {
+		for (TrafficSimulatorObserver o : obs) {
+			o.onNewEvent(e);
+		}
+	}
+	
+	/**
+	 * Notify to the observers the simulator has advanced
+	 */
+	public void NotifyAdvance() {
+		for (TrafficSimulatorObserver o : obs) {
+			o.onAdvance(this);
+		}
+	}
+	
+	/**
+	 * Notify to the observers the simulator had an error
+	 */
+	public void NotifyError() {
+		for (TrafficSimulatorObserver o : obs) {
+			o.onError(this);
+		}
+	}
+	
 	
 	/**
 	 * Setter method of the outStream class attribute.
@@ -93,20 +136,33 @@ public class TrafficSimulator {
 	public void setOutStream(OutputStream outStream) {
 		_outStream = outStream;
 	}
-	
-	//Will be used in the GUI
+
 	/**
+	 * 
+	 * Adds a class to the list of observers
+	 * 
+	 * @param observer
+	 */
+	@Override
 	public void addObserver(TrafficSimulatorObserver observer) {
-		//TODO
+		obs.add(observer);
+		observer.onRegistered(this);
 	}
 	
-	public void removerObserver(TrafficSimulatorObserver observer) {
-		//TODO
+	/**
+	 * 
+	 * Removes a class from the list of observers
+	 * 
+	 * @param observer
+	 */
+	@Override
+	public void removeObserver(TrafficSimulatorObserver observer) {
+		obs.remove(observer);
+		
 	}
 	
 	public String toString() {
 		//TODO
 		return null;
 	}
-	*/
 }
