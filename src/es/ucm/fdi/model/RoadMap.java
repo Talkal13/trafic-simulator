@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RoadMap {
+public class RoadMap implements RoadMapInterface {
 	
 	List<Vehicle> _vehiclesList;
 	List<Road> _roadsList;
@@ -66,14 +66,14 @@ public class RoadMap {
 		return itinerary;
 	}
 	
-	void addJunction(Junction newJunction) {
+	public void addJunction(Junction newJunction) {
 		if (!_junctions.containsKey(newJunction.getId())) {
 			_junctions.put(newJunction.getId(), newJunction);
 			_junctionsList.add(newJunction);
 		}
 	}
 	
-	void addVehicle(Vehicle newVehicle) {
+	public void addVehicle(Vehicle newVehicle) {
 		if (!_vehicles.containsKey(newVehicle.getId())) {
 			_vehicles.put(newVehicle.getId(), newVehicle);
 			newVehicle.moveToNextRoad();
@@ -82,7 +82,7 @@ public class RoadMap {
 			
 	}
 
-	void addRoad(Road newRoad) {
+	public void addRoad(Road newRoad) {
 		if (!_roads.containsKey(newRoad.getId())) {
 			_roads.put(newRoad.getId(), newRoad);
 			getJunction(newRoad.getSource().getId()).addOutgoingRoad(newRoad);
@@ -91,7 +91,7 @@ public class RoadMap {
 		}
 	}
 	
-	void clear() {
+	public void clear() {
 		_vehicles.clear();
 		_vehiclesList.clear();
 		_roads.clear();

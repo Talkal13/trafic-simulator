@@ -9,7 +9,7 @@ import java.util.List;
  * Class which creates a new object vehicle to be placed in the simulation.
  */
 
-public class NewVehicleEvent extends Event implements TrafficSimulatorObserver {
+public class NewVehicleEvent extends Event {
 	
 	protected String _id;
 	protected Integer _max_speed;
@@ -40,38 +40,6 @@ public class NewVehicleEvent extends Event implements TrafficSimulatorObserver {
 	
 	public void execute(RoadMap map, int ticks) {
 		map.addVehicle(new Vehicle(_id, _max_speed, map.getJunctions(_itinerary)));	
-	}
-
-	@Override
-	public void onRegistered(TrafficSimulator t) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReset(TrafficSimulator t) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onNewEvent(Event e, RoadMap map, int ticks) {
-		if (e.equals(this))
-			execute(map, ticks);
-		
-	}
-
-
-	@Override
-	public void onError(TrafficSimulator t) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onAdvance(SimulatedObject o) {
-		// TODO Auto-generated method stub
-		
 	}
 
 

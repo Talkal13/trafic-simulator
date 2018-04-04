@@ -23,6 +23,7 @@ import org.apache.commons.cli.ParseException;
 import es.ucm.fdi.control.Controller;
 import es.ucm.fdi.control.eventBuilders.*;
 import es.ucm.fdi.extra.MainFrame;
+import es.ucm.fdi.extra.dialog.DialogWindowExample;
 import es.ucm.fdi.extra.graphlayout.GraphLayoutExample;
 import es.ucm.fdi.extra.texteditor.TextEditorExample;
 import es.ucm.fdi.ini.Ini;
@@ -31,6 +32,7 @@ import es.ucm.fdi.model.Junction;
 import es.ucm.fdi.model.SimulatorError;
 import es.ucm.fdi.model.TrafficSimulator;
 import es.ucm.fdi.model.Vehicle;
+import es.ucm.fdi.view.ConsoleView;
 
 public class ExampleMain {
 
@@ -215,6 +217,7 @@ public class ExampleMain {
 		_controller = new Controller(_traffic);
 		_controller.setEventBuilders(_eventBuilders);
 		_controller.setOutputStream(_output);
+		_traffic.addObserver(new ConsoleView(_output));
 		
 		
 		if (!_controller.loadEvents(_input)) return;
@@ -255,7 +258,7 @@ public class ExampleMain {
 
 		// Call start to start the simulator from command line, etc.
 		//start(args);
-		test("resources/examples/advanced/");
+		test("resources/examples/basic");
 
 	}
 

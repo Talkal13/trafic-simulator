@@ -12,14 +12,15 @@ import java.util.List;
  * Class which represents the simulator of the traffic, running it according to the events parsed and generating the output.
  */
 
-public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
+public class TrafficSimulator implements Observable<TrafficSimulatorObserver>, TrafficSimulatorInterface {
 	
 	private RoadMap _map;
 	private int _time;
 	private List<Event> _events;
 	private OutputStream _outStream;
+	private ReadOnlyTrafficSimulator _t;
 	
-	private List<TrafficSimulatorObserver> obs;
+	private List<TrafficSimulatorObserver> _obs;
 	
 	/**
 	 * Constructor of the class, sets the time to 0 and create new objects ArrayList and  Road map.
@@ -32,6 +33,8 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 		_outStream = outStream;
 		_events = new ArrayList<Event>();
 		_map = new RoadMap();
+		_obs = new ArrayList<TrafficSimulatorObserver>();
+		_t = new ReadOnlyTrafficSimulator(this);
 	}
 	
 	/**
@@ -44,31 +47,29 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 		int limit = _time + ticks - 1;
 		
 		while (_time <= limit) {
-			//try {
+			try {
 				for (Event e : _events) {
 					if (_time == e.getScheduledTime()) {
-						//NotifyNewEvent(e);
 						e.execute(_map, _time);
+						NotifyNewEvent(e);
 					}
 				}
 				
 				for (Road e : _map.getRoads()) {
 					e.advance();
+					//NotifyAdvance(e);
 				}
 				
 				for (Junction j : _map.getJunctions()) {
 					j.advance();
+					//NotifyAdvance(j);
 				}
 				
 				_time++;
-				try {
-					_outStream.write(_map.generateReport(_time).getBytes());
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			//} catch (Exception e) {
-				//NotifyError();
-			//}
+				NotifyAdvance();
+			} catch (Exception e) {
+				NotifyError(e.getMessage());
+			}
 		}
 	}
 	
@@ -80,6 +81,10 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 	
 	public void addEvent(Event e) {
 		_events.add(e);
+	}
+	
+	public String generateReport(int time) {
+		return this._map.generateReport(time);
 	}
 	
 	/**
@@ -97,7 +102,7 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 	 * Notify to the observers the simulator has been reseted
 	 */
 	public void NotifyReset() {
-		for (TrafficSimulatorObserver o : obs) {
+		for (TrafficSimulatorObserver o : _obs) {
 			o.onReset(this);
 		}
 	}
@@ -106,7 +111,7 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 	 * Notify to the observers the simulator has a new event
 	 */
 	public void NotifyNewEvent(Event e) {
-		for (TrafficSimulatorObserver o : obs) {
+		for (TrafficSimulatorObserver o : _obs) {
 			o.onNewEvent(e, _map, _time);
 		}
 	}
@@ -115,17 +120,23 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 	 * Notify to the observers the simulator has advanced
 	 */
 	public void NotifyAdvance(SimulatedObject k) {
-		for (TrafficSimulatorObserver o : obs) {
-			o.onAdvance(k);
+		for (TrafficSimulatorObserver o : _obs) {
+			o.onAdvance(k, _time);
+		}
+	}
+	
+	public void NotifyAdvance() {
+		for (TrafficSimulatorObserver o : _obs) {
+			o.onAdvance(_t, _time);
 		}
 	}
 	
 	/**
 	 * Notify to the observers the simulator had an error
 	 */
-	public void NotifyError() {
-		for (TrafficSimulatorObserver o : obs) {
-			o.onError(this);
+	public void NotifyError(String msg) {
+		for (TrafficSimulatorObserver o : _obs) {
+			o.onError(msg);
 		}
 	}
 	
@@ -148,7 +159,7 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 	 */
 	@Override
 	public void addObserver(TrafficSimulatorObserver observer) {
-		obs.add(observer);
+		_obs.add(observer);
 		observer.onRegistered(this);
 	}
 	
@@ -160,12 +171,22 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 	 */
 	@Override
 	public void removeObserver(TrafficSimulatorObserver observer) {
-		obs.remove(observer);
+		_obs.remove(observer);
 		
 	}
 	
 	public String toString() {
 		//TODO
 		return null;
+	}
+
+	public int getTime() {
+		return _time;
+	}
+
+
+	@Override
+	public RoadMapInterface getRoadMap() {
+		return _map;
 	}
 }

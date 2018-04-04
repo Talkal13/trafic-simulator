@@ -30,6 +30,7 @@ kilometrage = 11
 faulty = 0
 location = (lanes1,11)
 
+
 [junction_report]
 id = j1
 time = 2
@@ -61,6 +62,7 @@ speed = 11
 kilometrage = 22
 faulty = 0
 location = (lanes1,22)
+
 
 [junction_report]
 id = j1
@@ -94,6 +96,7 @@ kilometrage = 33
 faulty = 0
 location = (lanes1,33)
 
+
 [junction_report]
 id = j1
 time = 4
@@ -125,6 +128,7 @@ speed = 11
 kilometrage = 44
 faulty = 0
 location = (lanes1,44)
+
 
 [junction_report]
 id = j1
@@ -158,6 +162,7 @@ kilometrage = 55
 faulty = 0
 location = (lanes1,55)
 
+
 [junction_report]
 id = j1
 time = 6
@@ -189,6 +194,7 @@ speed = 11
 kilometrage = 66
 faulty = 0
 location = (lanes1,66)
+
 
 [junction_report]
 id = j1
@@ -222,6 +228,7 @@ kilometrage = 77
 faulty = 0
 location = (lanes1,77)
 
+
 [junction_report]
 id = j1
 time = 8
@@ -253,6 +260,7 @@ speed = 11
 kilometrage = 88
 faulty = 0
 location = (lanes1,88)
+
 
 [junction_report]
 id = j1
@@ -286,6 +294,7 @@ kilometrage = 99
 faulty = 0
 location = (lanes1,99)
 
+
 [junction_report]
 id = j1
 time = 10
@@ -317,4 +326,5 @@ speed = 0
 kilometrage = 100
 faulty = 0
 location = (lanes1,100)
+
 

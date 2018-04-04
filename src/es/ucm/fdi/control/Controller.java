@@ -78,7 +78,7 @@ public class Controller {
 		try {
 			this.loadEvents(this._input);
 		} catch (SimulatorError e) {
-			System.err.print(e.getMessage());
+			_sim.NotifyError(e.getMessage());
 		}
 	}
 	
@@ -129,15 +129,14 @@ public class Controller {
 			ini = new Ini(inStream);
 		}
 		catch(IOException e){
-			System.err.print("Error in reading the events: " + e);
+			_sim.NotifyError("Error in reading the events: " + e);
 			return false;
 		}
 	
 		try {
 			for (IniSection sec : ini.getSections()) {
 				Event e = parserEvent(sec);
-				if(e != null) this._sim.addEvent(e);
-				else throw new SimulatorError("Unkown event: " +  sec.getTag());
+				this._sim.addEvent(e);
 			}
 		} catch (SimulatorError e) {
 			System.err.print(e.getMessage() + "\n");
