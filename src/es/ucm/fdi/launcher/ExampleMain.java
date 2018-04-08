@@ -257,8 +257,8 @@ public class ExampleMain {
 	    //	test("resources/examples/events/basic");
 
 		// Call start to start the simulator from command line, etc.
-		//start(args);
-		test("resources/examples/basic");
+		start(args);
+		//test("resources/examples/basic");
 
 	}
 

@@ -29,6 +29,7 @@ kilometrage = 11
 faulty = 0
 location = (r1,11)
 
+
 [junction_report]
 id = j1
 time = 2
@@ -59,6 +60,7 @@ speed = 11
 kilometrage = 22
 faulty = 0
 location = (r1,22)
+
 
 [junction_report]
 id = j1
@@ -91,6 +93,7 @@ kilometrage = 27
 faulty = 0
 location = (r1,27)
 
+
 [junction_report]
 id = j1
 time = 4
@@ -121,6 +124,7 @@ speed = 11
 kilometrage = 38
 faulty = 0
 location = (r1,38)
+
 
 [junction_report]
 id = j1
@@ -153,6 +157,7 @@ kilometrage = 49
 faulty = 0
 location = (r1,49)
 
+
 [junction_report]
 id = j1
 time = 6
@@ -183,6 +188,7 @@ speed = 11
 kilometrage = 60
 faulty = 0
 location = (r1,60)
+
 
 [junction_report]
 id = j1
@@ -215,6 +221,7 @@ kilometrage = 71
 faulty = 0
 location = (r1,71)
 
+
 [junction_report]
 id = j1
 time = 8
@@ -245,6 +252,7 @@ speed = 11
 kilometrage = 82
 faulty = 0
 location = (r1,82)
+
 
 [junction_report]
 id = j1
@@ -277,6 +285,7 @@ kilometrage = 93
 faulty = 0
 location = (r1,93)
 
+
 [junction_report]
 id = j1
 time = 10
@@ -307,4 +316,5 @@ speed = 0
 kilometrage = 100
 faulty = 0
 location = arrived
+
 

@@ -3,6 +3,8 @@ package es.ucm.fdi.extra;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,13 +54,24 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		JPanel mainPanel = new JPanel( new BorderLayout(5,5) );
 		mainPanel.add(new MainToolbar(this), BorderLayout.PAGE_START);
 		mainPanel.setOpaque(true);
-			
-		text_editor = new TextEditorPanel();
-		mainPanel.add(text_editor, BorderLayout.LINE_START);
 		
+		JPanel content = new JPanel(new GridBagLayout());
+		
+		text_editor = new TextEditorPanel();
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		c.gridwidth = 100;
+		c.gridheight = 100;
+		c.anchor = GridBagConstraints.FIRST_LINE_START;
+		content.add(text_editor, c);
+		
+		this.add(content, BorderLayout.CENTER);
 		//text_editor.addA
 		
 		this.setJMenuBar(createMenuBar());
+		
+		content.setOpaque(true);
 		
 		this.setContentPane(mainPanel);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -198,6 +211,12 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		if (e.getSource() == redirect) {
 			//TODO
 		}
+		
+	}
+
+	@Override
+	public void onAdvance(TrafficSimulator t, int time) {
+		// TODO Auto-generated method stub
 		
 	}
 	
