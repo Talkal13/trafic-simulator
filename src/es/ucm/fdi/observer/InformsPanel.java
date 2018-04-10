@@ -1,6 +1,4 @@
-package es.ucm.fdi.view;
-
-import javax.swing.JDialog;
+package es.ucm.fdi.observer;
 
 import es.ucm.fdi.control.Controller;
 import es.ucm.fdi.model.Event;
@@ -8,11 +6,13 @@ import es.ucm.fdi.model.RoadMap;
 import es.ucm.fdi.model.SimulatedObject;
 import es.ucm.fdi.model.TrafficSimulator;
 import es.ucm.fdi.model.TrafficSimulatorObserver;
+import es.ucm.fdi.view.TextAreaPanel;
 
-public class InformDialog extends JDialog implements TrafficSimulatorObserver{
+public class InformsPanel extends TextAreaPanel implements TrafficSimulatorObserver{
 
-	public InformDialog(MainFrame mainFrame, Controller _controller) {
-		// TODO Auto-generated constructor stub
+	public InformsPanel(String title, boolean editable, Controller ctrl) {
+		super(title, editable);
+		ctrl.addObserver(this);
 	}
 
 	@Override

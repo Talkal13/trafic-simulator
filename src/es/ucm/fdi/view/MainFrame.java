@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -59,8 +61,8 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	static private final String[] columnIdEvents = { "#", "Time", "Kind"};
 	
 	
-	private TextAreaPannel _eventsEditorPannel;
-	private TextAreaPannel _informPanned;
+	private TextAreaPanel _eventsEditorPannel;
+	private TextAreaPanel _informPanned;
 	private TablePannel<Event> _eventQueuePannel;
 	
 	//Menu and Tool bar ------
@@ -139,8 +141,99 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		*/
 		// FOLLOWING THE PDF
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		this.addWindowListener(new WindowListener() {//when exit ask for confirmation
+			//TODO clean understand this mess
+
+			@Override
+			public void windowActivated(WindowEvent e) {	
+			}
+
+			public void windowClosed(WindowEvent e) {
+			}
+
+			public void windowClosing(WindowEvent e) {	
+			}
+
+			public void windowDeactivated(WindowEvent e) {	
+			}
+
+			public void windowDeiconified(WindowEvent e) {	
+			}
+
+			public void windowIconified(WindowEvent e) {
+			}
+
+			public void windowOpened(WindowEvent e) {		
+			}
+			
+		});
+		
+		JPanel mainPanel = this.createMainPanel();
+		this.setContentPane(mainPanel);
+		
+		
+		//Lower state bar
+		//Contains a Jlabel to show the state of the simulator
+		this.addStateBar(mainPanel);
+		
+		//Panel which contains the rest of components (divided in 2 lower and upper)
+		JPanel centralPanel = this.createCentralPanel();
+		mainPanel.add(centralPanel, BorderLayout.CENTER);
+		
+		
+		//upper panel
+		this.createUpperPanel(centralPanel);
+		
+		//Menu
+		MenuBar barMenu = new MenuBar(this, _controller);
+		this.setJMenuBar(barMenu);
+		
+		//lower panel
+		this.createLowerPanel(centralPanel);
+		//tool bar
+		this.addToolBar(mainPanel);//not a default method ?¿? probably a new class...
+		//file chooser
+		_fc = new JFileChooser();
+		//report dialog
+		_informDialog = new InformDialog (this, _controller);
+		this.pack();
+		this.setVisible(true);
+	
 	}
 	
+	private void addToolBar(JPanel mainPanel) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void createLowerPanel(JPanel centralPanel) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void createUpperPanel(JPanel centralPanel) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private JPanel createCentralPanel() {
+		JPanel centralPanel = new JPanel();
+		//to set the lower and upper panel 
+		centralPanel.setLayout(new GridLayout(2,1));
+		return centralPanel;
+	}
+
+	private void addStateBar(JPanel mainPanel) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private JPanel createMainPanel() {
+		
+		return null;
+	}
+
 	public JMenuBar createMenuBar() {
 		JMenuItem load, save, save_report, quit;
 		JMenuItem run, reset;
