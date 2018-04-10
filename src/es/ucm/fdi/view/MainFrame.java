@@ -25,7 +25,7 @@ import javax.swing.border.Border;// appartently no in the *
 
 import es.ucm.fdi.control.Controller;
 import es.ucm.fdi.extra.panels.TextEditorPanel;
-import es.ucm.fdi.extra.toolbar.MainToolbar;
+import es.ucm.fdi.view.MainToolbar;
 import es.ucm.fdi.model.Event;
 import es.ucm.fdi.model.Junction;
 import es.ucm.fdi.model.Road;
@@ -91,7 +91,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	private File _currentFile;
 	private Controller _controller;
 	
-	//¿?
+	//ï¿½?
 	JCheckBoxMenuItem redirect;
 	TextEditorPanel text_editor;
 	
@@ -140,7 +140,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		this.setVisible(true);
 		*/
 		// FOLLOWING THE PDF
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.addWindowListener(new WindowListener() {//when exit ask for confirmation
 			//TODO clean understand this mess
@@ -187,23 +187,24 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		
 		//Menu
 		MenuBar barMenu = new MenuBar(this, _controller);
-		this.setJMenuBar(barMenu);
+		this.setJMenuBar(this.createMenuBar());
 		
 		//lower panel
 		this.createLowerPanel(centralPanel);
 		//tool bar
-		this.addToolBar(mainPanel);//not a default method ?¿? probably a new class...
+		this.addToolBar(mainPanel);//not a default method ?ï¿½? probably a new class...
 		//file chooser
 		_fc = new JFileChooser();
 		//report dialog
 		_informDialog = new InformDialog (this, _controller);
 		this.pack();
 		this.setVisible(true);
+		this.setSize(900, 900);
 	
 	}
 	
 	private void addToolBar(JPanel mainPanel) {
-		// TODO Auto-generated method stub
+		mainPanel.add(new MainToolbar(this), BorderLayout.PAGE_START);
 		
 	}
 
@@ -213,7 +214,10 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	}
 
 	private void createUpperPanel(JPanel centralPanel) {
-		// TODO Auto-generated method stub
+		_eventsEditorPannel = new EventsEditorPanel(_currentFile.getName(), "", true, this);
+		//_eventQueuePannel = new TablePanel<Event>("Cola Eventos: ");
+		
+		centralPanel.add(_eventsEditorPannel);
 		
 	}
 
@@ -231,7 +235,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 
 	private JPanel createMainPanel() {
 		
-		return null;
+		return new JPanel( new BorderLayout() );
 	}
 
 	public JMenuBar createMenuBar() {

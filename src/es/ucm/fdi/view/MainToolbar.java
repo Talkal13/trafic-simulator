@@ -1,4 +1,4 @@
-package es.ucm.fdi.extra.toolbar;
+package es.ucm.fdi.view;
 
 import java.awt.Dimension;
 import java.awt.Image;

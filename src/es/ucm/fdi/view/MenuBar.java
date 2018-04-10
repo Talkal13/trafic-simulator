@@ -8,6 +8,7 @@ public class MenuBar extends JMenuBar{
 
 	public MenuBar(MainFrame mainWindow, Controller _ctrl) {
 		super();
+		
 	}
 
 }

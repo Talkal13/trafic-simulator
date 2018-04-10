@@ -10,8 +10,8 @@ public class EventsEditorPanel extends TextAreaPanel{
 		super(title, editable);
 		this.setText(text);
 		
-		PopupMenu popUp = new PopUpMenu(mainWindow);
-		_textArea.add(popUp);
+		//PopupMenu popUp = new PopUpMenu(mainWindow);
+		//_textArea.add(popUp);
 		_textArea.addMouseListener(new MouseListener() {
 
 			@Override
@@ -35,7 +35,7 @@ public class EventsEditorPanel extends TextAreaPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.isPopupTrigger() && _textArea.isEnabled()) {
-					popUp.show(e.getComponent(), e.getX(), e.getY());
+					//popUp.show(e.getComponent(), e.getX(), e.getY());
 				}
 				
 			}

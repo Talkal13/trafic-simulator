@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import es.ucm.fdi.extra.panels.TextEditorPanel;
+
 
 abstract public class TextAreaPanel extends JPanel {
 	protected JTextArea _textArea;
@@ -18,6 +20,7 @@ abstract public class TextAreaPanel extends JPanel {
 		
 		this.add(new JScrollPane(_textArea));
 		this.setTheBorder(title);
+		//this.setVisible(true);
 	}
 
 	private void setTheBorder(String title) {
