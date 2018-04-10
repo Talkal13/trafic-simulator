@@ -63,7 +63,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	
 	private TextAreaPanel _eventsEditorPannel;
 	private TextAreaPanel _informPanned;
-	private TablePannel<Event> _eventQueuePannel;
+	private TablePanel<Event> _eventQueuePannel;
 	
 	//Menu and Tool bar ------
 	private JFileChooser _fc;
@@ -80,9 +80,9 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	static private final String[] columnIdRoad = { "ID", "From", "To", "Length", "Max speed", "Vehicles"};
 	static private final String[] columnIdJunction = { "ID", "Green", "Red"};
 
-	private TablePannel<Vehicle> _vehiclesPanel;
-	private TablePannel<Road> _roadsPanel;
-	private TablePannel<Junction> _junctionsPanel;
+	private TablePanel<Vehicle> _vehiclesPanel;
+	private TablePanel<Road> _roadsPanel;
+	private TablePanel<Junction> _junctionsPanel;
 	
 	//Report dialog
 	private InformDialog _informDialog;
