@@ -7,4 +7,5 @@ public interface TrafficSimulatorObserver {
 	public void onAdvance(SimulatedObject o, int time);
 	public void onError(String msg);
 	public void onNewEvent(Event e, RoadMap _map, int _time);
+	
 }

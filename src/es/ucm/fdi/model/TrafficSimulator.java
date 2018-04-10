@@ -157,8 +157,10 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 	 */
 	@Override
 	public void addObserver(TrafficSimulatorObserver observer) {
-		_obs.add(observer);
-		observer.onRegistered(this);
+		//_obs.add(observer);
+		//observer.onRegistered(this);
+		if(observer != null && ! _obs.contains(observer))
+			_obs.add(observer);
 	}
 	
 	/**
@@ -169,8 +171,9 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 	 */
 	@Override
 	public void removeObserver(TrafficSimulatorObserver observer) {
-		_obs.remove(observer);
-		
+		//_obs.remove(observer);
+		if(observer != null && ! _obs.contains(observer))
+			_obs.remove(observer);
 	}
 	
 	public String toString() {

@@ -22,7 +22,6 @@ import org.apache.commons.cli.ParseException;
 
 import es.ucm.fdi.control.Controller;
 import es.ucm.fdi.control.eventBuilders.*;
-import es.ucm.fdi.extra.MainFrame;
 import es.ucm.fdi.extra.dialog.DialogWindowExample;
 import es.ucm.fdi.extra.graphlayout.GraphLayoutExample;
 import es.ucm.fdi.extra.texteditor.TextEditorExample;
@@ -33,6 +32,7 @@ import es.ucm.fdi.model.SimulatorError;
 import es.ucm.fdi.model.TrafficSimulator;
 import es.ucm.fdi.model.Vehicle;
 import es.ucm.fdi.view.ConsoleView;
+import es.ucm.fdi.view.MainFrame;
 
 public class ExampleMain {
 

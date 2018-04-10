@@ -11,6 +11,7 @@ import es.ucm.fdi.ini.IniSection;
 import es.ucm.fdi.model.Event;
 import es.ucm.fdi.model.SimulatorError;
 import es.ucm.fdi.model.TrafficSimulator;
+import es.ucm.fdi.model.TrafficSimulatorObserver;
 
 /**
  * @author Pablo and Diego
@@ -166,5 +167,14 @@ public class Controller {
 			else i++;
 		}
 		return e;
+	}
+	
+	
+	public void addObserver(TrafficSimulatorObserver o) {
+		_sim.addObserver(o);
+	}
+	
+	public void removeObserver(TrafficSimulatorObserver o) {
+		_sim.removeObserver(o);
 	}
 }
