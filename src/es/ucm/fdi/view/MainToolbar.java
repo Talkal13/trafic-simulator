@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ByteArrayInputStream;
 
 import javax.swing.*;
 
@@ -12,6 +13,7 @@ import es.ucm.fdi.control.Controller;
 import es.ucm.fdi.model.Event;
 import es.ucm.fdi.model.RoadMap;
 import es.ucm.fdi.model.SimulatedObject;
+import es.ucm.fdi.model.SimulatorError;
 import es.ucm.fdi.model.TrafficSimulator;
 import es.ucm.fdi.model.TrafficSimulatorObserver;
 
@@ -45,11 +47,15 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		load.setToolTipText("Load a file");
 		load.setIcon(new ImageIcon(loadImage("resources/icons/open.png")));
 		load.addActionListener(new ActionListener() {
-			//todo finish
-			public void actionPerformed(ActionEvent e) {
-				frame.loadFile();	
-			}
 			
+			public void actionPerformed(ActionEvent e) {
+				try {	
+					crtl.reset();
+					byte[] content = frame.getEventEditorText().getBytes();
+					crtl.loadEvents(new ByteArrayInputStream(content));	
+				}catch(SimulatorError err) {}
+					frame.setMessage("Events loaded to the simulator!");
+			}
 		});
 		this.add(load);
 
@@ -95,12 +101,9 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		
 		this.addSeparator();
 		
-		JLabel text_steps = new JLabel("Steps:");
-		this.add(text_steps);
 		
-		this.addSeparator();
-		
-		model = new SpinnerNumberModel(0, 0, 10000, 1);     
+		this.add(new JLabel ("Steps: "));
+		model = new SpinnerNumberModel(5, 1, 10000, 1);   
 		spinner = new JSpinner(model);
 		spinner.setMaximumSize(new Dimension(70, 30));
 		this.add(spinner);

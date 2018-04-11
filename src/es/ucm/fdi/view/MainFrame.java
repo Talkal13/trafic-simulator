@@ -428,5 +428,15 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	public String getMessage() {
 		return null;
 	}
+
+	public void setMessage(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String getEventEditorText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
