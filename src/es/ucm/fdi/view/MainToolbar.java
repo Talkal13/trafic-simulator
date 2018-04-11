@@ -8,8 +8,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import es.ucm.fdi.control.Controller;
+import es.ucm.fdi.model.Event;
+import es.ucm.fdi.model.RoadMap;
+import es.ucm.fdi.model.SimulatedObject;
+import es.ucm.fdi.model.TrafficSimulator;
+import es.ucm.fdi.model.TrafficSimulatorObserver;
+
 @SuppressWarnings("serial")
-public class MainToolbar extends JToolBar {
+public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 	
 	private final String LOAD = "load";
 	private final String SAVE = "save";
@@ -25,17 +32,28 @@ public class MainToolbar extends JToolBar {
 	
 	private SpinnerModel model;
 	private JSpinner spinner;
+	private JTextField time;
 	
-	public MainToolbar(JFrame frame) {
+	public MainToolbar(MainFrame frame, Controller crtl){
 		super();
 		
+		crtl.addObserver(this);
+		
+		//LOAD
 		JButton load = new JButton();
 		load.setActionCommand(LOAD);
 		load.setToolTipText("Load a file");
-		load.addActionListener((ActionListener) frame);
 		load.setIcon(new ImageIcon(loadImage("resources/icons/open.png")));
+		load.addActionListener(new ActionListener() {
+			//todo finish
+			public void actionPerformed(ActionEvent e) {
+				frame.loadFile();	
+			}
+			
+		});
 		this.add(load);
 
+		//SAVE
 		JButton save = new JButton();
 		save.setActionCommand(SAVE);
 		save.setToolTipText("Save a file");
@@ -142,6 +160,42 @@ public class MainToolbar extends JToolBar {
 
 	public int getTime() {
 		return (Integer) spinner.getValue();
+	}
+
+	@Override
+	public void onRegistered(TrafficSimulator trafficSimulator) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onReset(TrafficSimulator trafficSimulator) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onAdvance(TrafficSimulator t, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onAdvance(SimulatedObject o, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onError(String msg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onNewEvent(Event e, RoadMap _map, int _time) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

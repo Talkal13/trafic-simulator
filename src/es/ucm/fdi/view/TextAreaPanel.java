@@ -43,4 +43,9 @@ abstract public class TextAreaPanel extends JPanel {
 		_textArea.insert(value, _textArea.getCaretPosition());
 	}
 
+	public void setBorder(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

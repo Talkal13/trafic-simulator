@@ -61,9 +61,9 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	static private final String[] columnIdEvents = { "#", "Time", "Kind"};
 	
 	
-	private TextAreaPanel _eventsEditorPannel;
+	private TextAreaPanel _eventsEditorPanel;
 	private TextAreaPanel _informPanned;
-	private TablePanel<Event> _eventQueuePannel;
+	private TablePanel<Event> _eventQueuePanel;
 	
 	//Menu and Tool bar ------
 	private JFileChooser _fc;
@@ -73,7 +73,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	private MapComponent _mapComponent;
 	
 	//Status bar (info at the bottom of the window) ------
-	private StateBarPannel _stateBarPannel;
+	private StateBarPannel _stateBarPanel;
 	
 	//Lower Panel ------
 	static private final String[] columnIdVehicle = { "ID", "Road", "Location", "Speed", "Km", "Faulty time", "Itinenary"};
@@ -205,7 +205,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	}
 	
 	private void addToolBar(JPanel mainPanel) {
-		_toolbar = new MainToolbar(this);
+		_toolbar = new MainToolbar(this,_controller);
 		mainPanel.add(_toolbar, BorderLayout.PAGE_START);
 		
 	}
@@ -224,11 +224,11 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		this._currentFile = null;
 		//this.muestraDialogoError("Error durante la lectura del fichero: " + e.getMessage());
 		}
-		_eventsEditorPannel = new EventsEditorPanel(_currentFile.getName(), texto, true, this);
+		_eventsEditorPanel = new EventsEditorPanel(_currentFile.getName(), texto, true, this);
 		//_eventQueuePannel = new TablePanel<Event>("Cola Eventos: ");
 		this._informPanned = new InformPanel("holi", false, this._controller);
 		centralPanel.add(upperPanel);
-		upperPanel.add(_eventsEditorPannel);
+		upperPanel.add(_eventsEditorPanel);
 		upperPanel.add(_informPanned);
 		
 	}
@@ -405,5 +405,28 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		
 	}
 	
+	public void loadFile() {
+		int returnValue = _fc.showOpenDialog(null);
+		if(returnValue == JFileChooser.APPROVE_OPTION) {
+			File file = _fc.getSelectedFile();
+			
+			try {
+				String s = readFile(file);
+				_controller.reset();
+				_currentFile = file;
+				_eventsEditorPanel.setText(s);
+				_eventsEditorPanel.setBorder(_currentFile.getName());
+				_stateBarPanel.setMessage("File " + file.getName() + " of events loaded into the editor.");
+				
+			}catch(FileNotFoundException e) {
+				//show "Error while reading the file"
+				
+			}
+		}
+	}
+	
+	public String getMessage() {
+		return null;
+	}
 	
 }
