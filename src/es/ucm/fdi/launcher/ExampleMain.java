@@ -229,8 +229,27 @@ public class ExampleMain {
 		// corresponding fields.
 	}
 	
-	private static void startGuiMode() {
-		new MainFrame();
+	private static void startGuiMode() throws FileNotFoundException {
+		try {
+			_input = new FileInputStream(_inFile);
+		} catch (FileNotFoundException e) {
+			System.err.print(e.getMessage());
+			return;
+		}
+		if (_outFile == null) {
+			_output = System.out;
+		} else
+			_output = new FileOutputStream(_outFile);
+		_traffic = new TrafficSimulator(_output);
+		_controller = new Controller(_traffic);
+		_controller.setEventBuilders(_eventBuilders);
+		_controller.setOutputStream(_output);
+		_traffic.addObserver(new MainFrame(_inFile, _controller));
+		
+		
+		if (!_controller.loadEvents(_input)) return;
+		
+		//_controller.run(_timeLimit);
 	}
 
 	private static void start(String[] args) throws IOException {

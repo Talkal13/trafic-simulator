@@ -17,7 +17,7 @@ abstract public class TextAreaPanel extends JPanel {
 		this.setLayout(new GridLayout(1,1));
 		_textArea = new JTextArea(40, 30);
 		_textArea.setEditable(editable);
-		
+		this.add(_textArea);
 		this.add(new JScrollPane(_textArea));
 		this.setTheBorder(title);
 		//this.setVisible(true);
@@ -32,7 +32,7 @@ abstract public class TextAreaPanel extends JPanel {
 	}
 	
 	public void setText(String newText) {
-		
+		_textArea.setText(newText);
 	}
 	
 	public void cleanUp() {

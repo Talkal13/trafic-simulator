@@ -4,7 +4,7 @@ import java.awt.PopupMenu;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class EventsEditorPanel extends TextAreaPanel{
+public class EventsEditorPanel extends TextAreaPanel {
 
 	public EventsEditorPanel(String title,String text, boolean editable, MainFrame mainWindow ) {
 		super(title, editable);

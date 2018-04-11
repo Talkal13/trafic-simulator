@@ -23,6 +23,8 @@ public class MainToolbar extends JToolBar {
 	public final String GENERATE = "generate";
 	public final String CLEAR_REPORTS = "clear_reports";
 	
+	private SpinnerModel model;
+	private JSpinner spinner;
 	
 	public MainToolbar(JFrame frame) {
 		super();
@@ -80,7 +82,7 @@ public class MainToolbar extends JToolBar {
 		
 		this.addSeparator();
 		
-		SpinnerModel model = new SpinnerNumberModel(0, 0, 10000, 1);     
+		model = new SpinnerNumberModel(0, 0, 10000, 1);     
 		JSpinner spinner = new JSpinner(model);
 		spinner.setMaximumSize(new Dimension(70, 30));
 		this.add(spinner);
@@ -138,6 +140,9 @@ public class MainToolbar extends JToolBar {
 		return Toolkit.getDefaultToolkit().createImage(path);
 	}
 
+	public int getTime() {
+		return (Integer) spinner.getValue();
+	}
 	
 
 }

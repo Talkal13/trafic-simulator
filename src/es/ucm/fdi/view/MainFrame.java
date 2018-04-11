@@ -67,7 +67,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	
 	//Menu and Tool bar ------
 	private JFileChooser _fc;
-	private ToolBar _toolbar;
+	private MainToolbar _toolbar;
 	
 	//Graphic panel ------
 	private MapComponent _mapComponent;
@@ -95,8 +95,9 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	JCheckBoxMenuItem redirect;
 	TextEditorPanel text_editor;
 	
-	public MainFrame() {
+	public MainFrame(Controller ctrl) {
 		super("Traffic Simulator");
+		_controller = ctrl;
 		initGUI();
 	}
 	
@@ -204,6 +205,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	}
 	
 	private void addToolBar(JPanel mainPanel) {
+		_toolbar = new MainToolbar(this);
 		mainPanel.add(new MainToolbar(this), BorderLayout.PAGE_START);
 		
 	}
@@ -214,10 +216,20 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	}
 
 	private void createUpperPanel(JPanel centralPanel) {
-		_eventsEditorPannel = new EventsEditorPanel(_currentFile.getName(), "", true, this);
+		JPanel upperPanel = new JPanel(new GridLayout(1, 3));
+		String texto = "";
+		try {
+		texto = MainFrame.readFile(this._currentFile);
+		} catch (FileNotFoundException e) {
+		this._currentFile = null;
+		//this.muestraDialogoError("Error durante la lectura del fichero: " + e.getMessage());
+		}
+		_eventsEditorPannel = new EventsEditorPanel(_currentFile.getName(), texto, true, this);
 		//_eventQueuePannel = new TablePanel<Event>("Cola Eventos: ");
-		
-		centralPanel.add(_eventsEditorPannel);
+		this._informPanned = new InformPanel("holi", false, this._controller);
+		centralPanel.add(upperPanel);
+		upperPanel.add(_eventsEditorPannel);
+		upperPanel.add(_informPanned);
 		
 	}
 
@@ -360,9 +372,23 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			text_editor.setText("");
 		else if (QUIT.equals(e.getActionCommand()))
 			System.exit(0);
+		else if (RUN.equals(e.getActionCommand())) {
+			try {
+				_controller.run(1);
+			}
+			catch (NullPointerException k) {
+				
+			}
+		}
 		
 	}
 	
+	public static String readFile(File file) throws FileNotFoundException {
+		String s = "";
+		s = new Scanner(file).useDelimiter("\\A").next();
+
+		return s;
+	}
 	
 
 	@Override
