@@ -206,7 +206,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	
 	private void addToolBar(JPanel mainPanel) {
 		_toolbar = new MainToolbar(this);
-		mainPanel.add(new MainToolbar(this), BorderLayout.PAGE_START);
+		mainPanel.add(_toolbar, BorderLayout.PAGE_START);
 		
 	}
 
@@ -374,7 +374,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			System.exit(0);
 		else if (RUN.equals(e.getActionCommand())) {
 			try {
-				_controller.run(1);
+				_controller.run(_toolbar.getTime());
 			}
 			catch (NullPointerException k) {
 				

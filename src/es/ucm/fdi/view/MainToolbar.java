@@ -83,7 +83,7 @@ public class MainToolbar extends JToolBar {
 		this.addSeparator();
 		
 		model = new SpinnerNumberModel(0, 0, 10000, 1);     
-		JSpinner spinner = new JSpinner(model);
+		spinner = new JSpinner(model);
 		spinner.setMaximumSize(new Dimension(70, 30));
 		this.add(spinner);
 		
