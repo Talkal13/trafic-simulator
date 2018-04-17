@@ -153,7 +153,8 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			public void windowClosed(WindowEvent e) {
 			}
 
-			public void windowClosing(WindowEvent e) {	
+			public void windowClosing(WindowEvent e) {
+				
 			}
 
 			public void windowDeactivated(WindowEvent e) {	
@@ -211,7 +212,8 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	}
 
 	private void createLowerPanel(JPanel centralPanel) {
-		// TODO Auto-generated method stub
+		this._stateBarPanel = new StateBarPannel();
+		centralPanel.add(_stateBarPanel, BorderLayout.PAGE_END);
 		
 	}
 
@@ -365,11 +367,16 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (LOAD.equals(e.getActionCommand()))
-			text_editor.loadFile();
+			try {
+				loadFile();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		else if (SAVE.equals(e.getActionCommand()))
-			text_editor.saveFile();
+			saveFile();
 		else if (CLEAR.equals(e.getActionCommand()))
-			text_editor.setText("");
+			_eventsEditorPanel.cleanUp();
 		else if (QUIT.equals(e.getActionCommand()))
 			System.exit(0);
 		else if (RUN.equals(e.getActionCommand())) {
@@ -380,7 +387,35 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 				
 			}
 		}
+		//TODO: do all the comands
 		
+	}
+	
+	private void saveFile() {
+		int returnVal = _fc.showSaveDialog(null);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File file = _fc.getSelectedFile();
+			writeFile(file, _eventsEditorPanel.getText());
+		}
+	}
+
+	private void loadFile() throws FileNotFoundException {
+		int returnVal = _fc.showOpenDialog(null);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File file = _fc.getSelectedFile();
+			String s = readFile(file);
+			_eventsEditorPanel.setText(s);
+		}
+	}
+	
+	public static void writeFile(File file, String content) {
+		try {
+			PrintWriter pw = new PrintWriter(file);
+			pw.print(content);
+			pw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static String readFile(File file) throws FileNotFoundException {
@@ -404,7 +439,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		// TODO Auto-generated method stub
 		
 	}
-	
+	/*
 	public void loadFile() {
 		int returnValue = _fc.showOpenDialog(null);
 		if(returnValue == JFileChooser.APPROVE_OPTION) {
@@ -424,7 +459,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			}
 		}
 	}
-	
+	*/
 	public String getMessage() {
 		return null;
 	}

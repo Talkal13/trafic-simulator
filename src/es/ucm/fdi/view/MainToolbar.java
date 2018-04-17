@@ -45,18 +45,9 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		JButton load = new JButton();
 		load.setActionCommand(LOAD);
 		load.setToolTipText("Load a file");
+		load.addActionListener((ActionListener) frame);
+
 		load.setIcon(new ImageIcon(loadImage("resources/icons/open.png")));
-		load.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				try {	
-					crtl.reset();
-					byte[] content = frame.getEventEditorText().getBytes();
-					crtl.loadEvents(new ByteArrayInputStream(content));	
-				}catch(SimulatorError err) {}
-					frame.setMessage("Events loaded to the simulator!");
-			}
-		});
 		this.add(load);
 
 		//SAVE

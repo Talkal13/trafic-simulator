@@ -1,5 +1,6 @@
 package es.ucm.fdi.view;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import es.ucm.fdi.model.Event;
@@ -10,10 +11,15 @@ import es.ucm.fdi.model.TrafficSimulatorObserver;
 
 public class StateBarPannel extends JPanel implements TrafficSimulatorObserver{
 
-
+	private JLabel _label;
+	
+	public StateBarPannel() {
+		_label = new JLabel("Welcome to the trafficSimulator");
+		_lable.
+		this.add(_label);
+	}
 
 	public void setBorder(String title) {
-		
 		
 	}
 

@@ -28,7 +28,7 @@ abstract public class TextAreaPanel extends JPanel {
 	}
 	
 	public String getText() {
-		return null;
+		return _textArea.getText();
 	}
 	
 	public void setText(String newText) {
@@ -36,7 +36,7 @@ abstract public class TextAreaPanel extends JPanel {
 	}
 	
 	public void cleanUp() {
-		
+		_textArea.setText("");
 	}
 	
 	public void insert(String value) {
