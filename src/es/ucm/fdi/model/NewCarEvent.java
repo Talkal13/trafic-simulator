@@ -22,9 +22,6 @@ public class NewCarEvent extends NewVehicleEvent{
 		map.addVehicle(new Car(_id, _max_speed, _resistance, _max_fault_duration, _fault_probability, _seed, map.getJunctions(_itinerary)));
 	}
 	
-	public String toString() {
-		return null;
-		
-	}
+
 
 }

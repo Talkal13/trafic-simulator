@@ -15,9 +15,5 @@ public class NewDirtRoadEvent extends NewRoadEvent{
 		map.addRoad(new DirtRoad(_id, _length, _maximumSpeed, source, destination));
 	}
 	
-	public String toString() {
-		return null;
-		
-	}
 
 }

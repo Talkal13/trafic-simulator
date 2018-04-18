@@ -1,17 +1,23 @@
 package es.ucm.fdi.view;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 import es.ucm.fdi.extra.panels.TextEditorPanel;
 
 
 abstract public class TextAreaPanel extends JPanel {
 	protected JTextArea _textArea;
+	
+	public static Border defaultBorder = BorderFactory.createLineBorder(Color.black, 2);
+
 	
 	public TextAreaPanel(String title, boolean editable) {
 		this.setLayout(new GridLayout(1,1));
@@ -24,7 +30,7 @@ abstract public class TextAreaPanel extends JPanel {
 	}
 
 	private void setTheBorder(String title) {
-		this.setBorder(BorderFactory.createTitledBorder(title));
+		this.setBorder(new TitledBorder(defaultBorder, title));
 	}
 	
 	public String getText() {

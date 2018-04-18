@@ -1,5 +1,8 @@
 package es.ucm.fdi.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MakeVehicleFaultyEvent extends Event {
 	protected String[] _idVehicles;
 	protected int _duration;
@@ -36,6 +39,6 @@ public class MakeVehicleFaultyEvent extends Event {
 	
 	
 	public String toString() {
-		return "Vehicle faulty";
+		return "Break Vehicles " + Arrays.asList(_idVehicles);
 	}
 }

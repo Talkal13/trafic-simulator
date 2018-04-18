@@ -4,7 +4,13 @@ import java.awt.PopupMenu;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class EventsEditorPanel extends TextAreaPanel {
+import es.ucm.fdi.model.Event;
+import es.ucm.fdi.model.RoadMap;
+import es.ucm.fdi.model.SimulatedObject;
+import es.ucm.fdi.model.TrafficSimulator;
+import es.ucm.fdi.model.TrafficSimulatorObserver;
+
+public class EventsEditorPanel extends TextAreaPanel implements TrafficSimulatorObserver {
 
 	public EventsEditorPanel(String title,String text, boolean editable, MainFrame mainWindow ) {
 		super(title, editable);
@@ -47,6 +53,42 @@ public class EventsEditorPanel extends TextAreaPanel {
 			}
 			
 		});
+	}
+
+	@Override
+	public void onRegistered(TrafficSimulator trafficSimulator) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onReset(TrafficSimulator trafficSimulator) {
+		_textArea.setText("");
+		
+	}
+
+	@Override
+	public void onAdvance(TrafficSimulator t, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onAdvance(SimulatedObject o, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onError(String msg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onNewEvent(Event e, RoadMap _map, int _time) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

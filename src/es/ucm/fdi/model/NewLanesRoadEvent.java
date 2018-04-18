@@ -17,10 +17,6 @@ public class NewLanesRoadEvent extends NewRoadEvent{
 		if (destination == null) throw new SimulatorError("Junction " + _destination + " doesn't exist");
 		map.addRoad(new LanesRoad(_id, _length, _maximumSpeed, _numLanes, source, destination));
 	}
-	
-	public String toString() {
-		return null;
-		
-	}
+
 
 }

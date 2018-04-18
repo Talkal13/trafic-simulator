@@ -11,8 +11,5 @@ public class NewBikeEvent extends NewVehicleEvent{
 		roadTrip.addVehicle(new Bike(_id, _max_speed, roadTrip.getJunctions(_itinerary)));
 	}
 	
-	public String toString() {
-		return null;
-	}
 
 }

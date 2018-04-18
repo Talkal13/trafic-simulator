@@ -68,16 +68,15 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	static private final String[] columnIdEvents = { "#", "Time", "Kind"};
 	
 	
-	private TextAreaPanel _eventsEditorPanel;
+	private EventsEditorPanel _eventsEditorPanel;
 	private TextAreaPanel _informPanned;
-	private TablePanel<Event> _eventQueuePanel;
+	private EventsTable _eventQueuePanel;
 	
 	//Menu and Tool bar ------
 	private JFileChooser _fc;
 	private MainToolbar _toolbar;
 	
 	//Graphic panel ------
-	private MapComponent _mapComponent;
 	private Graph _graph;
 	
 	//Status bar (info at the bottom of the window) ------
@@ -88,9 +87,9 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	static private final String[] columnIdRoad = { "ID", "From", "To", "Length", "Max speed", "Vehicles"};
 	static private final String[] columnIdJunction = { "ID", "Green", "Red"};
 
-	private TablePanel<Vehicle> _vehiclesPanel;
-	private TablePanel<Road> _roadsPanel;
-	private TablePanel<Junction> _junctionsPanel;
+	private VehiclesTable _vehiclesPanel;
+	private RoadsTable _roadsPanel;
+	private JunctionsTable _junctionsPanel;
 	
 	//Report dialog
 	private InformDialog _informDialog;
@@ -123,35 +122,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	}
 	
 	public void initGUI() {
-		/*	MADE BY PABLO
-		JPanel mainPanel = new JPanel( new BorderLayout(5,5) );
-		mainPanel.add(new MainToolbar(this), BorderLayout.PAGE_START);
-		mainPanel.setOpaque(true);
 		
-		JPanel content = new JPanel(new GridBagLayout());
-		
-		text_editor = new TextEditorPanel();
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = 0;
-		c.gridy = 0;
-		c.gridwidth = 100;
-		c.gridheight = 100;
-		c.anchor = GridBagConstraints.FIRST_LINE_START;
-		content.add(text_editor, c);
-		
-		this.add(content, BorderLayout.CENTER);
-		//text_editor.addA
-		
-		this.setJMenuBar(createMenuBar());
-		
-		content.setOpaque(true);
-		
-		this.setContentPane(mainPanel);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(900, 900);
-		this.setVisible(true);
-		*/
-		// FOLLOWING THE PDF
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.addWindowListener(new WindowListener() {//when exit ask for confirmation
@@ -233,9 +204,12 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		 * Insert Tables
 		 */
 		
-		_vehiclesPanel = new TablePanel<Vehicle>("Vehicles", new TableModel<Vehicle>());
-		_roadsPanel = new TablePanel<Road>("Roads", new TableModel<Road>());
-		_junctionsPanel = new TablePanel<Junction>("Junctions", new TableModel<Junction>());
+		_vehiclesPanel = new VehiclesTable();
+		_controller.addObserver(_vehiclesPanel);
+		_roadsPanel = new RoadsTable();
+		_controller.addObserver(_roadsPanel);
+		_junctionsPanel = new JunctionsTable();
+		_controller.addObserver(_junctionsPanel);
 		tables.add(_vehiclesPanel);
 		tables.add(_roadsPanel);
 		tables.add(_junctionsPanel);
@@ -243,6 +217,8 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		/*
 		 * Insert the grafic view
 		 */
+		grid.setBackground(Color.WHITE);
+
 		
 		_graph = new Graph();
 		_controller.addObserver(_graph);
@@ -264,7 +240,9 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		//this.muestraDialogoError("Error durante la lectura del fichero: " + e.getMessage());
 		}
 		_eventsEditorPanel = new EventsEditorPanel(_currentFile.getName(), texto, true, this);
-		_eventQueuePanel = new TablePanel<Event>("Cola Eventos: ", new TableModel<Event>());
+		_controller.addObserver(_eventsEditorPanel);
+		_eventQueuePanel = new EventsTable();
+		_controller.addObserver(_eventQueuePanel);
 		this._informPanned = new InformPanel("holi", false, this._controller);
 		centralPanel.add(upperPanel);
 		upperPanel.add(_eventsEditorPanel);
@@ -381,7 +359,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 
 	@Override
 	public void onReset(TrafficSimulator trafficSimulator) {
-
+		
 		
 	}
 
@@ -398,6 +376,12 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 
 	@Override
 	public void onNewEvent(Event e, RoadMap _map, int _time) {
+	}
+	
+	@Override
+	public void onAdvance(TrafficSimulator t, int time) {
+		_graphComp.setGraph(_graph);
+		
 	}
 
 	@Override
@@ -422,6 +406,9 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			catch (NullPointerException k) {
 				
 			}
+		}
+		else if (RESET.equals(e.getActionCommand())) {
+			_controller.reset();
 		}
 		//TODO: do all the comands
 		
@@ -470,11 +457,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		
 	}
 
-	@Override
-	public void onAdvance(TrafficSimulator t, int time) {
-		_graphComp.setGraph(_graph);
-		
-	}
+	
 	/*
 	public void loadFile() {
 		int returnValue = _fc.showOpenDialog(null);

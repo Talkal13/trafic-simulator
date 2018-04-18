@@ -41,6 +41,11 @@ public class NewVehicleEvent extends Event {
 	public void execute(RoadMap map, int ticks) {
 		map.addVehicle(new Vehicle(_id, _max_speed, map.getJunctions(_itinerary)));	
 	}
+	
+	public String toString() {
+		return "New Vehicle " + _id;
+
+	}
 
 
 }
