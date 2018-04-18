@@ -18,12 +18,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.*;
 import javax.swing.border.Border;// appartently no in the *
 
 import es.ucm.fdi.control.Controller;
+import es.ucm.fdi.extra.graphlayout.Dot;
+import es.ucm.fdi.extra.graphlayout.Edge;
+import es.ucm.fdi.extra.graphlayout.Graph;
+import es.ucm.fdi.extra.graphlayout.GraphComponent;
+import es.ucm.fdi.extra.graphlayout.Node;
 import es.ucm.fdi.extra.panels.TextEditorPanel;
 import es.ucm.fdi.view.MainToolbar;
 import es.ucm.fdi.model.Event;
@@ -34,6 +40,7 @@ import es.ucm.fdi.model.SimulatedObject;
 import es.ucm.fdi.model.TrafficSimulator;
 import es.ucm.fdi.model.TrafficSimulatorObserver;
 import es.ucm.fdi.model.Vehicle;
+import es.ucm.fdi.observer.TableModel;
 import javafx.scene.control.ToolBar;
 
 
@@ -71,6 +78,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	
 	//Graphic panel ------
 	private MapComponent _mapComponent;
+	private Graph _graph;
 	
 	//Status bar (info at the bottom of the window) ------
 	private StateBarPannel _stateBarPanel;
@@ -94,6 +102,9 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	//�?
 	JCheckBoxMenuItem redirect;
 	TextEditorPanel text_editor;
+	
+	private GraphComponent _graphComp;
+    Random _rand;
 	
 	public MainFrame(Controller ctrl) {
 		super("Traffic Simulator");
@@ -212,13 +223,39 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	}
 
 	private void createLowerPanel(JPanel centralPanel) {
-		this._stateBarPanel = new StateBarPannel();
-		centralPanel.add(_stateBarPanel, BorderLayout.PAGE_END);
+		JPanel grid = new JPanel();
+		grid.setLayout(new GridLayout(0, 2));
+		JPanel tables = new JPanel();
+		tables.setLayout(new GridLayout(3, 0));
+		grid.add(tables);
+		
+		/*
+		 * Insert Tables
+		 */
+		
+		_vehiclesPanel = new TablePanel<Vehicle>("Vehicles", new TableModel<Vehicle>());
+		_roadsPanel = new TablePanel<Road>("Roads", new TableModel<Road>());
+		_junctionsPanel = new TablePanel<Junction>("Junctions", new TableModel<Junction>());
+		tables.add(_vehiclesPanel);
+		tables.add(_roadsPanel);
+		tables.add(_junctionsPanel);
+		
+		/*
+		 * Insert the grafic view
+		 */
+		
+		_graph = new Graph();
+		_controller.addObserver(_graph);
+		this._graphComp = new GraphComponent();
+		_graphComp.setGraph(_graph);
+		grid.add(_graphComp);
+		
+		centralPanel.add(grid);
 		
 	}
 
 	private void createUpperPanel(JPanel centralPanel) {
-		JPanel upperPanel = new JPanel(new GridLayout(1, 3));
+		JPanel upperPanel = new JPanel(new GridLayout(0, 3));
 		String texto = "";
 		try {
 		texto = MainFrame.readFile(this._currentFile);
@@ -227,10 +264,11 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		//this.muestraDialogoError("Error durante la lectura del fichero: " + e.getMessage());
 		}
 		_eventsEditorPanel = new EventsEditorPanel(_currentFile.getName(), texto, true, this);
-		//_eventQueuePannel = new TablePanel<Event>("Cola Eventos: ");
+		_eventQueuePanel = new TablePanel<Event>("Cola Eventos: ", new TableModel<Event>());
 		this._informPanned = new InformPanel("holi", false, this._controller);
 		centralPanel.add(upperPanel);
 		upperPanel.add(_eventsEditorPanel);
+		upperPanel.add(_eventQueuePanel);
 		upperPanel.add(_informPanned);
 		
 	}
@@ -238,12 +276,13 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	private JPanel createCentralPanel() {
 		JPanel centralPanel = new JPanel();
 		//to set the lower and upper panel 
-		centralPanel.setLayout(new GridLayout(2,1));
+		centralPanel.setLayout(new GridLayout(2, 0));
 		return centralPanel;
 	}
 
 	private void addStateBar(JPanel mainPanel) {
-		// TODO Auto-generated method stub
+		this._stateBarPanel = new StateBarPannel();
+		mainPanel.add(_stateBarPanel, BorderLayout.PAGE_END);
 		
 	}
 
@@ -342,13 +381,12 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 
 	@Override
 	public void onReset(TrafficSimulator trafficSimulator) {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 	@Override
 	public void onAdvance(SimulatedObject o, int time) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -360,8 +398,6 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 
 	@Override
 	public void onNewEvent(Event e, RoadMap _map, int _time) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -436,7 +472,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 
 	@Override
 	public void onAdvance(TrafficSimulator t, int time) {
-		// TODO Auto-generated method stub
+		_graphComp.setGraph(_graph);
 		
 	}
 	/*
@@ -472,6 +508,34 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	public String getEventEditorText() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	protected void generateGraph() {
+
+		GraphRoadMap g = new GraphRoadMap();
+		int numNodes = _rand.nextInt(20)+5;
+		int numEdges = _rand.nextInt(2*numNodes);		
+		
+		for (int i=0; i<numEdges; i++) {
+			int s = _rand.nextInt(numNodes);
+			int t = _rand.nextInt(numNodes);
+			if ( s == t ) {
+				t = (t + 1) % numNodes;
+			}
+			int l = _rand.nextInt(30)+20;
+			Edge e = new Edge("e"+i, g.getNodes().get(s), g.getNodes().get(t), l);
+			
+			int numDots = _rand.nextInt(5);
+			for(int j=0; j<numDots; j++) {
+				l = Math.max(0, _rand.nextBoolean() ? l/2 : l);
+				e.addDot( new Dot("d"+j, l));
+			}
+			
+			g.addEdge(e);
+		}
+		
+		_graphComp.setGraph(g);
+
 	}
 	
 }

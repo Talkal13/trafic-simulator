@@ -15,6 +15,10 @@ public class NewJunctionEvent extends Event{
 		
 	}
 	
+	public String getId() {
+		return _id;
+	}
+	
 	public String toString() {
 		return "New Junction " + _id;
 	}

@@ -1,7 +1,10 @@
 package es.ucm.fdi.view;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 
 import es.ucm.fdi.model.Event;
 import es.ucm.fdi.model.RoadMap;
@@ -15,7 +18,9 @@ public class StateBarPannel extends JPanel implements TrafficSimulatorObserver{
 	
 	public StateBarPannel() {
 		_label = new JLabel("Welcome to the trafficSimulator");
-		_lable.
+		_label.setHorizontalAlignment(SwingConstants.LEFT);
+		this.setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.LOWERED));
+
 		this.add(_label);
 	}
 

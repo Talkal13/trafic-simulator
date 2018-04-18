@@ -18,6 +18,10 @@ public class NewRoadEvent extends Event {
 		
 	}
 
+	public String getId() {
+		return _id;
+	}
+	
 	@Override
 	public void execute(RoadMap map, int ticks) {
 		Junction source = map.getJunction(_source);
