@@ -76,8 +76,10 @@ public class EventsTable extends JPanel implements TrafficSimulatorObserver{
 		_eventsModel = new EventsTableModel();
 		
 		JTable t = new JTable(_eventsModel);
-				
-		this.add(new JScrollPane(t), BorderLayout.CENTER); //check
+		t.setShowGrid(false);
+		JScrollPane s = new JScrollPane(t);
+		s.getViewport().setBackground(Color.WHITE);
+		this.add(s, BorderLayout.CENTER); //check
 		this.setVisible(true);
 	}
 	
@@ -90,13 +92,17 @@ public class EventsTable extends JPanel implements TrafficSimulatorObserver{
 
 	@Override
 	public void onReset(es.ucm.fdi.model.TrafficSimulator trafficSimulator) {
-		// TODO Auto-generated method stub
+		_events = null;
+		_eventsModel.refresh();
 		
 	}
 
 	@Override
 	public void onAdvance(es.ucm.fdi.model.TrafficSimulator t, int time) {
-		
+		for (Event e : _events) {
+			if (e.getScheduledTime() <= time) _events.remove(e);
+		}
+		_eventsModel.refresh();
 	}
 
 	@Override
@@ -111,7 +117,7 @@ public class EventsTable extends JPanel implements TrafficSimulatorObserver{
 	}
 
 	@Override
-	public void onNewEvent(es.ucm.fdi.model.Event e, es.ucm.fdi.model.RoadMap map, int _time) {
+	public void onNewEvent(es.ucm.fdi.model.Event e, es.ucm.fdi.model.RoadMap map, int time) {
 		_events.add(e);
 		_eventsModel.refresh();
 	}

@@ -23,7 +23,7 @@ public class InformPanel extends TextAreaPanel implements TrafficSimulatorObserv
 
 	@Override
 	public void onReset(TrafficSimulator trafficSimulator) {
-		// TODO Auto-generated method stub
+		_textArea.setText("");
 		
 	}
 

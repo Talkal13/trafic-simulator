@@ -78,8 +78,10 @@ public class JunctionsTable extends JPanel implements TrafficSimulatorObserver{
 		this.setLayout(new BorderLayout());
 		_vehiclesModel = new VehiclesTableModel();
 		JTable t = new JTable(_vehiclesModel);
-				
-		this.add(new JScrollPane(t), BorderLayout.CENTER); //check
+		t.setShowGrid(false);
+		JScrollPane s = new JScrollPane(t);
+		s.getViewport().setBackground(Color.WHITE);
+		this.add(s, BorderLayout.CENTER); //check
 		this.setVisible(true);
 	}
 	
@@ -92,8 +94,8 @@ public class JunctionsTable extends JPanel implements TrafficSimulatorObserver{
 
 	@Override
 	public void onReset(es.ucm.fdi.model.TrafficSimulator trafficSimulator) {
-		// TODO Auto-generated method stub
-		
+		_map = null;
+		_vehiclesModel.refresh();
 	}
 
 	@Override

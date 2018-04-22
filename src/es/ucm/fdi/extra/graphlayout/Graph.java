@@ -54,7 +54,11 @@ public class Graph implements TrafficSimulatorObserver {
 
 	@Override
 	public void onReset(TrafficSimulator trafficSimulator) {
-		// TODO Auto-generated method stub
+		
+		_nodes.clear();
+		_edges.clear();
+		_map_node.clear();
+		_map_edge.clear();
 		
 	}
 

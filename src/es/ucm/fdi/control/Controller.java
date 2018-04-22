@@ -26,6 +26,7 @@ public class Controller {
 	private InputStream _input;
 	private OutputStream _output;
 	private int _ticksSimulation;
+	private boolean _reset;
 	
 	/**
 	 * Constructor of the class, assigns to the class attribute TrafficSimulator the one passed as parameter.
@@ -78,6 +79,7 @@ public class Controller {
 	public void run() {
 		try {
 			this.loadEvents(this._input);
+			_reset = false;
 		} catch (SimulatorError e) {
 			_sim.NotifyError(e.getMessage());
 		}
@@ -89,6 +91,7 @@ public class Controller {
 	
 	public void reset() {
 		_sim.reset();
+		_reset = true;
 	}
 	
 	/**
@@ -108,10 +111,14 @@ public class Controller {
 	 */
 	
 	public void run(int ticks) {
+		if (_reset == true) {
+			_sim.NotifyError("No input file selected");
+			return;
+		}
 		try {
 			_sim.run(ticks);
 		} catch (SimulatorError e) {
-			System.err.print(e.getMessage() + "\n");
+			_sim.NotifyError(e.getMessage());
 		}	
 	}
 	

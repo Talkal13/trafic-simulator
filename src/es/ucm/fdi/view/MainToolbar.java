@@ -31,14 +31,15 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 	public final String CHECK_IN_EVENTS = "check";
 	public final String GENERATE = "generate";
 	public final String CLEAR_REPORTS = "clear_reports";
-	
+	private int _time;
+	private JTextField _timefield;
 	private SpinnerModel model;
 	private JSpinner spinner;
 	private JTextField time;
 	
 	public MainToolbar(MainFrame frame, Controller crtl){
 		super();
-		
+		_time = 0;
 		crtl.addObserver(this);
 		
 		//LOAD
@@ -106,12 +107,12 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		
 		this.addSeparator();
 		
-		JTextField time = new JTextField();
-		time.setEditable(false);
-		time.setText("0");
-	    time.setHorizontalAlignment(JTextField.RIGHT);
-		time.setMaximumSize(new Dimension(70, 30));
-		this.add(time);
+		_timefield = new JTextField();
+		_timefield.setEditable(false);
+		_timefield.setText(""+_time);
+	    _timefield.setHorizontalAlignment(JTextField.RIGHT);
+		_timefield.setMaximumSize(new Dimension(70, 30));
+		this.add(_timefield);
 		
 		this.addSeparator();
 		
@@ -164,13 +165,15 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 
 	@Override
 	public void onReset(TrafficSimulator trafficSimulator) {
-		// TODO Auto-generated method stub
-		
+		_time = 0;
+		_timefield.setText(""+_time);
+
 	}
 
 	@Override
 	public void onAdvance(TrafficSimulator t, int time) {
-		// TODO Auto-generated method stub
+		_timefield.setText(""+time);
+
 		
 	}
 

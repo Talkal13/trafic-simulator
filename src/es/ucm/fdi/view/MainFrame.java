@@ -359,7 +359,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 
 	@Override
 	public void onReset(TrafficSimulator trafficSimulator) {
-		
+		this._graphComp.refresh();
 		
 	}
 
@@ -400,12 +400,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		else if (QUIT.equals(e.getActionCommand()))
 			System.exit(0);
 		else if (RUN.equals(e.getActionCommand())) {
-			try {
-				_controller.run(_toolbar.getTime());
-			}
-			catch (NullPointerException k) {
-				
-			}
+			_controller.run(_toolbar.getTime());
 		}
 		else if (RESET.equals(e.getActionCommand())) {
 			_controller.reset();
