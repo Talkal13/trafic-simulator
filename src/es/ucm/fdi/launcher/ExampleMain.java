@@ -72,10 +72,11 @@ public class ExampleMain {
 		try {
 			CommandLine line = parser.parse(cmdLineOptions, args);
 			parseHelpOption(line, cmdLineOptions);
+			parseGuiOption(line);
 			parseInFileOption(line);
 			parseOutFileOption(line);
 			parseStepsOption(line);
-			parseGuiOption(line);
+			
 
 			// if there are some remaining arguments, then something wrong is
 			// provided in the command line!
@@ -122,7 +123,7 @@ public class ExampleMain {
 
 	private static void parseInFileOption(CommandLine line) throws ParseException {
 		_inFile = line.getOptionValue("i");
-		if (_inFile == null) {
+		if (_inFile == null && !_gui) {
 			throw new ParseException("An events file is missing");
 		}
 	}
@@ -235,6 +236,8 @@ public class ExampleMain {
 		} catch (FileNotFoundException e) {
 			System.err.print(e.getMessage());
 			return;
+		} catch (NullPointerException e) {
+			_input = null;
 		}
 		if (_outFile == null) {
 			_output = System.out;
@@ -246,8 +249,8 @@ public class ExampleMain {
 		_controller.setOutputStream(_output);
 		_traffic.addObserver(new MainFrame(_inFile, _controller));
 		
-		
-		if (!_controller.loadEvents(_input)) return;
+		if (_input != null)
+			if (!_controller.loadEvents(_input)) return;
 		
 		//_controller.run(_timeLimit);
 	}

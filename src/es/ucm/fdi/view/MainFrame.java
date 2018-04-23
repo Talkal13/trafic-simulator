@@ -238,8 +238,10 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		} catch (FileNotFoundException e) {
 		this._currentFile = null;
 		//this.muestraDialogoError("Error durante la lectura del fichero: " + e.getMessage());
+		} catch (NullPointerException k) {
+			texto = "";
 		}
-		_eventsEditorPanel = new EventsEditorPanel(_currentFile.getName(), texto, true, this);
+		_eventsEditorPanel = new EventsEditorPanel((_currentFile == null) ? "Empty file" : _currentFile.getName(), texto, true, this);
 		_controller.addObserver(_eventsEditorPanel);
 		_eventQueuePanel = new EventsTable();
 		_controller.addObserver(_eventQueuePanel);
