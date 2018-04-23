@@ -15,9 +15,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -34,6 +38,7 @@ import es.ucm.fdi.extra.panels.TextEditorPanel;
 import es.ucm.fdi.view.MainToolbar;
 import es.ucm.fdi.model.Event;
 import es.ucm.fdi.model.Junction;
+import es.ucm.fdi.model.Observable;
 import es.ucm.fdi.model.Road;
 import es.ucm.fdi.model.RoadMap;
 import es.ucm.fdi.model.SimulatedObject;
@@ -45,19 +50,7 @@ import javafx.scene.control.ToolBar;
 
 
 @SuppressWarnings("serial")
-public class MainFrame extends JFrame implements ActionListener, TrafficSimulatorObserver, ItemListener {
-
-	//Strings 
-	public final String LOAD = "load";
-	public final String SAVE = "save";
-	public final String SAVE_REPORT = "save_report";
-	public final String QUIT = "quit";
-	public final String RUN = "run";
-	public final String CLEAR = "clear";
-	public final String RESET = "reset";
-	//public final String REDIRECT = "redirect";
-	public final String GENERATE = "generate";
-	public final String CLEAR_REPORTS = "clear_reports";
+public class MainFrame extends JFrame implements ActionListener, TrafficSimulatorObserver, ItemListener, Observable<GuiViewObserver> {
 	
 	//Attributes
 	
@@ -99,15 +92,19 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	private Controller _controller;
 	
 	//�?
-	JCheckBoxMenuItem redirect;
+
 	TextEditorPanel text_editor;
 	
 	private GraphComponent _graphComp;
     Random _rand;
+    
+	private List<GuiViewObserver> _obs;
+
 	
 	public MainFrame(Controller ctrl) {
 		super("Traffic Simulator");
 		_controller = ctrl;
+		_obs = new ArrayList<GuiViewObserver>();
 		initGUI();
 	}
 	
@@ -116,6 +113,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		super("Traffic Simulator");
 		_controller = ctrl;
 		_currentFile = inputFile != null ? new File(inputFile) : null;
+		_obs = new ArrayList<GuiViewObserver>();
 		initGUI();
 		//we add to the main window as observer
 		ctrl.addObserver(this);
@@ -171,7 +169,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		
 		//Menu
 		MenuBar barMenu = new MenuBar(this, _controller);
-		this.setJMenuBar(this.createMenuBar());
+		this.setJMenuBar(barMenu);
 		
 		//lower panel
 		this.createLowerPanel(centralPanel);
@@ -186,6 +184,12 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		this.setSize(900, 900);
 	
 	}
+	
+	/*
+	 * 
+	 * Generate the parts of the gui
+	 * 
+	 */
 	
 	private void addToolBar(JPanel mainPanel) {
 		_toolbar = new MainToolbar(this,_controller);
@@ -233,15 +237,8 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	private void createUpperPanel(JPanel centralPanel) {
 		JPanel upperPanel = new JPanel(new GridLayout(0, 3));
 		String texto = "";
-		try {
-		texto = MainFrame.readFile(this._currentFile);
-		} catch (FileNotFoundException e) {
-		this._currentFile = null;
-		//this.muestraDialogoError("Error durante la lectura del fichero: " + e.getMessage());
-		} catch (NullPointerException k) {
-			texto = "";
-		}
-		_eventsEditorPanel = new EventsEditorPanel((_currentFile == null) ? "Empty file" : _currentFile.getName(), texto, true, this);
+		_eventsEditorPanel = new EventsEditorPanel((_currentFile == null) ? "Empty file" : _currentFile.getName(), "", true, this);
+		if (_currentFile != null) NotifyLoad(_currentFile);
 		_controller.addObserver(_eventsEditorPanel);
 		_eventQueuePanel = new EventsTable();
 		_controller.addObserver(_eventQueuePanel);
@@ -271,87 +268,13 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		return new JPanel( new BorderLayout() );
 	}
 
-	public JMenuBar createMenuBar() {
-		JMenuItem load, save, save_report, quit;
-		JMenuItem run, reset;
-		
-		JMenuItem generate, clear;
-
-		JMenuBar menuBar = new JMenuBar();
-
-		JMenu file = new JMenu("File");
-		JMenu simulator  = new JMenu("Simulator");
-		JMenu reports  = new JMenu("Reports");
-		
-		menuBar.add(file);
-		menuBar.add(simulator);
-		menuBar.add(reports);
-		file.setMnemonic(KeyEvent.VK_F);
-
-		load = new JMenuItem("Load Events");
-		load.setActionCommand(LOAD);
-		load.addActionListener(this);
-		load.setMnemonic(KeyEvent.VK_L);
-		load.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,
-				ActionEvent.ALT_MASK));
-
-		save = new JMenuItem("Save Events");
-		save.setActionCommand(SAVE);
-		save.addActionListener(this);
-		save.setMnemonic(KeyEvent.VK_S);
-		save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-				ActionEvent.ALT_MASK));
-
-		save_report = new JMenuItem("Save Report");
-		save_report.setActionCommand(SAVE_REPORT);
-		save_report.addActionListener(this);
-		save_report.setMnemonic(KeyEvent.VK_R);
-		save_report.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
-				ActionEvent.ALT_MASK));
-
-		quit = new JMenuItem("Exit");
-		quit.setActionCommand(QUIT);
-		quit.addActionListener(this);
-		quit.setMnemonic(KeyEvent.VK_E);
-		quit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,
-				ActionEvent.ALT_MASK));
-
-		file.add(load);
-		file.add(save);
-		file.addSeparator();
-		file.add(save_report);
-		file.addSeparator();
-		file.add(quit);
-		
-		run = new JMenuItem("Run");
-		run.setActionCommand(RUN);
-		run.addActionListener(this);
-		
-		reset = new JMenuItem("Reset");
-		reset.setActionCommand(RESET);
-		reset.addActionListener(this);
-		
-		redirect = new JCheckBoxMenuItem("Redirect");
-		redirect.addItemListener(this);
-		
-		simulator.add(run);
-		simulator.add(reset);
-		simulator.add(redirect);
-		
-		generate = new JMenuItem("Generate");
-		generate.setActionCommand(GENERATE);
-		generate.addActionListener(this);
-		
-		clear = new JMenuItem("Clear");
-		clear.setActionCommand(CLEAR_REPORTS);
-		clear.addActionListener(this);
-		
-		reports.add(generate);
-		reports.add(clear);
-		
-		return menuBar;
-	}
-
+	
+	/*
+	 * Traffic Simulator Observer Methods
+	 * 
+	 * (non-Javadoc)
+	 * @see es.ucm.fdi.model.TrafficSimulatorObserver#onRegistered(es.ucm.fdi.model.TrafficSimulator)
+	 */
 	
 	@Override
 	public void onRegistered(TrafficSimulator trafficSimulator) {
@@ -386,30 +309,43 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		
 	}
 
+	/*
+	 * Actions Observer
+	 * 
+	 * (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (LOAD.equals(e.getActionCommand()))
+		if (ButtonConstants.LOAD.equals(e.getActionCommand()))
 			try {
 				loadFile();
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		else if (SAVE.equals(e.getActionCommand()))
+		else if (ButtonConstants.SAVE.equals(e.getActionCommand()))
 			saveFile();
-		else if (CLEAR.equals(e.getActionCommand()))
+		else if (ButtonConstants.CLEAR.equals(e.getActionCommand()))
 			_eventsEditorPanel.cleanUp();
-		else if (QUIT.equals(e.getActionCommand()))
+		else if (ButtonConstants.QUIT.equals(e.getActionCommand()))
 			System.exit(0);
-		else if (RUN.equals(e.getActionCommand())) {
+		else if (ButtonConstants.RUN.equals(e.getActionCommand())) {
 			_controller.run(_toolbar.getTime());
 		}
-		else if (RESET.equals(e.getActionCommand())) {
+		else if (ButtonConstants.RESET.equals(e.getActionCommand())) {
 			_controller.reset();
 		}
 		//TODO: do all the comands
 		
 	}
+	
+	/*
+	 * 
+	 * Helper Methods
+	 * 
+	 */
 	
 	private void saveFile() {
 		int returnVal = _fc.showSaveDialog(null);
@@ -423,8 +359,8 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		int returnVal = _fc.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = _fc.getSelectedFile();
-			String s = readFile(file);
-			_eventsEditorPanel.setText(s);
+			NotifyLoad(file);
+			_controller.loadEvents(new FileInputStream(file));
 		}
 	}
 	
@@ -438,57 +374,33 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		}
 	}
 	
-	public static String readFile(File file) throws FileNotFoundException {
-		String s = "";
-		s = new Scanner(file).useDelimiter("\\A").next();
-
-		return s;
+	/**
+	 * Notify to the observers a new load file
+	 */
+	public void NotifyLoad(File file) {
+		for (GuiViewObserver o : _obs) {
+			o.onLoadFile(file);
+		}
 	}
 	
+	
+	
+	/*
+	 * Item change to redirect
+	 * 
+	 * (non-Javadoc)
+	 * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
+	 */
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		if (e.getSource() == redirect) {
+		//if (e.getSource() == redirect) {
 			//TODO
-		}
+		//}
 		
 	}
 
 	
-	/*
-	public void loadFile() {
-		int returnValue = _fc.showOpenDialog(null);
-		if(returnValue == JFileChooser.APPROVE_OPTION) {
-			File file = _fc.getSelectedFile();
-			
-			try {
-				String s = readFile(file);
-				_controller.reset();
-				_currentFile = file;
-				_eventsEditorPanel.setText(s);
-				_eventsEditorPanel.setBorder(_currentFile.getName());
-				_stateBarPanel.setMessage("File " + file.getName() + " of events loaded into the editor.");
-				
-			}catch(FileNotFoundException e) {
-				//show "Error while reading the file"
-				
-			}
-		}
-	}
-	*/
-	public String getMessage() {
-		return null;
-	}
-
-	public void setMessage(String string) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public String getEventEditorText() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	protected void generateGraph() {
 
@@ -516,6 +428,23 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		
 		_graphComp.setGraph(g);
 
+	}
+
+	@Override
+	public void addObserver(GuiViewObserver o) {
+		//_obs.add(observer);
+		//observer.onRegistered(this);
+		if(o != null && !_obs.contains(o))
+			_obs.add(o);
+		
+	}
+
+	@Override
+	public void removeObserver(GuiViewObserver o) {
+		//_obs.remove(observer);
+		if(o != null &&  _obs.contains(o))
+			_obs.remove(o);
+		
 	}
 	
 }

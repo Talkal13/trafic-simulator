@@ -20,17 +20,6 @@ import es.ucm.fdi.model.TrafficSimulatorObserver;
 @SuppressWarnings("serial")
 public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 	
-	private final String LOAD = "load";
-	private final String SAVE = "save";
-	private final String CLEAR = "clear";
-	public final String SAVE_REPORT = "save_report";
-	public final String QUIT = "quit";
-	public final String RUN = "run";
-	public final String RESET = "reset";
-	//public final String REDIRECT = "redirect";
-	public final String CHECK_IN_EVENTS = "check";
-	public final String GENERATE = "generate";
-	public final String CLEAR_REPORTS = "clear_reports";
 	private int _time;
 	private JTextField _timefield;
 	private SpinnerModel model;
@@ -44,7 +33,7 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		
 		//LOAD
 		JButton load = new JButton();
-		load.setActionCommand(LOAD);
+		load.setActionCommand(ButtonConstants.LOAD);
 		load.setToolTipText("Load a file");
 		load.addActionListener((ActionListener) frame);
 
@@ -53,14 +42,14 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 
 		//SAVE
 		JButton save = new JButton();
-		save.setActionCommand(SAVE);
+		save.setActionCommand(ButtonConstants.SAVE);
 		save.setToolTipText("Save a file");
 		save.addActionListener((ActionListener) frame);
 		save.setIcon(new ImageIcon(loadImage("resources/icons/save.png")));
 		this.add(save);
 
 		JButton clear = new JButton();
-		clear.setActionCommand(CLEAR);
+		clear.setActionCommand(ButtonConstants.CLEAR);
 		clear.setToolTipText("Clear Text");
 		clear.addActionListener((ActionListener) frame);
 		clear.setIcon(new ImageIcon(loadImage("resources/icons/clear.png")));
@@ -71,21 +60,21 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		this.addSeparator();
 		
 		JButton events = new JButton();
-		events.setActionCommand(CHECK_IN_EVENTS);
+		events.setActionCommand(ButtonConstants.CHECK_IN_EVENTS);
 		events.setToolTipText("Save Report to a file");
 		events.addActionListener((ActionListener) frame);
 		events.setIcon(new ImageIcon(loadImage("resources/icons/events.png")));
 		this.add(events);
 		
 		JButton run = new JButton();
-		run.setActionCommand(RUN);
+		run.setActionCommand(ButtonConstants.RUN);
 		run.setToolTipText("Run the simulator");
 		run.addActionListener((ActionListener) frame);
 		run.setIcon(new ImageIcon(loadImage("resources/icons/play.png")));
 		this.add(run);
 		
 		JButton reset = new JButton();
-		reset.setActionCommand(RESET);
+		reset.setActionCommand(ButtonConstants.RESET);
 		reset.setToolTipText("Reset the simulator");
 		reset.addActionListener((ActionListener) frame);
 		reset.setIcon(new ImageIcon(loadImage("resources/icons/reset.png")));
@@ -117,21 +106,21 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		this.addSeparator();
 		
 		JButton generate = new JButton();
-		generate.setActionCommand(GENERATE);
+		generate.setActionCommand(ButtonConstants.GENERATE);
 		generate.setToolTipText("Generate Report");
 		generate.addActionListener((ActionListener) frame);
 		generate.setIcon(new ImageIcon(loadImage("resources/icons/report.png")));
 		this.add(generate);
 		
 		JButton clear_report = new JButton();
-		clear_report.setActionCommand(CLEAR_REPORTS);
+		clear_report.setActionCommand(ButtonConstants.CLEAR_REPORTS);
 		clear_report.setToolTipText("Clear report area");
 		clear_report.addActionListener((ActionListener) frame);
 		clear_report.setIcon(new ImageIcon(loadImage("resources/icons/delete_report.png")));
 		this.add(clear_report);
 		
 		JButton save_report = new JButton();
-		save_report.setActionCommand(SAVE_REPORT);
+		save_report.setActionCommand(ButtonConstants.SAVE_REPORT);
 		save_report.setToolTipText("Save the report to a file");
 		save_report.addActionListener((ActionListener) frame);
 		save_report.setIcon(new ImageIcon(loadImage("resources/icons/save_report.png")));
@@ -140,7 +129,7 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		this.addSeparator();
 		
 		JButton quit = new JButton();
-		quit.setActionCommand(QUIT);
+		quit.setActionCommand(ButtonConstants.QUIT);
 		quit.setToolTipText("Exit the program");
 		quit.addActionListener((ActionListener) frame);
 		quit.setIcon(new ImageIcon(loadImage("resources/icons/exit.png")));

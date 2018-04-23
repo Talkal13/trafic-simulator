@@ -25,11 +25,11 @@ abstract public class TextAreaPanel extends JPanel {
 		_textArea.setEditable(editable);
 		this.add(_textArea);
 		this.add(new JScrollPane(_textArea));
-		this.setTheBorder(title);
+		this.setBorder(title);
 		//this.setVisible(true);
 	}
 
-	private void setTheBorder(String title) {
+	private void setBorder(String title) {
 		this.setBorder(new TitledBorder(defaultBorder, title));
 	}
 	
@@ -48,10 +48,9 @@ abstract public class TextAreaPanel extends JPanel {
 	public void insert(String value) {
 		_textArea.insert(value, _textArea.getCaretPosition());
 	}
-
-	public void setBorder(String name) {
-		// TODO Auto-generated method stub
-		
+	
+	public void setTitle(String title) {
+		setBorder(title);
 	}
 
 }

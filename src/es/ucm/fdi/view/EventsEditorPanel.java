@@ -3,6 +3,9 @@ package es.ucm.fdi.view;
 import java.awt.PopupMenu;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import es.ucm.fdi.model.Event;
 import es.ucm.fdi.model.RoadMap;
@@ -10,11 +13,12 @@ import es.ucm.fdi.model.SimulatedObject;
 import es.ucm.fdi.model.TrafficSimulator;
 import es.ucm.fdi.model.TrafficSimulatorObserver;
 
-public class EventsEditorPanel extends TextAreaPanel implements TrafficSimulatorObserver {
+public class EventsEditorPanel extends TextAreaPanel implements TrafficSimulatorObserver, GuiViewObserver {
 
 	public EventsEditorPanel(String title,String text, boolean editable, MainFrame mainWindow ) {
 		super(title, editable);
 		this.setText(text);
+		mainWindow.addObserver(this);
 		
 		//PopupMenu popUp = new PopUpMenu(mainWindow);
 		//_textArea.add(popUp);
@@ -54,6 +58,7 @@ public class EventsEditorPanel extends TextAreaPanel implements TrafficSimulator
 			
 		});
 	}
+	
 
 	@Override
 	public void onRegistered(TrafficSimulator trafficSimulator) {
@@ -87,6 +92,33 @@ public class EventsEditorPanel extends TextAreaPanel implements TrafficSimulator
 
 	@Override
 	public void onNewEvent(Event e, RoadMap _map, int _time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onLoadFile(File file) {
+		try {
+			this._textArea.setText(readFile(file));
+			super.setTitle(file.getName());
+		} catch (FileNotFoundException e) {
+		
+		}
+		
+	}
+
+	
+	public static String readFile(File file) throws FileNotFoundException {
+		String s = "";
+		s = new Scanner(file).useDelimiter("\\A").next();
+
+		return s;
+	}
+	
+
+	@Override
+	public void onSaveFile(File file) {
 		// TODO Auto-generated method stub
 		
 	}

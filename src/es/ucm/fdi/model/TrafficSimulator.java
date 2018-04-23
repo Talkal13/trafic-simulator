@@ -172,7 +172,7 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 	@Override
 	public void removeObserver(TrafficSimulatorObserver observer) {
 		//_obs.remove(observer);
-		if(observer != null && ! _obs.contains(observer))
+		if(observer != null &&  _obs.contains(observer))
 			_obs.remove(observer);
 	}
 	
