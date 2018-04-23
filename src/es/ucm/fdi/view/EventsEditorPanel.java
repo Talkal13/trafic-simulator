@@ -55,7 +55,7 @@ public class EventsEditorPanel extends TextAreaPanel implements TrafficSimulator
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// Aqui habra que hacer algo 
+				// Aqui habra que hacer algo seguro
 				
 			}
 			
@@ -128,13 +128,6 @@ public class EventsEditorPanel extends TextAreaPanel implements TrafficSimulator
 	
 	public void onStart(TrafficSimulator t, List<Event> events) {
 		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void onStart(TrafficSimulator t, List<Event> events) {
-		
 		
 	}
 
