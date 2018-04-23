@@ -14,6 +14,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -29,13 +30,12 @@ import javax.swing.*;
 import javax.swing.border.Border;// appartently no in the *
 
 import es.ucm.fdi.control.Controller;
-import es.ucm.fdi.extra.graphlayout.Dot;
-import es.ucm.fdi.extra.graphlayout.Edge;
-import es.ucm.fdi.extra.graphlayout.Graph;
-import es.ucm.fdi.extra.graphlayout.GraphComponent;
 import es.ucm.fdi.extra.graphlayout.Node;
 import es.ucm.fdi.extra.panels.TextEditorPanel;
 import es.ucm.fdi.view.MainToolbar;
+import es.ucm.fdi.view.graph.Dot;
+import es.ucm.fdi.view.graph.Edge;
+import es.ucm.fdi.view.graph.Graph;
 import es.ucm.fdi.model.Event;
 import es.ucm.fdi.model.Junction;
 import es.ucm.fdi.model.Observable;
@@ -326,9 +326,9 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 				e1.printStackTrace();
 			}
 		else if (ButtonConstants.SAVE.equals(e.getActionCommand()))
-			saveFile();
+			saveFile(_eventsEditorPanel);
 		else if (ButtonConstants.CLEAR.equals(e.getActionCommand()))
-			_eventsEditorPanel.cleanUp();
+			clearArea(_eventsEditorPanel);
 		else if (ButtonConstants.QUIT.equals(e.getActionCommand()))
 			System.exit(0);
 		else if (ButtonConstants.RUN.equals(e.getActionCommand())) {
@@ -336,7 +336,23 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		}
 		else if (ButtonConstants.RESET.equals(e.getActionCommand())) {
 			_controller.reset();
+		} 
+		else if (ButtonConstants.CHECK_IN_EVENTS.equals(e.getActionCommand())) {
+			String text = _eventsEditorPanel.getText();
+			_controller.reset();
+			_eventsEditorPanel.setText(text);
+			_controller.loadEvents(new ByteArrayInputStream(text.getBytes()));
 		}
+		else if (ButtonConstants.SAVE_REPORT.equals(e.getActionCommand())) {
+			saveFile(_informPanel);
+		}
+		else if (ButtonConstants.CLEAR_REPORTS.equals(e.getActionCommand())) {
+			clearArea(_informPanel);
+		}
+		else if (ButtonConstants.GENERATE.equals(e.getActionCommand())) {
+			
+		}
+
 		//TODO: do all the comands
 		
 	}
@@ -347,11 +363,11 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	 * 
 	 */
 	
-	private void saveFile() {
+	private void saveFile(TextAreaPanel t) {
 		int returnVal = _fc.showSaveDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = _fc.getSelectedFile();
-			writeFile(file, _eventsEditorPanel.getText());
+			writeFile(file, t.getText());
 		}
 	}
 
@@ -373,6 +389,10 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void clearArea(TextAreaPanel t) {
+		t.cleanUp();
 	}
 	
 	/**
@@ -401,35 +421,6 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		
 	}
 
-	
-	
-	protected void generateGraph() {
-
-		GraphRoadMap g = new GraphRoadMap();
-		int numNodes = _rand.nextInt(20)+5;
-		int numEdges = _rand.nextInt(2*numNodes);		
-		
-		for (int i=0; i<numEdges; i++) {
-			int s = _rand.nextInt(numNodes);
-			int t = _rand.nextInt(numNodes);
-			if ( s == t ) {
-				t = (t + 1) % numNodes;
-			}
-			int l = _rand.nextInt(30)+20;
-			Edge e = new Edge("e"+i, g.getNodes().get(s), g.getNodes().get(t), l);
-			
-			int numDots = _rand.nextInt(5);
-			for(int j=0; j<numDots; j++) {
-				l = Math.max(0, _rand.nextBoolean() ? l/2 : l);
-				e.addDot( new Dot("d"+j, l));
-			}
-			
-			g.addEdge(e);
-		}
-		
-		_graphComp.setGraph(g);
-
-	}
 
 	@Override
 	public void addObserver(GuiViewObserver o) {

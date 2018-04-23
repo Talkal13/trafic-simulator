@@ -2,6 +2,7 @@ package es.ucm.fdi.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -13,6 +14,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 
 import es.ucm.fdi.model.Event;
+import es.ucm.fdi.model.Junction.IncomingRoad;
 import es.ucm.fdi.model.RoadMap;
 import es.ucm.fdi.model.SimulatedObject;
 import es.ucm.fdi.model.SimulatorError;
@@ -45,10 +47,18 @@ public class JunctionsTable extends JPanel implements TrafficSimulatorObserver{
 
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
+			List<IncomingRoad> green = new ArrayList<IncomingRoad>();
+			List<IncomingRoad> red = new ArrayList<IncomingRoad>();
+			for (IncomingRoad r : _map.getJunctions().get(rowIndex).getRoadsInfo()) {
+				if (r.hasGreenLight())
+					green.add(r);
+				else
+					red.add(r);
+			}
 			switch(columnIndex) {
 				case 0:	return _map.getJunctions().get(rowIndex).getId();
-				case 1: return _map.getJunctions().get(rowIndex).getRoadsInfo();
-				case 2:	return  _map.getJunctions().get(rowIndex).getRoadsInfo();
+				case 1: return green;
+				case 2:	return  red;
 				default: return null;
 			}
 		}

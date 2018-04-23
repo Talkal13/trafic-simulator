@@ -62,7 +62,7 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		
 		JButton events = new JButton();
 		events.setActionCommand(ButtonConstants.CHECK_IN_EVENTS);
-		events.setToolTipText("Save Report to a file");
+		events.setToolTipText("Add events to the simulator");
 		events.addActionListener((ActionListener) frame);
 		events.setIcon(new ImageIcon(loadImage("resources/icons/events.png")));
 		this.add(events);
