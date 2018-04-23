@@ -2,12 +2,14 @@ package es.ucm.fdi.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
@@ -18,13 +20,14 @@ import es.ucm.fdi.model.SimulatedObject;
 import es.ucm.fdi.model.SimulatorError;
 import es.ucm.fdi.model.TrafficSimulator;
 import es.ucm.fdi.model.TrafficSimulatorObserver;
+import es.ucm.fdi.model.Vehicle;
 
 @SuppressWarnings("serial")
 public class VehiclesTable extends JPanel implements TrafficSimulatorObserver{
 	
 	public static Border defaultBorder = BorderFactory.createLineBorder(Color.black, 2);
 
-	class RoadsTableModel extends AbstractTableModel{
+	class RoadsTableModel extends AbstractTableModel {
 
 		private final String[] header = {"ID", "Road", "Location", "Speed", "Km", "Faulty Units", "Itinerary"};
 		
@@ -66,6 +69,7 @@ public class VehiclesTable extends JPanel implements TrafficSimulatorObserver{
 	
 	private RoadMap _map;
 	private RoadsTableModel _roadsModel;
+	private JTable _t;
 
 	VehiclesTable(){
 		_map = null;
@@ -78,12 +82,23 @@ public class VehiclesTable extends JPanel implements TrafficSimulatorObserver{
 		this.setLayout(new BorderLayout());
 		_roadsModel = new RoadsTableModel();
 		
-		JTable t = new JTable(_roadsModel);
-		t.setShowGrid(false);
-		JScrollPane s = new JScrollPane(t);
+		_t = new JTable(_roadsModel);
+		_t.setShowGrid(false);
+		JScrollPane s = new JScrollPane(_t);
 		s.getViewport().setBackground(Color.WHITE);
 		this.add(s, BorderLayout.CENTER); //check
 		this.setVisible(true);
+	}
+	
+	public List<Vehicle> getSelected() {
+		int[] data =  _t.getSelectedRows();
+		List<Vehicle> l = new ArrayList<Vehicle>();
+		for (int i = 0; i < data.length; i++) {
+			l.add(_map.getVehicles().get(data[i]));
+		}
+		
+		return l;
+		
 	}
 	
 

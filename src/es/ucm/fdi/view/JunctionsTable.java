@@ -14,12 +14,14 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 
 import es.ucm.fdi.model.Event;
+import es.ucm.fdi.model.Junction;
 import es.ucm.fdi.model.Junction.IncomingRoad;
 import es.ucm.fdi.model.RoadMap;
 import es.ucm.fdi.model.SimulatedObject;
 import es.ucm.fdi.model.SimulatorError;
 import es.ucm.fdi.model.TrafficSimulator;
 import es.ucm.fdi.model.TrafficSimulatorObserver;
+import es.ucm.fdi.model.Vehicle;
 
 @SuppressWarnings("serial")
 public class JunctionsTable extends JPanel implements TrafficSimulatorObserver{
@@ -76,7 +78,7 @@ public class JunctionsTable extends JPanel implements TrafficSimulatorObserver{
 	
 	private RoadMap _map;
 	private VehiclesTableModel _vehiclesModel;
-
+	private JTable _t;
 	JunctionsTable(){
 		_map = null;
 		initGUI();
@@ -87,12 +89,23 @@ public class JunctionsTable extends JPanel implements TrafficSimulatorObserver{
 		this.setBorder(new TitledBorder(defaultBorder, "Junctions"));
 		this.setLayout(new BorderLayout());
 		_vehiclesModel = new VehiclesTableModel();
-		JTable t = new JTable(_vehiclesModel);
-		t.setShowGrid(false);
-		JScrollPane s = new JScrollPane(t);
+		_t = new JTable(_vehiclesModel);
+		_t.setShowGrid(false);
+		JScrollPane s = new JScrollPane(_t);
 		s.getViewport().setBackground(Color.WHITE);
 		this.add(s, BorderLayout.CENTER); //check
 		this.setVisible(true);
+	}
+	
+	public List<Junction> getSelected() {
+		int[] data =  _t.getSelectedRows();
+		List<Junction> l = new ArrayList<Junction>();
+		for (int i = 0; i < data.length; i++) {
+			l.add(_map.getJunctions().get(data[i]));
+		}
+		
+		return l;
+		
 	}
 	
 

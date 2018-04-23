@@ -68,6 +68,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	//Menu and Tool bar ------
 	private JFileChooser _fc;
 	private MainToolbar _toolbar;
+	private MenuBar _menuBar;
 	
 	//Graphic panel ------
 	private Graph _graph;
@@ -90,7 +91,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	// MODEL PART -VIEW CONTROLLER MODEL
 	private File _currentFile;
 	private Controller _controller;
-	
+	private SimulatorOutputStream _out;
 	//�?
 
 	TextEditorPanel text_editor;
@@ -164,12 +165,14 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		mainPanel.add(centralPanel, BorderLayout.CENTER);
 		
 		
-		//upper panel
-		this.createUpperPanel(centralPanel);
+		
 		
 		//Menu
-		MenuBar barMenu = new MenuBar(this, _controller);
-		this.setJMenuBar(barMenu);
+		_menuBar = new MenuBar(this, _controller);
+		this.setJMenuBar(_menuBar);
+		
+		//upper panel
+		this.createUpperPanel(centralPanel);
 		
 		//lower panel
 		this.createLowerPanel(centralPanel);
@@ -244,6 +247,13 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		_controller.addObserver(_eventQueuePanel);
 		this._informPanel = new InformPanel("holi", false, this._controller);
 		_controller.addObserver(_informPanel);
+		_out = new SimulatorOutputStream(_informPanel);
+		if (_menuBar.getRedirect().isSelected()) {
+			_controller.setOutputStream(_out);
+		}
+		else {
+			_controller.setOutputStream(null);
+		}
 		centralPanel.add(upperPanel);
 		upperPanel.add(_eventsEditorPanel);
 		upperPanel.add(_eventQueuePanel);
@@ -350,7 +360,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			clearArea(_informPanel);
 		}
 		else if (ButtonConstants.GENERATE.equals(e.getActionCommand())) {
-			
+			generateReport();
 		}
 
 		//TODO: do all the comands
@@ -395,6 +405,21 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		t.cleanUp();
 	}
 	
+	private void generateReport() {
+		_informPanel.cleanUp();
+		for (Vehicle v : _vehiclesPanel.getSelected()) {
+			_informPanel._textArea.append(v.generateReport(_toolbar.getTime()) + "\n");
+		}
+		
+		for (Road v : _roadsPanel.getSelected()) {
+			_informPanel._textArea.append(v.generateReport(_toolbar.getTime()) + "\n");
+		}
+		
+		for (Junction v : _junctionsPanel.getSelected()) {
+			_informPanel._textArea.append(v.generateReport(_toolbar.getTime()) + "\n");
+		}
+	}
+	
 	/**
 	 * Notify to the observers a new load file
 	 */
@@ -415,9 +440,13 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		//if (e.getSource() == redirect) {
-			//TODO
-		//}
+		if (e.getSource() == _menuBar.getRedirect()) {
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+				_controller.setOutputStream(_out);
+			} else {
+				_controller.setOutputStream(null);
+			}
+		}
 		
 	}
 

@@ -77,6 +77,7 @@ public class MenuBar extends JMenuBar  {
 		reset.addActionListener(mainWindow);
 		
 		redirect = new JCheckBoxMenuItem("Redirect");
+		redirect.setSelected(true);
 		redirect.addItemListener(mainWindow);
 		
 		simulator.add(run);
@@ -95,6 +96,10 @@ public class MenuBar extends JMenuBar  {
 		reports.add(clear);
 		
 		
+	}
+	
+	public JCheckBoxMenuItem getRedirect() {
+		return redirect;
 	}
 	
 }

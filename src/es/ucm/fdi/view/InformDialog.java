@@ -16,6 +16,10 @@ public class InformDialog extends JDialog implements TrafficSimulatorObserver{
 	public InformDialog(MainFrame mainFrame, Controller _controller) {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public InformDialog() {
+		
+	}
 
 	@Override
 	public void onRegistered(TrafficSimulator trafficSimulator) {

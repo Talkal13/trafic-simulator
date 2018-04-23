@@ -102,6 +102,7 @@ public class Controller {
 	
 	public void setOutputStream(OutputStream outStream) {
 		_output = outStream;
+		_sim.setOutStream(_output);
 	}
 	
 	/**

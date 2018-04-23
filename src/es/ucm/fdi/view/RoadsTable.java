@@ -2,6 +2,7 @@ package es.ucm.fdi.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -13,11 +14,13 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 
 import es.ucm.fdi.model.Event;
+import es.ucm.fdi.model.Road;
 import es.ucm.fdi.model.RoadMap;
 import es.ucm.fdi.model.SimulatedObject;
 import es.ucm.fdi.model.SimulatorError;
 import es.ucm.fdi.model.TrafficSimulator;
 import es.ucm.fdi.model.TrafficSimulatorObserver;
+import es.ucm.fdi.model.Vehicle;
 
 @SuppressWarnings("serial")
 public class RoadsTable extends JPanel implements TrafficSimulatorObserver{
@@ -65,7 +68,8 @@ public class RoadsTable extends JPanel implements TrafficSimulatorObserver{
 	
 	private RoadMap _map;
 	private VehiclesTableModel _vehiclesModel;
-
+	private JTable _t;
+	
 	RoadsTable(){
 		_map = null;
 		initGUI();
@@ -77,12 +81,23 @@ public class RoadsTable extends JPanel implements TrafficSimulatorObserver{
 		this.setLayout(new BorderLayout());
 		_vehiclesModel = new VehiclesTableModel();
 		
-		JTable t = new JTable(_vehiclesModel);
-		t.setShowGrid(false);
-		JScrollPane s = new JScrollPane(t);
+		_t = new JTable(_vehiclesModel);
+		_t.setShowGrid(false);
+		JScrollPane s = new JScrollPane(_t);
 		s.getViewport().setBackground(Color.WHITE);
 		this.add(s, BorderLayout.CENTER); //check
 		this.setVisible(true);
+	}
+	
+	public List<Road> getSelected() {
+		int[] data =  _t.getSelectedRows();
+		List<Road> l = new ArrayList<Road>();
+		for (int i = 0; i < data.length; i++) {
+			l.add(_map.getRoads().get(data[i]));
+		}
+		
+		return l;
+		
 	}
 	
 

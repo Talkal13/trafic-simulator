@@ -239,10 +239,8 @@ public class ExampleMain {
 		} catch (NullPointerException e) {
 			_input = null;
 		}
-		if (_outFile == null) {
-			_output = System.out;
-		} else
-			_output = new FileOutputStream(_outFile);
+		_output = null;
+		
 		_traffic = new TrafficSimulator(_output);
 		_controller = new Controller(_traffic);
 		_controller.setEventBuilders(_eventBuilders);

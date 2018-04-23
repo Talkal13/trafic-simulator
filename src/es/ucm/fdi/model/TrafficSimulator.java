@@ -17,7 +17,7 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 	private RoadMap _map;
 	private int _time;
 	private List<Event> _events;
-	private OutputStream _outStream;
+	private OutputStream _output;
 	
 	private List<TrafficSimulatorObserver> _obs;
 	
@@ -29,7 +29,7 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 
 	public TrafficSimulator(OutputStream outStream) {
 		this._time = 0;
-		_outStream = outStream;
+		_output = outStream;
 		_events = new ArrayList<Event>();
 		_map = new RoadMap();
 		_obs = new ArrayList<TrafficSimulatorObserver>();
@@ -121,11 +121,19 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 		for (TrafficSimulatorObserver o : _obs) {
 			o.onAdvance(k, _time);
 		}
+		
 	}
 	
 	public void NotifyAdvance() {
 		for (TrafficSimulatorObserver o : _obs) {
 			o.onAdvance(this, _time);
+		}
+		try {
+			_output.write(generateReport(_time).getBytes());
+		} catch (IOException e) {
+			NotifyError(e.getMessage());
+		} catch (NullPointerException k) {
+			
 		}
 	}
 	
@@ -152,7 +160,7 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 	 */
 	
 	public void setOutStream(OutputStream outStream) {
-		_outStream = outStream;
+		_output = outStream;
 	}
 
 	/**

@@ -19,7 +19,7 @@ import javax.swing.JTextArea;
 import es.ucm.fdi.control.Controller;
 import es.ucm.fdi.control.eventBuilders.EventBuilder;
 
-public class PopUpMenu extends JFrame{
+public class PopUpMenu extends JFrame {
 	
 	private JPanel _mainPanel;
 	private JTextArea _editor;

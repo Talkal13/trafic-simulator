@@ -32,7 +32,7 @@ public class InformPanel extends TextAreaPanel implements TrafficSimulatorObserv
 
 	@Override
 	public void onAdvance(TrafficSimulator t, int time) {
-		this._textArea.append(t.generateReport(time));
+		//this._textArea.append(t.generateReport(time));
 		
 	}
 

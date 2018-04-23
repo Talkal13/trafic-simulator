@@ -22,7 +22,7 @@ public class EventsEditorPanel extends TextAreaPanel implements TrafficSimulator
 		mainWindow.addObserver(this);
 		
 		PopUpMenu popUp = new PopUpMenu(mainWindow);
-		this._textArea.add(popUp);
+		//this._textArea.add(popUp);
 		
 		
 		_textArea.addMouseListener(new MouseListener() {
