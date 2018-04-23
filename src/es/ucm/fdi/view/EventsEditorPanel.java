@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 
 import es.ucm.fdi.model.Event;
@@ -20,8 +21,10 @@ public class EventsEditorPanel extends TextAreaPanel implements TrafficSimulator
 		this.setText(text);
 		mainWindow.addObserver(this);
 		
-		//PopupMenu popUp = new PopUpMenu(mainWindow);
-		//_textArea.add(popUp);
+		PopUpMenu popUp = new PopUpMenu(mainWindow);
+		this._textArea.add(popUp);
+		
+		
 		_textArea.addMouseListener(new MouseListener() {
 
 			@Override
@@ -45,14 +48,14 @@ public class EventsEditorPanel extends TextAreaPanel implements TrafficSimulator
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.isPopupTrigger() && _textArea.isEnabled()) {
-					//popUp.show(e.getComponent(), e.getX(), e.getY());
+					popUp.show(e.getComponent(), e.getX(), e.getY());
 				}
 				
 			}
-
+			
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
+				// Aqui habra que hacer algo 
 				
 			}
 			
@@ -119,6 +122,11 @@ public class EventsEditorPanel extends TextAreaPanel implements TrafficSimulator
 
 	@Override
 	public void onSaveFile(File file) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void onStart(TrafficSimulator t, List<Event> events) {
 		// TODO Auto-generated method stub
 		
 	}
