@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -180,6 +181,12 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 
 	@Override
 	public void onNewEvent(Event e, RoadMap _map, int _time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStart(TrafficSimulator t, List<Event> events) {
 		// TODO Auto-generated method stub
 		
 	}

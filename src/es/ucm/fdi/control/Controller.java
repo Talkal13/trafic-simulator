@@ -132,7 +132,7 @@ public class Controller {
 	
 	public boolean loadEvents(InputStream inStream) {
 		Ini ini;
-		
+		_reset = false;
 		try {
 			ini = new Ini(inStream);
 		}
@@ -150,6 +150,8 @@ public class Controller {
 			System.err.print(e.getMessage() + "\n");
 			return false;
 		}
+		
+		_sim.NotifyStart();
 		
 		return true;
 		

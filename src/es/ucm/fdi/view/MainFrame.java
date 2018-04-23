@@ -62,7 +62,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	
 	
 	private EventsEditorPanel _eventsEditorPanel;
-	private TextAreaPanel _informPanned;
+	private InformPanel _informPanel;
 	private EventsTable _eventQueuePanel;
 	
 	//Menu and Tool bar ------
@@ -176,7 +176,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		//tool bar
 		this.addToolBar(mainPanel);//not a default method ?�? probably a new class...
 		//file chooser
-		_fc = new JFileChooser();
+		_fc = new JFileChooser(System.getProperty("user.dir"));
 		//report dialog
 		_informDialog = new InformDialog (this, _controller);
 		this.pack();
@@ -240,13 +240,14 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		_eventsEditorPanel = new EventsEditorPanel((_currentFile == null) ? "Empty file" : _currentFile.getName(), "", true, this);
 		if (_currentFile != null) NotifyLoad(_currentFile);
 		_controller.addObserver(_eventsEditorPanel);
-		_eventQueuePanel = new EventsTable();
+		_eventQueuePanel = new EventsTable(this);
 		_controller.addObserver(_eventQueuePanel);
-		this._informPanned = new InformPanel("holi", false, this._controller);
+		this._informPanel = new InformPanel("holi", false, this._controller);
+		_controller.addObserver(_informPanel);
 		centralPanel.add(upperPanel);
 		upperPanel.add(_eventsEditorPanel);
 		upperPanel.add(_eventQueuePanel);
-		upperPanel.add(_informPanned);
+		upperPanel.add(_informPanel);
 		
 	}
 
@@ -264,7 +265,6 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	}
 
 	private JPanel createMainPanel() {
-		
 		return new JPanel( new BorderLayout() );
 	}
 
@@ -359,8 +359,9 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		int returnVal = _fc.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = _fc.getSelectedFile();
+			_controller.reset();
+			_controller.loadEvents(new FileInputStream(file.getPath()));
 			NotifyLoad(file);
-			_controller.loadEvents(new FileInputStream(file));
 		}
 	}
 	
@@ -444,6 +445,12 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		//_obs.remove(observer);
 		if(o != null &&  _obs.contains(o))
 			_obs.remove(o);
+		
+	}
+
+	@Override
+	public void onStart(TrafficSimulator t, List<Event> events) {
+		// TODO Auto-generated method stub
 		
 	}
 	

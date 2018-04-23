@@ -1,5 +1,7 @@
 package es.ucm.fdi.observer;
 
+import java.util.List;
+
 import javax.swing.table.DefaultTableModel;
 
 import es.ucm.fdi.model.Event;
@@ -42,6 +44,12 @@ public class TableModel<T> extends DefaultTableModel implements TrafficSimulator
 
 	@Override
 	public void onNewEvent(Event e, RoadMap _map, int _time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStart(TrafficSimulator t, List<Event> events) {
 		// TODO Auto-generated method stub
 		
 	}

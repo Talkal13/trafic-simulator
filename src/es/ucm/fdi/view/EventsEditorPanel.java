@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 
 import es.ucm.fdi.model.Event;
@@ -120,6 +121,13 @@ public class EventsEditorPanel extends TextAreaPanel implements TrafficSimulator
 	@Override
 	public void onSaveFile(File file) {
 		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onStart(TrafficSimulator t, List<Event> events) {
+		
 		
 	}
 

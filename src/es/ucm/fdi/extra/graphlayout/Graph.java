@@ -96,4 +96,10 @@ public class Graph implements TrafficSimulatorObserver {
 	@Override
 	public void onNewEvent(Event e, RoadMap _map, int _time) {
 	}
+
+	@Override
+	public void onStart(TrafficSimulator t, List<Event> events) {
+		// TODO Auto-generated method stub
+		
+	}
 }

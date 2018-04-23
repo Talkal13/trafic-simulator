@@ -2,6 +2,7 @@ package es.ucm.fdi.view;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 import es.ucm.fdi.model.Event;
 import es.ucm.fdi.model.RoadMap;
@@ -65,6 +66,12 @@ public class ConsoleView implements TrafficSimulatorObserver {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	}
+
+	@Override
+	public void onStart(TrafficSimulator t, List<Event> events) {
+		// TODO Auto-generated method stub
 		
 	}
 
