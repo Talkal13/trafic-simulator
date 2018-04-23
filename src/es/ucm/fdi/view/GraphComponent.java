@@ -1,4 +1,4 @@
-package es.ucm.fdi.extra.graphlayout;
+package es.ucm.fdi.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,6 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JComponent;
+
+import es.ucm.fdi.extra.graphlayout.Node;
+import es.ucm.fdi.view.graph.Dot;
+import es.ucm.fdi.view.graph.Edge;
+import es.ucm.fdi.view.graph.Graph;
 
 public class GraphComponent extends JComponent {
 
@@ -109,7 +114,7 @@ public class GraphComponent extends JComponent {
 			Point p2 = _nodesPisitions.get(e.getTarget().getId());
 
 			// draw the edge
-			Color arrowColor = Math.random() > 0.5 ? Color.RED : Color.GREEN;
+			Color arrowColor = (!e.getColor()) ? Color.RED : Color.GREEN;
 			drawArrowLine(g, p1.cX, p1.cY, p2.cX, p2.cY, 15, 5, Color.BLACK, arrowColor);
 
 			// draw dots as circles. Dots at the same location are drawn with circles of

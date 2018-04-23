@@ -1,5 +1,7 @@
 package es.ucm.fdi.view;
 
+import java.util.List;
+
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -65,6 +67,12 @@ public class StateBarPannel extends JPanel implements TrafficSimulatorObserver{
 	}
 
 	public void setMessage(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStart(TrafficSimulator t, List<Event> events) {
 		// TODO Auto-generated method stub
 		
 	}

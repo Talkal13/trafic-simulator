@@ -124,6 +124,12 @@ public class RoadsTable extends JPanel implements TrafficSimulatorObserver{
 		
 	}
 
+	@Override
+	public void onStart(TrafficSimulator t, List<Event> events) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 	
 }

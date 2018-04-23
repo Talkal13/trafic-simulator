@@ -131,4 +131,11 @@ public class EventsEditorPanel extends TextAreaPanel implements TrafficSimulator
 		
 	}
 
+
+	@Override
+	public void onStart(TrafficSimulator t, List<Event> events) {
+		
+		
+	}
+
 }

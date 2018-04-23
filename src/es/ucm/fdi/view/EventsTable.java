@@ -2,7 +2,9 @@ package es.ucm.fdi.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -21,7 +23,7 @@ import es.ucm.fdi.model.TrafficSimulator;
 import es.ucm.fdi.model.TrafficSimulatorObserver;
 
 @SuppressWarnings("serial")
-public class EventsTable extends JPanel implements TrafficSimulatorObserver{
+public class EventsTable extends JPanel implements TrafficSimulatorObserver, GuiViewObserver {
 	
 	public static Border defaultBorder = BorderFactory.createLineBorder(Color.black, 2);
 
@@ -64,8 +66,9 @@ public class EventsTable extends JPanel implements TrafficSimulatorObserver{
 	private List<Event> _events;
 	private EventsTableModel _eventsModel;
 
-	EventsTable(){
+	EventsTable(MainFrame mainWindow ){
 		_events = new ArrayList<Event>();
+		mainWindow.addObserver(this);
 		initGUI();
 		
 	}
@@ -99,8 +102,11 @@ public class EventsTable extends JPanel implements TrafficSimulatorObserver{
 
 	@Override
 	public void onAdvance(es.ucm.fdi.model.TrafficSimulator t, int time) {
-		for (Event e : _events) {
-			if (e.getScheduledTime() <= time) _events.remove(e);
+		for (Iterator<Event> it = _events.iterator(); it.hasNext(); ) {
+		    Event e = it.next();
+		    if (e.getScheduledTime() <= time) {
+		        it.remove();
+		    }
 		}
 		_eventsModel.refresh();
 	}
@@ -118,9 +124,26 @@ public class EventsTable extends JPanel implements TrafficSimulatorObserver{
 
 	@Override
 	public void onNewEvent(es.ucm.fdi.model.Event e, es.ucm.fdi.model.RoadMap map, int time) {
-		_events.add(e);
-		_eventsModel.refresh();
+
 	}
+
+	@Override
+	public void onStart(TrafficSimulator t, List<Event> events) {
+		_events = new ArrayList<Event>(events);
+		_eventsModel.refresh();		
+	}
+
+	@Override
+	public void onLoadFile(File file) {
+		
+	}
+
+	@Override
+	public void onSaveFile(File file) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 	
 	

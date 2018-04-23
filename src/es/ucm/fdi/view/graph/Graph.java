@@ -1,11 +1,13 @@
-package es.ucm.fdi.extra.graphlayout;
+package es.ucm.fdi.view.graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import es.ucm.fdi.extra.graphlayout.Node;
 import es.ucm.fdi.model.Event;
 import es.ucm.fdi.model.Junction;
+import es.ucm.fdi.model.Junction.IncomingRoad;
 import es.ucm.fdi.model.NewJunctionEvent;
 import es.ucm.fdi.model.NewRoadEvent;
 import es.ucm.fdi.model.Road;
@@ -73,7 +75,11 @@ public class Graph implements TrafficSimulatorObserver {
 		}
 		
 		for (Road r : t.getRoadMap().getRoads()) {
-			addEdge(new Edge(r.getId(), _map_node.get(r.getSource().getId()), _map_node.get(r.getDestination().getId()), r.getLenght()));
+			boolean color = false;
+			for (IncomingRoad k : r.getDestination().getRoadsInfo()) {
+				if (k.getRoad() == r) color = k.hasGreenLight(); 
+			}
+			addEdge(new Edge(r.getId(), _map_node.get(r.getSource().getId()), _map_node.get(r.getDestination().getId()), r.getLenght(), color));
 		}
 		
 		for (Vehicle v : t.getRoadMap().getVehicles()) {
@@ -95,5 +101,11 @@ public class Graph implements TrafficSimulatorObserver {
 
 	@Override
 	public void onNewEvent(Event e, RoadMap _map, int _time) {
+	}
+
+	@Override
+	public void onStart(TrafficSimulator t, List<Event> events) {
+		// TODO Auto-generated method stub
+		
 	}
 }

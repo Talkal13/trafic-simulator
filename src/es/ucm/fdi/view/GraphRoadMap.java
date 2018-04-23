@@ -3,7 +3,6 @@ package es.ucm.fdi.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.ucm.fdi.extra.graphlayout.Graph;
 import es.ucm.fdi.model.Event;
 import es.ucm.fdi.model.Junction;
 import es.ucm.fdi.model.NewJunctionEvent;
@@ -12,6 +11,7 @@ import es.ucm.fdi.model.RoadMap;
 import es.ucm.fdi.model.SimulatedObject;
 import es.ucm.fdi.model.TrafficSimulator;
 import es.ucm.fdi.model.TrafficSimulatorObserver;
+import es.ucm.fdi.view.graph.Graph;
 
 public class GraphRoadMap extends Graph implements TrafficSimulatorObserver {
 	private List<Road> _roads;

@@ -138,6 +138,12 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 		}
 	}
 	
+	public void NotifyStart() {
+		for (TrafficSimulatorObserver o : _obs) {
+			o.onStart(this, _events);
+		}
+	}
+	
 	
 	/**
 	 * Setter method of the outStream class attribute.
@@ -189,4 +195,6 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 	public RoadMapInterface getRoadMap() {
 		return _map;
 	}
+
+	
 }

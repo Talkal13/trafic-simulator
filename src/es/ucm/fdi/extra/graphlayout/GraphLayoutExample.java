@@ -2,6 +2,11 @@ package es.ucm.fdi.extra.graphlayout;
 
 import javax.swing.*;
 
+import es.ucm.fdi.view.GraphComponent;
+import es.ucm.fdi.view.graph.Dot;
+import es.ucm.fdi.view.graph.Edge;
+import es.ucm.fdi.view.graph.Graph;
+
 import java.awt.BorderLayout;
 import java.awt.event.*;
 import java.util.Random;
@@ -59,7 +64,7 @@ public class GraphLayoutExample extends JFrame  {
 				t = (t + 1) % numNodes;
 			}
 			int l = _rand.nextInt(30)+20;
-			Edge e = new Edge("e"+i, g.getNodes().get(s), g.getNodes().get(t), l);
+			Edge e = new Edge("e"+i, g.getNodes().get(s), g.getNodes().get(t), l, true);
 			
 			int numDots = _rand.nextInt(5);
 			for(int j=0; j<numDots; j++) {
