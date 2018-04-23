@@ -95,7 +95,7 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		
 		
 		this.add(new JLabel ("Steps: "));
-		model = new SpinnerNumberModel(5, 1, 10000, 1);   
+		model = new SpinnerNumberModel(1, 1, 10000, 1);   
 		spinner = new JSpinner(model);
 		spinner.setMaximumSize(new Dimension(70, 30));
 		this.add(spinner);
