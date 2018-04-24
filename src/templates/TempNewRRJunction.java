@@ -21,5 +21,4 @@ public class TempNewRRJunction extends Template {
 		return s.toString();
 	}
 
-
 }

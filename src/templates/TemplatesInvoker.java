@@ -23,7 +23,7 @@ public class TemplatesInvoker {
 	
 	private static Template[] _templates = {
 			new TempNewRRJunction(),
-			//new TempNewMCJunction(),
+			new TempNewMCJunction(),
 			//new TempNewJunction(),
 			//new TempNewDirtRoad(),
 			//new TempNewLanesRoad(),
