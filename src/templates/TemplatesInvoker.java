@@ -31,7 +31,7 @@ public class TemplatesInvoker {
 			new TempNewBike(),
 			new TempNewCar(),
 			new TempNewVehicle(),
-			//new TempMakeVehicleFaulty()
+			new TempMakeVehicleFaulty()
 	};
 	
 
