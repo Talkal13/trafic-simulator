@@ -373,6 +373,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		else if (ButtonConstants.GENERATE.equals(e.getActionCommand())) {
 			generateReport();
 		}
+		//
 
 		//TODO: do all the comands
 		
