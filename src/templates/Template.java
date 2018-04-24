@@ -18,7 +18,6 @@ public abstract class Template {
 		_name = name;
 	}
 	
-	public abstract String parse(String command);
 	public abstract String generateTemplate();
 	
 	public JMenuItem generateMenuItem(JTextArea _textArea) {

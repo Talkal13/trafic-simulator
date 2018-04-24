@@ -23,15 +23,15 @@ public class TemplatesInvoker {
 	
 	private static Template[] _templates = {
 			new TempNewRRJunction(),
-			new TempNewMCJunction(),
-			new TempNewJunction(),
-			new TempNewDirtRoad(),
-			new TempNewLanesRoad(),
-			new TempNewRoad(),
-			new TempNewBike(),
-			new TempNewCar(),
-			new TempNewVehicle(),
-			new TempMakeVehicleFaulty()
+			//new TempNewMCJunction(),
+			//new TempNewJunction(),
+			//new TempNewDirtRoad(),
+			//new TempNewLanesRoad(),
+			//new TempNewRoad(),
+			//new TempNewBike(),
+			//new TempNewCar(),
+			//new TempNewVehicle(),
+			//new TempMakeVehicleFaulty()
 	};
 	
 
