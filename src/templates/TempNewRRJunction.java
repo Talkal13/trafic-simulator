@@ -1,23 +1,24 @@
 package templates;
 
+import es.ucm.fdi.ini.IniSection;
+
 public class TempNewRRJunction extends Template {
 
-	private final static String NAME = "new_rr_junction";
 	private static final String USER_NAME = "New RR Junction";
+	private static final String COMMAND = "new_junction";
+	
 	public TempNewRRJunction() {
 		super(USER_NAME);
 	}
-	
-	@Override
-	public String parse(String command) {
-		if (command == NAME) return generateTemplate();
-		return null;
-	}
+
 
 	@Override
 	public String generateTemplate() {
-		
-		return "Holi";
+		IniSection s = new IniSection(COMMAND);
+		s.setValue("time", "");
+		s.setValue("id", "");
+		s.setValue("type", "rr");
+		return s.toString();
 	}
 
 }

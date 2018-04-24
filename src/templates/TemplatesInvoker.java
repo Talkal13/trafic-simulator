@@ -34,25 +34,7 @@ public class TemplatesInvoker {
 			new TempMakeVehicleFaulty()
 	};
 	
-	/**
-	 * Will parse which is the Event from the Ini file has to be returned.
-	 * 
-	 * @param sec Ini file to be parsed.
-	 * @return the event to be added in the event loading process.
-	 */
-	
-	public static String parserTemplate(String command) {
-		int i = 0;
-		boolean go = true;
-		String e = null;
-		
-		while (i < _templates.length && go ) {
-			e = _templates[i].parse(command);
-			if (e!=null) go = false;
-			else i++;
-		}
-		return e;
-	}
+
 	
 	public void addTemplates(JMenu j, JTextArea _textArea) {
 		for (Template t : _templates) {
