@@ -22,7 +22,7 @@ import es.ucm.fdi.model.Event;
 public class TemplatesInvoker {
 	
 	private static Template[] _templates = {
-			new TempNewRRJunction("New RR Junction"),
+			new TempNewRRJunction(),
 			new TempNewMCJunction(),
 			new TempNewJunction(),
 			new TempNewDirtRoad(),

@@ -2,12 +2,11 @@ package templates;
 
 public class TempNewRRJunction extends Template {
 
-	
-	public TempNewRRJunction(String name) {
-		super(name);
+	private final static String NAME = "new_rr_junction";
+	private static final String USER_NAME = "New RR Junction";
+	public TempNewRRJunction() {
+		super(USER_NAME);
 	}
-
-	private final String NAME = "new_rr_junction";
 	
 	@Override
 	public String parse(String command) {
