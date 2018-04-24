@@ -101,6 +101,8 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
     
 	private List<GuiViewObserver> _obs;
 
+	private GridBagConstraints _c;
+
 	
 	public MainFrame(Controller ctrl) {
 		super("Traffic Simulator");
@@ -184,7 +186,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		_informDialog = new InformDialog (this, _controller);
 		this.pack();
 		this.setVisible(true);
-		this.setSize(900, 900);
+		this.setSize(1200, 900);
 	
 	}
 	
@@ -232,8 +234,10 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		this._graphComp = new GraphComponent();
 		_graphComp.setGraph(_graph);
 		grid.add(_graphComp);
-		
-		centralPanel.add(grid);
+		_c.gridx = 0;
+		_c.gridy = GridBagConstraints.RELATIVE;
+		_c.weighty = 0.5;
+		centralPanel.add(grid, _c);
 		
 	}
 
@@ -254,7 +258,12 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		else {
 			_controller.setOutputStream(null);
 		}
-		centralPanel.add(upperPanel);
+		_c.weightx = 0.5;
+		_c.weighty = 3;
+		_c.gridx = 0;
+		_c.gridy = 0;
+		//_c.anchor = GridBagConstraints.PAGE_START;
+		centralPanel.add(upperPanel, _c);
 		upperPanel.add(_eventsEditorPanel);
 		upperPanel.add(_eventQueuePanel);
 		upperPanel.add(_informPanel);
@@ -264,7 +273,9 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	private JPanel createCentralPanel() {
 		JPanel centralPanel = new JPanel();
 		//to set the lower and upper panel 
-		centralPanel.setLayout(new GridLayout(2, 0));
+		centralPanel.setLayout(new GridBagLayout());
+		_c = new GridBagConstraints();
+		_c.fill = GridBagConstraints.BOTH;
 		return centralPanel;
 	}
 
