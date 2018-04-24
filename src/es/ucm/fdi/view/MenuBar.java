@@ -1,5 +1,6 @@
 package es.ucm.fdi.view;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -38,28 +39,28 @@ public class MenuBar extends JMenuBar  {
 		load.addActionListener(mainWindow);
 		load.setMnemonic(KeyEvent.VK_L);
 		load.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,
-				ActionEvent.ALT_MASK));
+				ActionEvent.CTRL_MASK));
 
 		save = new JMenuItem("Save Events");
 		save.setActionCommand(ButtonConstants.SAVE);
 		save.addActionListener(mainWindow);
 		save.setMnemonic(KeyEvent.VK_S);
 		save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-				ActionEvent.ALT_MASK));
+				ActionEvent.CTRL_MASK));
 
 		save_report = new JMenuItem("Save Report");
 		save_report.setActionCommand(ButtonConstants.SAVE_REPORT);
 		save_report.addActionListener(mainWindow);
 		save_report.setMnemonic(KeyEvent.VK_R);
 		save_report.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
-				ActionEvent.ALT_MASK));
+				ActionEvent.CTRL_MASK));
 
 		quit = new JMenuItem("Exit");
 		quit.setActionCommand(ButtonConstants.QUIT);
 		quit.addActionListener(mainWindow);
 		quit.setMnemonic(KeyEvent.VK_E);
 		quit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,
-				ActionEvent.ALT_MASK));
+				ActionEvent.CTRL_MASK));
 
 		file.add(load);
 		file.add(save);
@@ -95,7 +96,7 @@ public class MenuBar extends JMenuBar  {
 		reports.add(generate);
 		reports.add(clear);
 		
-		
+		this.setBackground(Color.WHITE);
 	}
 	
 	public JCheckBoxMenuItem getRedirect() {

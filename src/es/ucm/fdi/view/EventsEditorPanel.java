@@ -21,15 +21,17 @@ public class EventsEditorPanel extends TextAreaPanel implements TrafficSimulator
 		this.setText(text);
 		mainWindow.addObserver(this);
 		
-		PopUpMenu popUp = new PopUpMenu(mainWindow);
+		PopUpMenu popUp = new PopUpMenu(mainWindow, this);
 		//this._textArea.add(popUp);
 		
 		
 		_textArea.addMouseListener(new MouseListener() {
 
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
+			public void mouseClicked(MouseEvent e) {
+				if(e.isPopupTrigger() && _textArea.isEnabled()) {
+					popUp.show(e.getComponent(), e.getX(), e.getY());
+				}
 				
 			}
 
@@ -47,9 +49,7 @@ public class EventsEditorPanel extends TextAreaPanel implements TrafficSimulator
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if(e.isPopupTrigger() && _textArea.isEnabled()) {
-					popUp.show(e.getComponent(), e.getX(), e.getY());
-				}
+				
 				
 			}
 			
@@ -103,8 +103,9 @@ public class EventsEditorPanel extends TextAreaPanel implements TrafficSimulator
 	@Override
 	public void onLoadFile(File file) {
 		try {
+			super.setTitle("Events: " + file.getName());
 			this._textArea.setText(readFile(file));
-			super.setTitle(file.getName());
+			
 		} catch (FileNotFoundException e) {
 		
 		}

@@ -1,5 +1,8 @@
 package es.ucm.fdi.view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.io.File;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -14,12 +17,13 @@ import es.ucm.fdi.model.SimulatedObject;
 import es.ucm.fdi.model.TrafficSimulator;
 import es.ucm.fdi.model.TrafficSimulatorObserver;
 
-public class StateBarPannel extends JPanel implements TrafficSimulatorObserver{
+public class StateBarPannel extends JPanel implements TrafficSimulatorObserver, GuiViewObserver{
 
 	private JLabel _label;
 	
 	public StateBarPannel() {
-		_label = new JLabel("Welcome to the trafficSimulator");
+		this.setLayout(new BorderLayout());
+		_label = new JLabel("Welcome to the trafficSimulator", SwingConstants.LEFT);
 		_label.setHorizontalAlignment(SwingConstants.LEFT);
 		this.setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.LOWERED));
 
@@ -28,6 +32,15 @@ public class StateBarPannel extends JPanel implements TrafficSimulatorObserver{
 
 	public void setBorder(String title) {
 		
+	}
+	
+	public void printMessage(String message) {
+		_label.setText(message);
+	}
+	
+	public void printError(String error) {
+		_label.setText(error);
+		_label.setForeground(Color.RED);
 	}
 
 	@Override
@@ -56,7 +69,7 @@ public class StateBarPannel extends JPanel implements TrafficSimulatorObserver{
 
 	@Override
 	public void onError(String msg) {
-		// TODO Auto-generated method stub
+		printError(msg);
 		
 	}
 
@@ -73,6 +86,18 @@ public class StateBarPannel extends JPanel implements TrafficSimulatorObserver{
 
 	@Override
 	public void onStart(TrafficSimulator t, List<Event> events) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onLoadFile(File file) {
+		printMessage("Successfull load of file " + file.getName());
+		
+	}
+
+	@Override
+	public void onSaveFile(File file) {
 		// TODO Auto-generated method stub
 		
 	}

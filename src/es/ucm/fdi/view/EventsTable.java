@@ -74,7 +74,7 @@ public class EventsTable extends JPanel implements TrafficSimulatorObserver, Gui
 	}
 	
 	private void initGUI() {
-		this.setBorder(new TitledBorder(defaultBorder, "Vehicles"));
+		this.setBorder(new TitledBorder(defaultBorder, "Events Queue"));
 		this.setLayout(new BorderLayout());
 		_eventsModel = new EventsTableModel();
 		

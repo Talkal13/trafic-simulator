@@ -244,12 +244,12 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	private void createUpperPanel(JPanel centralPanel) {
 		JPanel upperPanel = new JPanel(new GridLayout(0, 3));
 		String texto = "";
-		_eventsEditorPanel = new EventsEditorPanel((_currentFile == null) ? "Empty file" : _currentFile.getName(), "", true, this);
+		_eventsEditorPanel = new EventsEditorPanel((_currentFile == null) ? "Empty file" : "Events: " + _currentFile.getName(), "", true, this);
 		if (_currentFile != null) NotifyLoad(_currentFile);
 		_controller.addObserver(_eventsEditorPanel);
 		_eventQueuePanel = new EventsTable(this);
 		_controller.addObserver(_eventQueuePanel);
-		this._informPanel = new InformPanel("holi", false, this._controller);
+		this._informPanel = new InformPanel("Reports", false, this._controller);
 		_controller.addObserver(_informPanel);
 		_out = new SimulatorOutputStream(_informPanel);
 		if (_menuBar.getRedirect().isSelected()) {
@@ -281,6 +281,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 
 	private void addStateBar(JPanel mainPanel) {
 		this._stateBarPanel = new StateBarPannel();
+		this.addObserver(_stateBarPanel);
 		mainPanel.add(_stateBarPanel, BorderLayout.PAGE_END);
 		
 	}
@@ -353,7 +354,9 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		else if (ButtonConstants.QUIT.equals(e.getActionCommand()))
 			System.exit(0);
 		else if (ButtonConstants.RUN.equals(e.getActionCommand())) {
+			this._stateBarPanel.printMessage("Running the simulator");
 			_controller.run(_toolbar.getTime());
+			//this._stateBarPanel.printMessage("Successfull Run");
 		}
 		else if (ButtonConstants.RESET.equals(e.getActionCommand())) {
 			_controller.reset();
@@ -400,6 +403,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			_controller.reset();
 			_controller.loadEvents(new FileInputStream(file.getPath()));
 			NotifyLoad(file);
+			
 		}
 	}
 	

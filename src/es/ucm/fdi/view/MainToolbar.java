@@ -1,5 +1,6 @@
 package es.ucm.fdi.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -100,6 +101,7 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		_timefield = new JTextField();
 		_timefield.setEditable(false);
 		_timefield.setText(""+_time);
+		_timefield.setBackground(Color.WHITE);
 	    _timefield.setHorizontalAlignment(JTextField.RIGHT);
 		_timefield.setMaximumSize(new Dimension(70, 30));
 		this.add(_timefield);
