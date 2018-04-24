@@ -26,7 +26,7 @@ public abstract class Template {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				_textArea.append(generateTemplate());
+				_textArea.append(generateTemplate() + "\n");
 				
 			}
 			
