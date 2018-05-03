@@ -2,6 +2,7 @@ package es.ucm.fdi.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -103,6 +104,8 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 
 	private GridBagConstraints _c;
 
+	protected Component _mainPanel;
+
 	
 	public MainFrame(Controller ctrl) {
 		super("Traffic Simulator");
@@ -124,7 +127,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	
 	public void initGUI() {
 		
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		this.addWindowListener(new WindowListener() {//when exit ask for confirmation
 			//TODO clean understand this mess
@@ -137,7 +140,10 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			}
 
 			public void windowClosing(WindowEvent e) {
-				
+				int result = JOptionPane.showConfirmDialog(_mainPanel, "Do you really want to quit?", "Last chance...", JOptionPane.YES_NO_OPTION);
+				if (result == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				}
 			}
 
 			public void windowDeactivated(WindowEvent e) {	
@@ -354,7 +360,10 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			clearArea(_eventsEditorPanel);
 		}
 		else if (ButtonConstants.QUIT.equals(e.getActionCommand())) {
-			System.exit(0);
+			int result = JOptionPane.showConfirmDialog(_mainPanel, "Do you really want to quit?", "Last chance...", JOptionPane.YES_NO_OPTION);
+			if (result == JOptionPane.YES_OPTION) {
+				System.exit(0);
+			}
 		}
 		else if (ButtonConstants.RUN.equals(e.getActionCommand())) {
 			this._stateBarPanel.printMessage("Running the simulator");
