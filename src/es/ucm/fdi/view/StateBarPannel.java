@@ -36,6 +36,7 @@ public class StateBarPannel extends JPanel implements TrafficSimulatorObserver, 
 	
 	public void printMessage(String message) {
 		_label.setText(message);
+		_label.setForeground(Color.BLACK);
 	}
 	
 	public void printError(String error) {

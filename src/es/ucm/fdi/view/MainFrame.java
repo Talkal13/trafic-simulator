@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -115,11 +116,23 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	}
 	
 	//constructor with arguments
-	public MainFrame(String inputFile, Controller ctrl) throws FileNotFoundException{
+	public MainFrame(String inputFile, Controller ctrl) {
 		super("Traffic Simulator");
 		_controller = ctrl;
 		_currentFile = inputFile != null ? new File(inputFile) : null;
+		if (_currentFile != null && !_currentFile.exists()) {
+			_currentFile = null;
+			JOptionPane.showMessageDialog(_mainPanel, "File not found", "Error!", JOptionPane.ERROR_MESSAGE);
+		}
 		_obs = new ArrayList<GuiViewObserver>();
+		if (_currentFile != null)
+			try {
+				if (!_controller.loadEvents(new FileInputStream(_currentFile))) {
+					JOptionPane.showMessageDialog(_mainPanel, "Corrupted File", "Error!", JOptionPane.ERROR_MESSAGE);
+				}
+			} catch (HeadlessException | FileNotFoundException e) {
+				JOptionPane.showMessageDialog(_mainPanel, "File not found", "Error!", JOptionPane.ERROR_MESSAGE);
+			}
 		initGUI();
 		//we add to the main window as observer
 		ctrl.addObserver(this);
@@ -288,6 +301,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	private void addStateBar(JPanel mainPanel) {
 		this._stateBarPanel = new StateBarPannel();
 		this.addObserver(_stateBarPanel);
+		_controller.addObserver(_stateBarPanel);
 		mainPanel.add(_stateBarPanel, BorderLayout.PAGE_END);
 		
 	}
@@ -366,9 +380,9 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			}
 		}
 		else if (ButtonConstants.RUN.equals(e.getActionCommand())) {
-			this._stateBarPanel.printMessage("Running the simulator");
-			_controller.run(_toolbar.getTime());
 			this._stateBarPanel.printMessage("Successfull run on time " + _toolbar.getTime());
+			_controller.run(_toolbar.getTime());
+			
 		}
 		else if (ButtonConstants.RESET.equals(e.getActionCommand())) {
 			this._stateBarPanel.printMessage("The simulation was reset.");
@@ -378,7 +392,9 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			String text = _eventsEditorPanel.getText();
 			_controller.reset();
 			_eventsEditorPanel.setText(text);
-			_controller.loadEvents(new ByteArrayInputStream(text.getBytes()));
+			if (!_controller.loadEvents(new ByteArrayInputStream(text.getBytes()))) {
+				JOptionPane.showMessageDialog(_mainPanel, "Corrupted File", "Error!", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		else if (ButtonConstants.SAVE_REPORT.equals(e.getActionCommand())) {
 			this._stateBarPanel.printMessage("The report was saved successfully.");
@@ -416,7 +432,9 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = _fc.getSelectedFile();
 			_controller.reset();
-			_controller.loadEvents(new FileInputStream(file.getPath()));
+			if (!_controller.loadEvents(new FileInputStream(file.getPath()))) {
+				JOptionPane.showMessageDialog(_mainPanel, "Corrupted File", "Error!", JOptionPane.ERROR_MESSAGE);
+			}
 			NotifyLoad(file);
 			
 		}

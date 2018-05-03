@@ -230,7 +230,7 @@ public class ExampleMain {
 		// corresponding fields.
 	}
 	
-	private static void startGuiMode() throws FileNotFoundException {
+	private static void startGuiMode() {
 		try {
 			_input = new FileInputStream(_inFile);
 		} catch (FileNotFoundException e) {
@@ -247,8 +247,7 @@ public class ExampleMain {
 		_controller.setOutputStream(_output);
 		_traffic.addObserver(new MainFrame(_inFile, _controller));
 		
-		if (_input != null)
-			if (!_controller.loadEvents(_input)) return;
+		
 		
 		//_controller.run(_timeLimit);
 	}

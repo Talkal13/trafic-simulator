@@ -7,6 +7,7 @@ import java.io.OutputStream;
 
 import es.ucm.fdi.control.eventBuilders.EventBuilder;
 import es.ucm.fdi.ini.Ini;
+import es.ucm.fdi.ini.IniError;
 import es.ucm.fdi.ini.IniSection;
 import es.ucm.fdi.model.Event;
 import es.ucm.fdi.model.SimulatorError;
@@ -133,12 +134,16 @@ public class Controller {
 	
 	public boolean loadEvents(InputStream inStream) {
 		Ini ini;
-		_reset = false;
+		
 		try {
 			ini = new Ini(inStream);
 		}
 		catch(IOException e){
 			_sim.NotifyError("Error in reading the events: " + e);
+			return false;
+		}
+		catch (IniError k) {
+			_sim.NotifyError("Error in reading the events: " + k);
 			return false;
 		}
 	
@@ -148,10 +153,13 @@ public class Controller {
 				this._sim.addEvent(e);
 			}
 		} catch (SimulatorError e) {
-			System.err.print(e.getMessage() + "\n");
+			_sim.NotifyError(e.getMessage());
+			return false;
+		} catch (IniError k) {
+			_sim.NotifyError("Error in reading the events: " + k);
 			return false;
 		}
-		
+		_reset = false;
 		_sim.NotifyStart();
 		
 		return true;

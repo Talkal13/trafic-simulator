@@ -45,7 +45,6 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 		int limit = _time + ticks - 1;
 		
 		while (_time <= limit) {
-			try {
 				for (Event e : _events) {
 					if (_time == e.getScheduledTime()) {
 						e.execute(_map, _time);
@@ -65,9 +64,6 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 				
 				_time++;
 				NotifyAdvance();
-			} catch (Exception e) {
-				NotifyError(e.getMessage());
-			}
 		}
 	}
 	
