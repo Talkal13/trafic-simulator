@@ -465,7 +465,6 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	/*
 	 * Item change to redirect
 	 * 
-	 * (non-Javadoc)
 	 * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
 	 */
 
