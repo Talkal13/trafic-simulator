@@ -362,7 +362,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			this._stateBarPanel.printMessage("Successfull run on time " + _toolbar.getTime());
 		}
 		else if (ButtonConstants.RESET.equals(e.getActionCommand())) {
-			
+			this._stateBarPanel.printMessage("The simulation was reset.");
 			_controller.reset();
 		} 
 		else if (ButtonConstants.CHECK_IN_EVENTS.equals(e.getActionCommand())) {
@@ -372,9 +372,11 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			_controller.loadEvents(new ByteArrayInputStream(text.getBytes()));
 		}
 		else if (ButtonConstants.SAVE_REPORT.equals(e.getActionCommand())) {
+			this._stateBarPanel.printMessage("The report was saved successfully.");
 			saveFile(_informPanel);
 		}
 		else if (ButtonConstants.CLEAR_REPORTS.equals(e.getActionCommand())) {
+			this._stateBarPanel.printMessage("The report was cleaned successfully.");
 			clearArea(_informPanel);
 		}
 		else if (ButtonConstants.GENERATE.equals(e.getActionCommand())) {
