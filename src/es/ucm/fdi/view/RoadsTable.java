@@ -44,7 +44,6 @@ public class RoadsTable extends JPanel implements TrafficSimulatorObserver{
 		public int getRowCount() {
 			if (_map == null) return 0;
 			return _map.getRoads().size();
-			
 		}
 
 		@Override
