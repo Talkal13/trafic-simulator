@@ -349,16 +349,20 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			}
 		else if (ButtonConstants.SAVE.equals(e.getActionCommand()))
 			saveFile(_eventsEditorPanel);
-		else if (ButtonConstants.CLEAR.equals(e.getActionCommand()))
+		else if (ButtonConstants.CLEAR.equals(e.getActionCommand())) {
+			this._stateBarPanel.printMessage("The editor is clear now for you to do your magic :)");
 			clearArea(_eventsEditorPanel);
-		else if (ButtonConstants.QUIT.equals(e.getActionCommand()))
+		}
+		else if (ButtonConstants.QUIT.equals(e.getActionCommand())) {
 			System.exit(0);
+		}
 		else if (ButtonConstants.RUN.equals(e.getActionCommand())) {
 			this._stateBarPanel.printMessage("Running the simulator");
 			_controller.run(_toolbar.getTime());
-			//this._stateBarPanel.printMessage("Successfull Run");
+			this._stateBarPanel.printMessage("Successfull run on time " + _toolbar.getTime());
 		}
 		else if (ButtonConstants.RESET.equals(e.getActionCommand())) {
+			
 			_controller.reset();
 		} 
 		else if (ButtonConstants.CHECK_IN_EVENTS.equals(e.getActionCommand())) {

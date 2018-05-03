@@ -98,7 +98,7 @@ public class StateBarPannel extends JPanel implements TrafficSimulatorObserver, 
 
 	@Override
 	public void onSaveFile(File file) {
-		// TODO Auto-generated method stub
+		printMessage("Successfull save of file " + file.getName());
 		
 	}
 
