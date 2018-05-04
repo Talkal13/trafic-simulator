@@ -405,6 +405,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			clearArea(_informPanel);
 		}
 		else if (ButtonConstants.GENERATE.equals(e.getActionCommand())) {
+			this._stateBarPanel.printMessage("The report was generated successfully.");
 			generateReport();
 		}
 		//
