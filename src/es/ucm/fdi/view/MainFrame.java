@@ -23,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -48,6 +49,7 @@ import es.ucm.fdi.model.TrafficSimulator;
 import es.ucm.fdi.model.TrafficSimulatorObserver;
 import es.ucm.fdi.model.Vehicle;
 import es.ucm.fdi.observer.TableModel;
+import javafx.concurrent.Worker;
 import javafx.scene.control.ToolBar;
 
 
@@ -97,6 +99,8 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	//�?
 
 	TextEditorPanel text_editor;
+	
+	private SwingWorker<Void, Void> worker;
 	
 	private GraphComponent _graphComp;
     Random _rand;
@@ -381,7 +385,30 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		}
 		else if (ButtonConstants.RUN.equals(e.getActionCommand())) {
 			this._stateBarPanel.printMessage("Successfull run on time " + _toolbar.getTime());
-			_controller.run(_toolbar.getTime(), _toolbar.getDelay());
+			
+			worker = new SwingWorker<Void, Void>() {
+
+				@Override
+				protected Void doInBackground() throws Exception {
+					_toolbar.enableAll(false);
+					int time = _toolbar.getTime();
+					while (time > 0) {
+						_controller.run(1);
+						publish();
+						sleepabit();
+						time--;
+					}
+					return null;
+				}
+				
+				@Override
+				protected void done() {
+					_toolbar.enableAll(true);
+				}
+				
+			};
+			worker.execute();
+			//_controller.run(_toolbar.getTime(), _toolbar.getDelay());
 			
 			
 		}
@@ -418,12 +445,23 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			generateReport();
 		}
 		else if (ButtonConstants.STOP.equals(e.getActionCommand())) {
-			_controller.stop();
+			if ( worker != null ) {
+				worker.cancel(true);
+				worker = null;
+			}
 		}
 		//
 
 		//TODO: do all the comands
 		
+	}
+	
+	private void sleepabit() {
+		try {
+			Thread.sleep(_toolbar.getDelay());
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		}
 	}
 	
 	/*

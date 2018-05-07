@@ -29,6 +29,8 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 	private SpinnerModel model_delay;
 	private JSpinner spinner_delay;
 	private JTextField time;
+	private JButton load;
+	private JButton save;
 	
 	public MainToolbar(MainFrame frame, Controller crtl){
 		super();
@@ -36,7 +38,7 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		crtl.addObserver(this);
 		
 		//LOAD
-		JButton load = new JButton();
+		load = new JButton();
 		load.setActionCommand(ButtonConstants.LOAD);
 		load.setToolTipText("Load a file");
 		load.addActionListener((ActionListener) frame);
@@ -45,7 +47,7 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		this.add(load);
 
 		//SAVE
-		JButton save = new JButton();
+		save = new JButton();
 		save.setActionCommand(ButtonConstants.SAVE);
 		save.setToolTipText("Save a file");
 		save.addActionListener((ActionListener) frame);
@@ -94,7 +96,7 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		this.addSeparator();
 		
 		this.add(new JLabel ("Delay: "));
-		model_delay = new SpinnerNumberModel(1000, 1, 1000000, 100);   
+		model_delay = new SpinnerNumberModel(500, 1, 1000000, 100);   
 		spinner_delay = new JSpinner(model_delay);
 		spinner_delay.setMaximumSize(new Dimension(70, 30));
 		this.add(spinner_delay);
@@ -103,7 +105,7 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		
 		
 		this.add(new JLabel ("Steps: "));
-		model = new SpinnerNumberModel(1, 1, 10000, 1);   
+		model = new SpinnerNumberModel(5, 1, 10000, 1);   
 		spinner = new JSpinner(model);
 		spinner.setMaximumSize(new Dimension(70, 30));
 		this.add(spinner);
@@ -209,9 +211,20 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void enableAll(boolean enable) {
+		load.setEnabled(enable);
+		save.setEnabled(enable);
+		
+	}
 
 	public int getDelay() {
 		return (Integer) spinner_delay.getValue();
+	}
+
+	public void setTime(int i) {
+		spinner.setValue((Integer) i);
+		
 	}
 	
 
