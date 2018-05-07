@@ -28,6 +28,7 @@ public class Controller {
 	private OutputStream _output;
 	private int _ticksSimulation;
 	private boolean _reset;
+	private Thread _t;
 	
 	/**
 	 * Constructor of the class, assigns to the class attribute TrafficSimulator the one passed as parameter.
@@ -124,6 +125,30 @@ public class Controller {
 		}	
 	}
 	
+	public void run(int ticks, int delay) {
+		if (_reset == true) {
+			_sim.NotifyError("No input file selected");
+			return;
+		}
+		try {
+			int limit = _sim.getTime() + ticks - 1;
+			while (_sim.getTime() <= limit) {
+				this._t = new Thread(_sim);
+				_t.start();
+				
+				try {
+					synchronized(_t) {
+						_t.wait(delay);
+					}
+				} catch (InterruptedException e) {
+					
+				}
+			}
+		} catch (SimulatorError e) {
+			_sim.NotifyError(e.getMessage());
+		}	
+	}
+	
 	/**
 	 * Loads an Ini file, first construct an instance of class Ini from the inStream, then try to parse each ini section in 
 	 * ini.getSections(), by calling their parse method of the Event, the first one that succeeds will return an event.
@@ -194,5 +219,12 @@ public class Controller {
 	
 	public void removeObserver(TrafficSimulatorObserver o) {
 		_sim.removeObserver(o);
+	}
+
+	public void stop() {
+		if (_t.isAlive()) {
+			_t = null;
+		}
+		
 	}
 }

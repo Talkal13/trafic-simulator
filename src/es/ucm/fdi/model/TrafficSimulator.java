@@ -12,7 +12,7 @@ import java.util.List;
  * Class which represents the simulator of the traffic, running it according to the events parsed and generating the output.
  */
 
-public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
+public class TrafficSimulator implements Observable<TrafficSimulatorObserver>, Runnable {
 	
 	private RoadMap _map;
 	private int _time;
@@ -198,6 +198,34 @@ public class TrafficSimulator implements Observable<TrafficSimulatorObserver> {
 
 	public RoadMapInterface getRoadMap() {
 		return _map;
+	}
+
+	@Override
+	public void run() {
+		
+		for (Event e : _events) {
+			if (_time == e.getScheduledTime()) {
+				e.execute(_map, _time);
+				synchronized (this) {
+					NotifyNewEvent(e);
+				}
+			}
+		}
+		
+		for (Road e : _map.getRoads()) {
+			e.advance();
+			//NotifyAdvance(e);
+		}
+		
+		for (Junction j : _map.getJunctions()) {
+			j.advance();
+			//NotifyAdvance(j);
+		}
+		
+		_time++;
+		synchronized (this) {
+			NotifyAdvance();
+		}
 	}
 
 	

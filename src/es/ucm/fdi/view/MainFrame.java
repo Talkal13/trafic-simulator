@@ -381,12 +381,21 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		}
 		else if (ButtonConstants.RUN.equals(e.getActionCommand())) {
 			this._stateBarPanel.printMessage("Successfull run on time " + _toolbar.getTime());
-			_controller.run(_toolbar.getTime());
+			_controller.run(_toolbar.getTime(), _toolbar.getDelay());
+			
 			
 		}
 		else if (ButtonConstants.RESET.equals(e.getActionCommand())) {
 			this._stateBarPanel.printMessage("The simulation was reset.");
 			_controller.reset();
+			if (_currentFile != null) {
+				try {
+					_controller.loadEvents(new FileInputStream(_currentFile));
+					NotifyLoad(_currentFile);
+				} catch (FileNotFoundException e1) {
+					this._stateBarPanel.printMessage("Could not load the current file");
+				}
+			}
 		} 
 		else if (ButtonConstants.CHECK_IN_EVENTS.equals(e.getActionCommand())) {
 			String text = _eventsEditorPanel.getText();
@@ -407,6 +416,9 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		else if (ButtonConstants.GENERATE.equals(e.getActionCommand())) {
 			this._stateBarPanel.printMessage("The report was generated successfully.");
 			generateReport();
+		}
+		else if (ButtonConstants.STOP.equals(e.getActionCommand())) {
+			_controller.stop();
 		}
 		//
 

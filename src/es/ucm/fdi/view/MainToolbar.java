@@ -26,6 +26,8 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 	private JTextField _timefield;
 	private SpinnerModel model;
 	private JSpinner spinner;
+	private SpinnerModel model_delay;
+	private JSpinner spinner_delay;
 	private JTextField time;
 	
 	public MainToolbar(MainFrame frame, Controller crtl){
@@ -75,12 +77,27 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		run.setIcon(new ImageIcon(loadImage("resources/icons/play.png")));
 		this.add(run);
 		
+		JButton stop = new JButton();
+		stop.setActionCommand(ButtonConstants.STOP);
+		stop.setToolTipText("Stop the simulator");
+		stop.addActionListener((ActionListener) frame);
+		stop.setIcon(new ImageIcon(loadImage("resources/icons/stop.png")));
+		this.add(stop);
+		
 		JButton reset = new JButton();
 		reset.setActionCommand(ButtonConstants.RESET);
 		reset.setToolTipText("Reset the simulator");
 		reset.addActionListener((ActionListener) frame);
 		reset.setIcon(new ImageIcon(loadImage("resources/icons/reset.png")));
 		this.add(reset);
+		
+		this.addSeparator();
+		
+		this.add(new JLabel ("Delay: "));
+		model_delay = new SpinnerNumberModel(1, 1, 10000, 1);   
+		spinner_delay = new JSpinner(model_delay);
+		spinner_delay.setMaximumSize(new Dimension(70, 30));
+		this.add(spinner_delay);
 		
 		this.addSeparator();
 		
@@ -191,6 +208,10 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 	public void onStart(TrafficSimulator t, List<Event> events) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public int getDelay() {
+		return (Integer) spinner_delay.getValue();
 	}
 	
 

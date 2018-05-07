@@ -12,4 +12,5 @@ public final class ButtonConstants {
 	public final static String CHECK_IN_EVENTS = "check";
 	public final static String GENERATE = "generate";
 	public final static String CLEAR_REPORTS = "clear_reports";
+	public final static String STOP = "stop";
 }
