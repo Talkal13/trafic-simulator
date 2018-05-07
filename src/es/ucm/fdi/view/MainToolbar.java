@@ -94,7 +94,7 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		this.addSeparator();
 		
 		this.add(new JLabel ("Delay: "));
-		model_delay = new SpinnerNumberModel(1, 1, 10000, 1);   
+		model_delay = new SpinnerNumberModel(1000, 1, 1000000, 100);   
 		spinner_delay = new JSpinner(model_delay);
 		spinner_delay.setMaximumSize(new Dimension(70, 30));
 		this.add(spinner_delay);
