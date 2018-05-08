@@ -73,6 +73,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 	private JFileChooser _fc;
 	private MainToolbar _toolbar;
 	private MenuBar _menuBar;
+	private int _time_thread;
 	
 	//Graphic panel ------
 	private Graph _graph;
@@ -391,12 +392,12 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 				@Override
 				protected Void doInBackground() throws Exception {
 					_toolbar.enableAll(false);
-					int time = _toolbar.getTime();
-					while (time > 0) {
+					_time_thread = _toolbar.getTime();
+					while (_time_thread > 0) {
 						_controller.run(1);
 						publish();
 						sleepabit();
-						time--;
+						_time_thread--;
 					}
 					return null;
 				}
@@ -445,6 +446,7 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			generateReport();
 		}
 		else if (ButtonConstants.STOP.equals(e.getActionCommand())) {
+			_time_thread = 0;
 			if ( worker != null ) {
 				worker.cancel(true);
 				worker = null;
