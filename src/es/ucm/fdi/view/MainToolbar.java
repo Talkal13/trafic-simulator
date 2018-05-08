@@ -29,8 +29,9 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 	private SpinnerModel model_delay;
 	private JSpinner spinner_delay;
 	private JTextField time;
-	private JButton load;
-	private JButton save;
+	private JButton load, save, clear, events, run, stop, reset, generate, clear_report, save_report, quit;
+
+	
 	
 	public MainToolbar(MainFrame frame, Controller crtl){
 		super();
@@ -54,7 +55,7 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		save.setIcon(new ImageIcon(loadImage("resources/icons/save.png")));
 		this.add(save);
 
-		JButton clear = new JButton();
+		clear = new JButton();
 		clear.setActionCommand(ButtonConstants.CLEAR);
 		clear.setToolTipText("Clear Text");
 		clear.addActionListener((ActionListener) frame);
@@ -65,28 +66,28 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		
 		this.addSeparator();
 		
-		JButton events = new JButton();
+		events = new JButton();
 		events.setActionCommand(ButtonConstants.CHECK_IN_EVENTS);
 		events.setToolTipText("Add events to the simulator");
 		events.addActionListener((ActionListener) frame);
 		events.setIcon(new ImageIcon(loadImage("resources/icons/events.png")));
 		this.add(events);
 		
-		JButton run = new JButton();
+		run = new JButton();
 		run.setActionCommand(ButtonConstants.RUN);
 		run.setToolTipText("Run the simulator");
 		run.addActionListener((ActionListener) frame);
 		run.setIcon(new ImageIcon(loadImage("resources/icons/play.png")));
 		this.add(run);
 		
-		JButton stop = new JButton();
+		stop = new JButton();
 		stop.setActionCommand(ButtonConstants.STOP);
 		stop.setToolTipText("Stop the simulator");
 		stop.addActionListener((ActionListener) frame);
 		stop.setIcon(new ImageIcon(loadImage("resources/icons/stop.png")));
 		this.add(stop);
 		
-		JButton reset = new JButton();
+		reset = new JButton();
 		reset.setActionCommand(ButtonConstants.RESET);
 		reset.setToolTipText("Reset the simulator");
 		reset.addActionListener((ActionListener) frame);
@@ -127,21 +128,21 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		
 		this.addSeparator();
 		
-		JButton generate = new JButton();
+		generate = new JButton();
 		generate.setActionCommand(ButtonConstants.GENERATE);
 		generate.setToolTipText("Generate Report");
 		generate.addActionListener((ActionListener) frame);
 		generate.setIcon(new ImageIcon(loadImage("resources/icons/report.png")));
 		this.add(generate);
 		
-		JButton clear_report = new JButton();
+		clear_report = new JButton();
 		clear_report.setActionCommand(ButtonConstants.CLEAR_REPORTS);
 		clear_report.setToolTipText("Clear report area");
 		clear_report.addActionListener((ActionListener) frame);
 		clear_report.setIcon(new ImageIcon(loadImage("resources/icons/delete_report.png")));
 		this.add(clear_report);
 		
-		JButton save_report = new JButton();
+		save_report = new JButton();
 		save_report.setActionCommand(ButtonConstants.SAVE_REPORT);
 		save_report.setToolTipText("Save the report to a file");
 		save_report.addActionListener((ActionListener) frame);
@@ -150,7 +151,7 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 		
 		this.addSeparator();
 		
-		JButton quit = new JButton();
+		quit = new JButton();
 		quit.setActionCommand(ButtonConstants.QUIT);
 		quit.setToolTipText("Exit the program");
 		quit.addActionListener((ActionListener) frame);
@@ -215,6 +216,16 @@ public class MainToolbar extends JToolBar implements TrafficSimulatorObserver{
 	public void enableAll(boolean enable) {
 		load.setEnabled(enable);
 		save.setEnabled(enable);
+		clear.setEnabled(enable);
+		events.setEnabled(enable);
+		run.setEnabled(enable);
+		reset.setEnabled(enable);
+		generate.setEnabled(enable);
+		clear_report.setEnabled(enable);
+		save_report.setEnabled(enable);
+		quit.setEnabled(enable);
+		spinner_delay.setEnabled(enable);
+		spinner.setEnabled(enable);
 		
 	}
 
