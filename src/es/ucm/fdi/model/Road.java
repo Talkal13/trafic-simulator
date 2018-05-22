@@ -3,7 +3,6 @@ package es.ucm.fdi.model;
 import java.util.List;
 import es.ucm.fdi.misc.SortedArrayList;
 import es.ucm.fdi.misc.VehiclesComparator;
-import javafx.util.Pair;
 import es.ucm.fdi.ini.IniSection;
 
 /**

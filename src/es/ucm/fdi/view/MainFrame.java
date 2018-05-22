@@ -49,8 +49,6 @@ import es.ucm.fdi.model.TrafficSimulator;
 import es.ucm.fdi.model.TrafficSimulatorObserver;
 import es.ucm.fdi.model.Vehicle;
 import es.ucm.fdi.observer.TableModel;
-import javafx.concurrent.Worker;
-import javafx.scene.control.ToolBar;
 
 
 @SuppressWarnings("serial")
