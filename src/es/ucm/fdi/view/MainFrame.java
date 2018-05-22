@@ -385,28 +385,32 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 		else if (ButtonConstants.RUN.equals(e.getActionCommand())) {
 			this._stateBarPanel.printMessage("Successfull run on time " + _toolbar.getTime());
 			
-			worker = new SwingWorker<Void, Void>() {
+			if ( worker == null ) {
+				worker = new SwingWorker<Void, Void>() {
 
-				@Override
-				protected Void doInBackground() throws Exception {
-					_toolbar.enableAll(false);
-					_time_thread = _toolbar.getTime();
-					while (_time_thread > 0) {
-						_controller.run(1);
-						publish();
-						sleepabit();
-						_time_thread--;
+					@Override
+					protected Void doInBackground() throws Exception {
+						_toolbar.enableAll(false);
+						_time_thread = _toolbar.getTime();
+						while (_time_thread > 0 && isCancelled()) {
+							_controller.run(1);
+						//	publish();
+							sleepabit();
+							_time_thread--;
+						}
+						return null;
 					}
-					return null;
-				}
-				
-				@Override
-				protected void done() {
-					_toolbar.enableAll(true);
-				}
-				
-			};
-			worker.execute();
+					
+					@Override
+					protected void done() {
+						worker = null;
+						_toolbar.enableAll(true);
+					}
+					
+				};
+				worker.execute();
+			}
+			
 			//_controller.run(_toolbar.getTime(), _toolbar.getDelay());
 			
 			
@@ -447,7 +451,6 @@ public class MainFrame extends JFrame implements ActionListener, TrafficSimulato
 			_time_thread = 0;
 			if ( worker != null ) {
 				worker.cancel(true);
-				worker = null;
 			}
 		}
 		//
